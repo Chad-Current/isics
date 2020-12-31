@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "base/index.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto|Alata" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+
+  {% block main %}
+  <div class='container-centered'>
+    <a href="{% url 'pointofcontact:point-of-contact-page' %}" class='nav-link min-headspace'><h1 class='title text-shadow '>Point of contacts search</h1></a>
+  </div>
+
+  <div class='container'>
+
+      <div class='top-navbar headspace'>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#county_name' aria-expanded='false' aria-controls='county_name'>Search by County</a>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_name' aria-expanded='false' aria-controls='poc_name'>Search by Point of Contact</a>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#organization' aria-expanded='false' aria-controls='organization'>Search by Organization</a>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#user_lvl' aria-expanded='false' aria-controls='user_lvl'>Search by User Level</a>
+      </div>
+
+      <div class='row'>
+      <div class='container-centered'>
+           <div class='collapse multi-collapse' id='county_name'>
+               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-county-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='county' placeholder="County" ></input>
+                 <button type="submit">Search</button>
+               </form>
+           </div>
+       </div>
+      <div class='container-centered'>
+           <div class='collapse multi-collapse' id='poc_name'>
+               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-name-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='name' placeholder="Name" ></input>
+                 <button type="submit">Search</button>
+               </form>
+           </div>
+       </div>
+      <div class='container-centered'>
+           <div class='collapse multi-collapse' id='organization'>
+               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-organization-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='organization' placeholder="Organization" ></input>
+                 <button type="submit">Search</button>
+               </form>
+           </div>
+       </div>
+      <div class='container-centered'>
+           <div class='collapse multi-collapse' id='user_lvl'>
+               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-level-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='level' placeholder="User level" ></input>
+                 <button type="submit">Search</button>
+               </form>
+           </div>
+       </div>
+    </div>
+</div>
+{% if messages %}
+<div class='container-centered'>
+<ul class="headspace">
+  {% for message in messages %}
+  <li class="alert {{ message.tags }} alert-no-info">{{ message }}</li>
+  {% endfor %}
+</ul>
+</div>
+{% endif %}
+  {% if not messages %}
+  {% if object_list %}
+  <div class='container'>
+      <div class='headspace'>
+        <div class='container-centered'>
+         <h3 class="title">{{ object_list.count }}&nbsp&nbspRecords returned</h3>
+       </div>
+         {% for item in object_list %}
+         <ul class="forms">
+           <li><h3>{% if item.county != 'NA' %}{{ item.county }}&nbspCounty{% endif %}</h3></li>
+           <li><h3>{% if item.job_title != 'NA' %}{{ item.job_title }}&nbsp&nbsp{% endif %}{{ item.name }}</h3></li>
+           <li><h4>Phone Number:&nbsp&nbsp{{ item.phone }}</h4></li>
+           <li><h4>Cell or Alternate:&nbsp&nbsp{{ item.cell_or_alternate|phone2numeric }}</h4></li>
+           <li><h4>Email:&nbsp&nbsp{{ item.email }}<h4></li>
+           <li><h4>User Level:&nbsp&nbsp{{ item.user_lvl }}</h4></li>
+           <li><h4>County No:&nbsp&nbsp{{ item.county_no }}</h4></li>
+           <li><h4>Organization:&nbsp&nbsp{{ item.organization }}</h4></li>
+           <li><h4>Notes:&nbsp&nbsp{{ item.notes }}</h4></li>
+         </ul>
+         {% endfor %}
+       </div>
+         {% else %}
+   {% endif %}
+   {% endif %}
+       <!-- Tab panes -->
+  </div>
+  <div class='footer'>
+  </div>
+  {% endblock %}
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

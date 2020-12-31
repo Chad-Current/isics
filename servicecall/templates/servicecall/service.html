@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "base/index.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container'>
+  <div class=container-centered>
+    <div  id='map' class='container-centered'>
+      <h1 class='title text-shadow headspace'>Service Call and Ticket Reporting</h1>
+    </div>
+    <div>
+      <a href="{% url 'servicecall:service-map' %}"><img src="{% static 'base/images/tower_site.jpg' %}" class='boxed headspace'/></a>
+    </div>
+      <div id='ticket_section'>
+        <div class='container-centered  max_headspace'>
+            {% if messages %}
+            <ul class="messages headspace">
+              {% for message in messages %}
+              <li class=" alert {{ message.tags }} alert-success">{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          <h1 class='title'>Log ticket for reported tower issue</h1>
+        </div>
+        <form class=' boxed headspace' action='' method="post" >
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="row">
+            <div class="col-lg-4">
+              <p class='field_label smallspace'>{{ field.label_tag }}</p>
+              {% if field.help_text %}
+              <sup>{{ field.help_text }}</sup>
+              {% endif %}
+              {% for error in field.errors %}
+              <div class="row">
+                <div class="alert alert-danger">{{error}}</div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-lg-7">
+              <p class='field smallspace'>{{ field }}</p>
+            </div>
+          </div>
+          {% endfor %}
+          <div class='container-centered headspace'>
+          <button type="submit">Submit</button>
+        </div>
+        </form>
+      </div>
+
+      <div id='service_call' class='container max_headspace'>
+        <h1 class='title headspace'>To place a service call</h1>
+      <table>
+        <thead>
+          <tr>
+            <th><h4>Step</h4></th>
+            <th><h4>What you need to do:</h4></th>
+            <th><h4>Information to provide</h4></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class='text-center'>1</td>
+            <td>Call Motorola call center operations</td>
+            <td>1-800-323-9949</td>
+          </tr>
+          <tr>
+            <td class='text-center'>2</td>
+            <td>Provide your customer name</td>
+            <td>State of Iowa</td>
+          </tr>
+          <tr>
+            <td class='text-center'>3</td>
+            <td>Type of request</td>
+            <td>"I would like to open a service call": Incident/Service Request/ Technical Question</td>
+          </tr>
+          <tr>
+            <td class='text-center'>4</td>
+            <td>Provide System & Site ID</td>
+            <td>Refer to Site Summary</td>
+          </tr>
+          <tr>
+            <td class='text-center'>5</td>
+            <td>Identify the priority level</td>
+            <td>*See definitions below</td>
+          </tr>
+          <tr>
+            <td class='text-center'>6</td>
+            <td>Your name and telephone number</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class='text-center'>7</td>
+            <td>Description of the issue</td>
+            <td>As detailed as possible</td>
+          </tr>
+          <tr>
+            <td class='text-center'>8</td>
+            <td>Record the Service Indicent Number provide to you by the custmomer support representative for servicea call tracking purposes</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>*</td>
+            <td>If onsite support is required to resolve the service request, the Customer Support Represenatative will dispatch the local field provider</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+        <div id='inquiry' class='container max_headspace'>
+          <table>
+            <h2 class='title headspace'>To inquire on the status of a service call</h2>
+            <thead>
+              <tr>
+                <th><h4>Step</h4></th>
+                <th><h4>What you need to do:</h4></th>
+                <th><h4>Information to provide</h4></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>1</td>
+                <td>Call Motorola call center of operations</td>
+                <td>1-800-323-9949</td>
+              </tr>
+              <tr>
+                <td class='text-center'>2</td>
+                <td>Provide your customer name</td>
+                <td>Iowa, State of</td>
+              </tr>
+              <tr>
+                <td class='text-center'>3</td>
+                <td>Provide type of request</td>
+                <td>"I would like to check on the status of an issue"</td>
+              </tr>
+              <tr>
+                <td class='text-center'>4</td>
+                <td>The service incident number assigned at the time the service call was opened</td>
+                <td>The number you documented in step #8</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <div id='priority_level' class='container max_headspace'>
+      <table>
+        <h2 class='title headspace'>Priority Level Definitions</h2>
+        <thead>
+          <tr>
+            <th><h4>Incident Priority</h4></th>
+            <th><h4>Definition</h4></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style='color:red'>Critical</td>
+            <td style='color:red'>Core: Core Server Failure   Core Link Failure </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style='color:red'>Site/Subsites:  Entire Simulcast Not Wide Trunking >=33% of Sites/Subsites down</td>
+          </tr>
+          <tr>
+            <td style='color:orange'>High</td>
+            <td style='color:orange'>Consoles: position down (>=33%)  Console site link down</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style='color:orange'>Sites/Subsites: < 33% of Sites/Subsites down</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style='color:orange'>Conventional Channels: >=50% of conventional channels (CCGW) down</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style='color:orange'>Devices: Site Router/Switch, GPS server down</td>
+          </tr>
+          <tr>
+            <td style='color:yellow'>Medium</td>
+            <td style='color:yellow'>Consoles: Console positions down (< 33% at a site)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style='color:yellow'>Site/Subsites: (< 33% of channels down)</td>
+          </tr>
+          <tr>
+            <td style='color:yellow'></td>
+            <td style='color:yellow'>Conventional channels less than 50% of channels down</td>
+          </tr>
+          <tr>
+            <td style='color:green'>Low</td>
+            <td style='color:green'>Minor events and warnings in the system (Preventative Maintenance and Planned Maintenance Activities</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+    <div>
+      <div id='navbar' class='container-top-nav sticky '>
+        <a href='#map' class='nav-link text-shadow'>System site map</a>
+        <a href='#ticket_section' class='nav-link text-shadow'>Trouble Ticket</a>
+        <a href='#service_call' class='nav-link text-shadow'>Service Call</a>
+        <a href='#inquiry' class='nav-link text-shadow'>Service Inquiry</a>
+        <a href='#priority_level' class='nav-link text-shadow'>Priority Levels</a>
+        <a href="{% url 'servicecall:service-list' %}" class='nav-link text-shadow'>Open Tickets</a>
+      </div>
+    </div>
+
+</div>
+<div class='footer'>
+</div>
+
+  {% endblock main %}
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

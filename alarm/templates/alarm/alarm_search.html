@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'base/index.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+    <h1 class='title text-shadow min-headspace'>Email search</h1>
+  </div>
+   {% endblock main %}
+      {% block sub_one %}
+      <div class='container headspace'>
+        {% if messages %}
+        {% for message in messages %}
+        <div class='container-centered'>
+          <sup class="alert-no-info">{{ message }}</sup>
+        </div>
+        {% endfor %}
+        {% else %}
+        {% if alarms %}
+      <div class='container headspace'>
+        <div class="container">
+          <div>
+            {% for alarm in alarms %}
+              <div>
+                <ul>
+                  <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</li>
+                  <li><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_identity }}</li>
+                  <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</li>
+                  <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</li>
+                  <li><tag>Time:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.time_stamp }}</li>
+                 </ul>
+               </div>
+               <hr>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <div class='container-row'>
+          <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
+          {% if perms.alarm_archive.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
+          <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
+        </div>
+      </div>
+
+      {% endif %}
+    </div>
+    <div class='footer'>
+    </div>
+    {% endblock sub_one %}
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

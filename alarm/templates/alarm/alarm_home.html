@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'base/index.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+    <h1 class='title text-shadow min-headspace'>Site alarms</h1>
+    <a href="{% url 'alarm-check:alarm-list' %}" class="sub-nav-link min-headspace"><i class="fas fa-bell">&nbsp&nbsp&nbsp&nbspOpen alarms</i></a>
+  </div>
+
+  {% endblock main %}
+
+
+  {% block sub_one %}
+<div class='container-split headspace'>
+  <div class='col-lg-6'>
+    <div class='headspace container-savespace'>
+      <ul>
+        <li><h3 class='title'><i class="fas fa-power-off"></i>&nbsp&nbsp&nbsp&nbspCommercial Power Out – Notify ISICS admin personnel or on-call Comm Tech (After Hours)</h3></li>
+        <li>(Backup generator should run keeping site active, however Comm tech will need to advise local power company of outage and find out ETA of power restoral)</li>
+        <li><h3 class='title headspace'><i class="fas fa-smog"></i>&nbsp&nbsp&nbsp&nbspSmoke – Dispatch appropriate personnel to the site to investigate/extinguish fire.</h3></li>
+        <li>(If needed, alarm call responsibility can be transferred from Storm Lake to appropriate DPS communication center for local dispatch in that area)</li>
+        <li>(See site map/address list). Also notify ISICS admin personnel or Comm Tech on-call (After Hours), Send e-mail to ISICS admin as to disposition of smoke/fire (False alarm, Smoke only, Fire Extinguished, etc.).</li>
+        <li><h3 class='title headspace'><i class="fas fa-door-open"></i>&nbsp&nbsp&nbsp&nbspDoor Open – Check with ISICS admin personnel or on-call comm tech (After Hours) to verify it is not a known issue with authorized personnel
+          onsite that forgot to follow proper procedure … if not a known issue, dispatch appropriate personnel to investigate if site is secure.</h3></li>
+        <li>(If needed, alarm call responsibility can be transferred from Storm Lake to appropriate DPS communication center for local dispatch in that area)</li>
+         <li>(See site map/address list)</li>
+        <li><h3 class='title headspace'><i class="fas fa-gas-pump"></i>&nbsp&nbsp&nbsp&nbspLP Tank Level - Notify ISICS admin personnel or on-call Comm Tech</h3></li>
+        <li>(ISICS Admin personnel will need to arrange a propane refill with local supplier)</li>
+        <li><h3 class='title headspace'>If responding personnel need access to compound/shelter, see below</h3></li>
+        <li>Gate Combos: Main – 8263 (Brass roller style lock) (Push up, then pull down after entering combo)</li>
+        <li>Alternate – 2017 (Brass roller style lock)</li>
+        <li>Alternate – 08-26-36 (Gym locker style spin dial combo lock)</li>
+        <li>Shelter Key Lock Box Combo: 2636 </li>
+        <li>(Shelter key, Generator Key and Transfer switch keys are contained within the shelter key lock box)</li>
+        <li>(The ballistic shelter door will be very heavy, pull hard to open after unlocking)</li>
+      </ul>
+      </div>
+    </div>
+    <div class='col-lg-3'>
+      <div class='container-centered headspace'>
+        <table class='table-call-list'>
+          <tr>
+            <td><tag>Scott Richardson</tag></td><td>Cell 515-418-2953</td>
+          </tr>
+          <tr>
+            <td><tag>Connie Stufflebeem</tag></td><td> Cell 515-630-8781</li></td>
+          </tr>
+          <tr>
+            <td><tag>Chad Current</tag></td><td> Cell 515-868-2494</li></td>
+          </tr>
+          <tr>
+            <td><tag>Dave Brittain</tag></td><td> Cell 515-979-1663</li></td>
+          </tr>
+          <tr>
+            <td><tag>Tom Lampe</tag></td><td> Cell 515-250-0998</li></td>
+          </tr>
+          <tr>
+            <td><tag>Heath Hove</tag></td><td> Cell 515-204-7288</li></td>
+          </tr>
+          <!-- <a href="mailto:isicsadmin@dps.state.ia.us" class='nav-link'><i class='fas fa-envelope'></i>&nbsp&nbsp&nbsp&nbspisicsadmin@dps.state.ia.us</a> -->
+          </table>
+        </div>
+    </div>
+</div>
+
+      <div class='footer'>
+      </div>
+   {% endblock sub_one %}
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+  </body>
+
+</html>

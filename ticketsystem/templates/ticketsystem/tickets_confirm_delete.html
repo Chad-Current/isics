@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "ticketsystem/tickets.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+    <h1 class='title'>Are you sure you want to delete?</h1>
+  </div>
+  {% endblock main %}
+  {% block sub_one %}
+ <div class='container-centered'>
+  <div class='headspace boxed'>
+    <form action='' method="post" >
+      {% csrf_token %}
+        <ul>
+          <li><h4><tag>Badge:</tag>    {{ object.badge_identifier }}</h4></li>
+          <li><h4><tag>Location:</tag>   {{ object.location }}</h4></li>
+          <li><h4><tag>Talkgroup:</tag>    {{ object.talkgroup_assoc }}</h4></li>
+          <li><h4><tag>Mobile:</tag>   {{ object.mobile|yesno:'Yes,No' }}</h4></li>
+          <li><h4><tag>Portable:</tag>    {{ object.portable|yesno:'Yes,No' }}</h4></li>
+          <li><h4><tag>Description of issue:</tag>   {{ object.desc_issue }}</h4></li>
+          <li><h4><tag>Issue resolved:</tag>    {{ object.issue_resolve|yesno:'Yes,No' }}</h4></li>
+          {% if not object.desc_resolve == '' %}
+          <li><h4><tag>Description of resolution:</tag>    {{ object.desc_resolve }}</h4></li>
+          {% endif %}
+        </ul>
+        <div class='container-centered headspace'>
+        <button type="submit" class='alert-delete'>Confirm deletion</button>
+      </div>
+  </form>
+  </div>
+</div>
+  <div class='container-row'>
+    <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'>Subscriber ticket page</a>
+    <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
+  </div>
+  {% endblock sub_one %}
+
+</body>
+
+</html>

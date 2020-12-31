@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "servicecall/service.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+  <div class='container-centered headspace'>
+    <h1 class='title text-shadow'>Are you sure you want to delete?</h1>
+  </div>
+  <div class='headspace forms'>
+    <form action='' method="post" >
+      {% csrf_token %}
+        <ul class='container-centered'>
+          <li><h3>TICKET: {{ object.ticketno }}</h3></li>
+          <li><h5>SITE LOCATION: {{ object.site_loc |truncatechars:100 }}</h5></li>
+          {% if object.alarm != 'NO ALARM' %}
+          <li><h5>ALARM: {{ object.alarm |truncatechars:100 }}</h5></li>
+          {% endif %}
+          <li><h5>REPORTED ISSUE: {{ object.issue |truncatechars:100 }}</h5></li>
+        </ul>
+    </form>
+  </div>
+</div>
+<div class='container-centered headspace'>
+  <button type="submit">Delete</button>
+</div>
+<div class='container-row'>
+  <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link min-headspace'>Alarm list page</a>
+  <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home page</a>
+</div>
+  {% endblock main %}
+
+</body>
+
+</html>

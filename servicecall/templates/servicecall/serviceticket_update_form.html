@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "servicecall/service.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+      <div class='container-centered'>
+      <div class='container-centered headspace'>
+        <h1 class='title text-shadow'>Update service call ticket</h1>
+        <h3 class='title'>No.&nbsp&nbsp&nbsp&nbsp{{ object.ticketno}}</h3>
+      </div>
+      <div class='container-centered'>
+      <div class='headspace forms'>
+          <form action="" method="post" >
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row">
+                  <div class="col-sm-5">
+                    <p class='field_label smallspace'>{{ field.label_tag }}</p>
+                    {% if field.help_text %}
+                      <sup>{{ field.help_text }}</sup>
+                      {% endif %}
+                      {% for error in field.errors %}
+                       <div class="row">
+                         <div class="alert alert-danger">{{error}}</div>
+                       </div>
+                      {% endfor %}
+                   </div>
+                     <div class="col-sm-7 pull-left">
+                      <p class='field smallspace'>{{ field }}</p>
+                     </div>
+                </div>
+              {% endfor %}
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class='container-centered headspace'>
+    <button type="submit">Save</button>
+  </div>
+  {% endblock main %}
+  {% block sub_one %}
+  <div class='container-row'>
+    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link min-headspace'>Alarm list page</a>
+    <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home page</a>
+  </div>
+ {% endblock sub_one %}
+</body>
+
+</html>

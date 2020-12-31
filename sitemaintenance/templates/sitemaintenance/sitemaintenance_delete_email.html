@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "servicecall/service.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+  <div class='container-centered headspace'>
+    <h1 class='title text-shadow'>Are you sure you want to delete?</h1>
+  </div>
+  <div class='headspace'>
+    <form action='' method="post" >
+      {% csrf_token %}
+        <ul class='forms'>
+          <li><tag>Name:</tag> &nbsp&nbsp&nbsp&nbsp{{ object.name }}</li>
+          <li><tag>County:</tag> &nbsp&nbsp&nbsp&nbsp{{ object.county }}</li>
+          <li><tag>E-mail:</tag> &nbsp&nbsp&nbsp&nbsp{{ object.email }}</li>
+        </ul>
+        <div class='container-centered headspace'>
+          <button type="submit" class='alert-delete'>Confirm Delete</button>
+        </div>
+    </form>
+ </div>
+<div class='container-row'>
+  <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
+</div>
+</div>
+  {% endblock main %}
+
+</body>
+
+</html>

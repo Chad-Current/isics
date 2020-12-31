@@ -1,0 +1,17 @@
+{
+  "DATABASE_ENGINE": "django.db.backends.postgresql_psycopg2",
+  "DATABASE_NAME": "isiscs_live_db",
+  "DATABASE_USER": "isics_admin",
+  "DATABASE_PASSWORD": "db_I$IC$2020!",
+  "DATABASE_HOST": "id-isics-db.cl66gtvnbcun.us-east-2.rds.amazonaws.com",
+  "DATABASE_PORT": "5432",
+  "EMAIL_BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+  "EMAIL_HOST": "email-smtp.us-east-1.amazonaws.com",
+  "EMAIL_PORT": "587",
+  "EMAIL_HOST_USER": "AKIAXAXBWMTYOC2BALKX",
+  "EMAIL_HOST_PASSWORD": "BE+IJbKidKBpr//6uGarbD2r2WwvmGs36WFt36QuXFGf",
+  "EMAIL_USE_TLS": "True",
+  "DEFAULT_FROM_EMAIL": "no-reply@isics.info",
+  "AWS_ACCESS_KEY_ID": "AKIAXAXBWMTYDZHYD2PB",
+  "AWS_SECRET_ACCESS_KEY": "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"
+}

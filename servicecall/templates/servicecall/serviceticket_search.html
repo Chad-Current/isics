@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'base/index.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+    <h1 class='title text-shadow min-headspace'>Service ticket</h1>
+  </div>
+  <div class='container-centered'>
+    <form action="{% url 'servicecall:service-search'%}" method='GET'>
+      {% csrf_token %}
+      <label for='start_date'><tag>Ticket Number&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' placeholder='Ticket Number' name='ticket_number'>
+      <label for='start_date'><tag>Start Date&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' placeholder="YYYY-MM-DD" name='start_date' required=True>
+      <label for='end_date'><tag>Start Date&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' placeholder="YYYY-MM-DD" name='end_date' required=True>
+      <button type='submit'>Search</button>
+    </form>
+  </div>
+   {% endblock main %}
+      {% block sub_one %}
+      <div class='container headspace'>
+        {% if messages %}
+        {% for message in messages %}
+        <div class='container-centered'>
+          <sup class="alert-no-info">{{ message }}</sup>
+        </div>
+        {% endfor %}
+        {% else %}
+          <div class='forms'>
+            {% if tickets %}
+            {% for ticket in tickets %}
+            <ul>
+              <li><h3 class='title'>Date: &nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</h3></li>
+              <li><tag>Ticket No:</tag> &nbsp&nbsp&nbsp&nbsp{{ ticket.ticketno }}</li>
+              <li><tag>Subject:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.site_loc }}</li>
+              <li><tag>Message:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.issue }}</li>
+            </ul>
+            {% endfor %}
+
+          </div>
+          <div class="container-pagination">
+            <div>
+            {% if page_obj.has_previous %}
+              <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
+              {% else %}
+              <a class="nav-link nav-link-disabled"><< Previous</a>
+            {% endif %}
+          </div>
+          {% endif %}
+          <div>
+            {% if page_obj.has_next %}
+              <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
+              {% else %}
+              <a class="nav-link nav-link-disabled">Next >></a>
+            {% endif %}
+            </div>
+          </div>
+          {% endif %}
+          <div class='container-row'>
+            <a href="{% url 'servicecall:service-list' %}" class='nav-link min-headspace'>Service list page</a>
+            <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
+          </div>
+        </div>
+      <div class='footer'>
+      </div>
+    {% endblock sub_one %}
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

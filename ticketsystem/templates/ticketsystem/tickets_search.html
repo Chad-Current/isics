@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "ticketsystem/tickets.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block sub_one %}
+  <div class='container'>
+  <ul>
+    <li><hr></hr></li>
+  </ul>
+</div>
+  <div class='container'>
+       <div class='top-navbar min_headspace'>
+                 <a class='nav-link' type='button' data-toggle='collapse' data-target='#badge_identifier' aria-expanded='false' aria-controls='badge_identifier'>Badge</a>
+                 <a class='nav-link' type='button' data-toggle='collapse' data-target='#talkgroup_assoc' aria-expanded='false' aria-controls='talkgroup_assoc'>Talkgroup</a>
+                 <a class='nav-link' type='button' data-toggle='collapse' data-target='#location' aria-expanded='false' aria-controls='location'>Location</a>
+                 <a class='nav-link' type='button' data-toggle='collapse' data-target='#desc_issue' aria-expanded='false' aria-controls='desc_issue'>Description</a>
+                 <a class='nav-link' type='button' data-toggle='collapse' data-target='#date' aria-expanded='false' aria-controls='date'>Date</a>
+        </div>
+
+      <div class='container-centered'>
+        <div class='row'>
+        <div class='container-centered'>
+             <div class='collapse multi-collapse' id='badge_identifier'>
+                 <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
+                   <input class="form-control mr-sm-2" type='search' name='badge_identifier' placeholder="Badge"  ></input>
+                   <button type="submit">Search</button>
+                 </form>
+             </div>
+         </div>
+        <div class='container-centered'>
+             <div class='collapse multi-collapse' id='talkgroup_assoc'>
+                 <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
+                   <input class="form-control mr-sm-2" type='search' name='talkgroup_assoc' placeholder="Talkgroup" ></input>
+                   <button type="submit">Search</button>
+                 </form>
+             </div>
+         </div>
+        <div class='container-centered'>
+             <div class='collapse multi-collapse' id='location'>
+                 <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
+                   <input class="form-control mr-sm-2" type='search' name='location' placeholder="Location" ></input>
+                   <button type="submit">Search</button>
+                 </form>
+             </div>
+         </div>
+        <div class='container-centered'>
+             <div class='collapse multi-collapse' id='desc_issue'>
+                 <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
+                   <input class="form-control mr-sm-2" type='search' name='desc_issue' placeholder="Description" ></input>
+                   <button type="submit">Search</button>
+                 </form>
+             </div>
+         </div>
+        <div class='container-centered'>
+             <div class='collapse multi-collapse' id='date'>
+                 <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
+                   <input class="form-control mr-sm-2" type='date' name='date' required=True></input>
+                   <button type="submit">Search</button>
+                 </form>
+             </div>
+         </div>
+       </div>
+      </div>
+
+
+  {% if messages %}
+  <div class='container-centered'>
+    <ul class="headspace">
+      {% for message in messages %}
+      <li class="alert {{ message.tags }} alert-no-info">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+    {% if not messages %}
+    {% if object_list %}
+    <div class='container-centered  headspace'>
+      {% for item in object_list %}
+      <ul class='display-list forms'>
+          <li><h4><tag>Badge:</tag>    {{ item.badge_identifier }}&nbsp&nbsp&nbsp&nbsp<tag>Location:</tag>   {{ item.location }}&nbsp&nbsp&nbsp&nbsp<tag>Talkgroup:</tag>    {{ item.talkgroup_assoc }}</h4></li>
+          <li><h4><tag>RSSI:</tag>    {{ item.rssi }}&nbsp&nbsp&nbsp&nbsp<tag>Mobile:</tag>   {{ item.mobile|yesno:'Yes,No' }}&nbsp&nbsp&nbsp&nbsp<tag>Portable:</tag>    {{ item.portable|yesno:'Yes,No' }}</h4></li>
+          <li><h4><tag>Description of issue:</tag>    </br></br>{{ item.desc_issue|wordwrap:60|linebreaksbr }}</h4></li>
+          <li><h4><tag>Issue resolved:</tag>    {{ item.issue_resolve|yesno:'Yes,No' }}</h4></li>
+          <li><h4><tag>Description of resolution:</tag>    {{ item.desc_resolve }}</h4></li>
+          <li><h4><tag>Time Stamp:</tag>   {{ item.date }}</h4></li>
+          {% if perms.tickets.change_ticket %}
+        <div class='container-centered'>
+          <li><a href="{% url 'ticketsystem:ticket-system-update-page' item.id %}" class='sub-nav-link'>-- Update Ticket --</a></li>
+          <li><a href="{% url 'ticketsystem:ticket-system-delete-page' item.id %}" class='sub-nav-link'>-- Delete Ticket --</a></li>
+        </div>
+        {% endif %}
+      </ul>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+
+</div>
+<div class='footer'>
+</div>
+
+
+  <script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      /* Toggle between adding and removing the "active" class,
+      to highlight the button that controls the panel */
+      this.classList.toggle("active");
+
+      /* Toggle between hiding and showing the active panel */
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+  </script>
+
+  {% endblock sub_one %}
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends "servicecall/service.html" %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <!-- <div class='container-centered'>
+    <a href="{% url 'servicecall:service-call-page' %}" class='sub-nav-link'><h3 class='title'>Back</h3></a>
+   </div> -->
+   <div class='container-centered'>
+    <a href="{% url 'servicecall:service-call-page' %}"><img src="{% static 'base/images/tower_site.jpg' %}" class='image-large boxed max_headspace'/></a>
+   </div>
+   <div class='footer'>
+   </div>
+  {% endblock main %}
+
+</body>
+
+</html>
