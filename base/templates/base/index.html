@@ -63,13 +63,14 @@
             <span class='side-link-text'>ISICS Point of Contact</span>
           </a>
         </li>
-        {% if perms.applicants.view_isic_applicant %}
+<!--        {% if perms.applicants.view_isic_applicant %}
         <li class='side-nav-item mobile'>
           <a href="{% url 'isicsapplicant:applicant-page' %}" class='side-nav-link'>
             <i class="fas fa-poll"></i>
             <span class='side-link-text'>ISICS Applicants</span>
           </a>
         </li>
+-->
         {% endif %}
        <li class='side-nav-item mobile'>
           <a href="{% url 'user:profile-page' %}" class='side-nav-link'>

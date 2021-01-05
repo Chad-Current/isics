@@ -19,13 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '54*mes13c19_aw@lwja6t-gqy979%xn=6qplgu)-7m2915lgyy'
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['50.17.201.91','localhost','127.0.0.1']
 
 
 # Application definition
@@ -92,26 +92,28 @@ with open(os.path.join(BASE_DIR, 'devproj/app-config.json')) as f:
     SHENANIGANS = json.load(f)
     # Ohhhhhhhhh
 
+SECRET_KEY = SHENANIGANS['SKK']
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'Interoperability',
+#        'USER': 'Administrator',
+#        'PASSWORD': '@ISPtech918#',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Interoperability',
-        'USER': 'Administrator',
-        'PASSWORD': '@ISPtech918#',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
+    'NAME': SHENANIGANS['DATABASE_NAME'],
+    'USER': SHENANIGANS['DATABASE_USER'],
+    'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
+    'HOST': SHENANIGANS['DATABASE_HOST'],
+    'PORT': SHENANIGANS['DATABASE_PORT'],
+     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
-#         'NAME': SHENANIGANS['DATABASE_NAME'],
-#         'USER': SHENANIGANS['DATABASE_USER'],
-#         'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
-#         'HOST': SHENANIGANS['DATABASE_HOST'],
-#         'PORT': SHENANIGANS['DATABASE_PORT'],
-#     }
-# }
 
 
 # Password validation

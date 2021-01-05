@@ -49,7 +49,7 @@ def activate(request, uidb64, token):
         user.profile.signup_confirmation = True
         user.save()
         login(request, user)
-        return redirect('home-page')
+        return redirect('home:home-page')
     else:
         return render(request, 'user/activation_invalid.html')
 
@@ -77,7 +77,7 @@ def signup_view(request):
                 # method will generate a hash value with user related data
                 'token': account_activation_token.make_token(user),
             })
-            user.email_user(subject, message, from_email='no-reply@isics.info')
+            user.email_user(subject, message)
             return redirect('user:activation-sent')
     else:
         form = SignUpForm()

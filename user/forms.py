@@ -18,7 +18,7 @@ class SignUpForm(UserCreationForm):
     def clean_email(self):
         data = self.cleaned_data['email'].lower()
         domain = data.split('@')[1]
-        domain_list = ["dps.state.ia.us",]
+        domain_list = ["dps.state.ia.us","isics.info"]
         if domain not in domain_list:
             raise forms.ValidationError("Please enter an Email Address with a valid domain")
         return data
