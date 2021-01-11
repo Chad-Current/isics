@@ -38,7 +38,7 @@
     <div class='container headspace'>
       <div class="container-row">
         {% for alarm in alarm_archives %}
-          <div class='forms'>
+          <div class=''>
             <ul>
               <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.arcv_site_name}}</li>
               <li><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.arcv_site_identity }}</li>
@@ -51,8 +51,9 @@
            </div>
              {% endfor %}
       </div>
+    </div>
 
-      <div class="container-pagination">
+      <div class="container-row">
         <div>
         {% if page_obj.has_previous %}
           <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
@@ -73,7 +74,7 @@
         <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm listing page</a>
         <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
       </div>
-    </div>
+
     {% endblock sub_one %}
 
 

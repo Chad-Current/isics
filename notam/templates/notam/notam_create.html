@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% include 'notam/notam_home.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block sub_one %}
+  <div class='container-centered'>
+   <form action='' method='POST'>
+     {% csrf_token %}
+     <div class='container-centered headspace forms_2'>
+       <ul>
+       <li><tag>{{ form.site_name.label }}&nbsp&nbsp&nbsp&nbsp{{ form.site_name }}</tag></li>
+       </ul>
+       <button type='submit'>Create record</button>
+     </div>
+   </form>
+ </div>
+
+  {% endblock sub_one %}
+
+
+</body>
+
+</html>

@@ -31,26 +31,25 @@
       <button type='submit'>Search</button>
     </form>
   </div>
-
+<hr></hr>
    {% endblock main %}
       {% block sub_one %}
       <div class='container headspace'>
-        <div class="infinite-container">
+        <div class='container-row'>
           {% for ticket in tickets %}
-            <div class="infinite-item">
-              <div class='forms'>
+              <div class=''>
                 <ul>
-                  <li><h3 class='title'>Date: &nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</h3></li>
-                  <li><tag>Ticket No:</tag> &nbsp&nbsp&nbsp&nbsp{{ ticket.ticketno }}</li>
-                  <li><tag>Subject:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.site_loc }}</li>
+                  <li><tag>Ticket No:</tag>&nbsp&nbsp&nbsp&nbsp{{ ticket.ticketno|rjust:"10" }}</li>
+                  <li><tag>Subject:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.site_loc }}</li>
                   <li><tag>Message:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.issue }}</li>
+                  <li><tag>Date:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</li>
                 </ul>
               </div>
-            </div>
           {% endfor %}
         </div>
-
-        <div class="container-pagination">
+      </div>
+      <hr></hr>
+        <div class="container-row">
           <div>
           {% if page_obj.has_previous %}
             <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>

@@ -94,7 +94,7 @@ class EmailActivationForm(forms.ModelForm):
     class Meta:
         model = EmailTo
         fields = '__all__'
-        labels = {'is_active':'Activate?'}
+        labels = {'is_active':'Add to e-mail list?'}
 
     def __init__(self, *args, **kwargs):
         super(EmailActivationForm, self).__init__(*args, **kwargs)

@@ -20,7 +20,8 @@ from sitemaintenance.models import Email, EmailTo
 from servicecall.models import ServiceTicket
 from ticketsystem.models import SubscriberTicket
 from pointofcontact.models import PointOfContactUpdate
-from alarm.models import Alarm
+from alarm.models import Alarm, AlarmArchive
+from notam.models import Notam
 from .forms import EmailRequestForm, ContactUpdateForm
 import datetime
 
@@ -38,13 +39,17 @@ class Index(LoginRequiredMixin, ListView):
     model = Email
 
     def get_context_data(self, *args, **kwargs):
+        one_year = datetime.datetime.now() - datetime.timedelta(days=1*365)
         self.now = datetime.datetime.now()
         context = super().get_context_data(**kwargs)
         context['emailsent'] = Email.objects.last()
-        context['alarm'] = Alarm.objects.last()
+        context['alarms'] = Alarm.objects.all()
+        context['total_alarms'] = AlarmArchive.objects.filter(Q(time_stamp__gte=one_year)).count() + \
+                                         Alarm.objects.filter(Q(time_stamp__gte=one_year)).count()
         context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', alarm_date__lte=self.now)
-        context['ticketsys'] = SubscriberTicket.objects.last()
+        context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
+        context['notams'] = Notam.objects.all().order_by('date','site_name')
         return context
 
 class IndexSecret(LoginRequiredMixin, ListView):

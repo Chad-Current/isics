@@ -37,20 +37,20 @@
       <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
     </div>
   </div>
-
+<hr></hr>
   {% endblock main %}
     {% block sub_one %}
     <div class='container min-headspace'>
       <div class="container-row">
        {% for alarm in alarms %}
          {% if alarm.ticket_closed == False %}
-          <div class='forms'>
+          <div class=''>
             <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
             <ul>
-              <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</li>
-              <li><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_identity }}</li>
-              <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</li>
-              <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</li>
+              <li><tag>Site name:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.site_name}}</li>
+              <li><tag>Alarm:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm}}</li>
+              <li><tag>Alarm date:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm_date}}</li>
+              <li><tag>Time stamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
               <li><hr></li>
               <li><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>-- History --</a><br></li>
               <li><a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='sub-nav-link'>-- Update --</a><br></li>
@@ -61,8 +61,9 @@
           {% endif %}
         {% endfor %}
       </div>
-
-      <div class="container-pagination">
+    </div>
+    <hr></hr>
+      <div class="container-row">
         <div>
         {% if page_obj.has_previous %}
           <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>

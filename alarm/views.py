@@ -158,6 +158,7 @@ class AlarmOpenTicket(UserPermissonMixin, ListView):
 
         template_name = 'alarm/alarm_open.html'
         model = Alarm
+        paginate_by = 2
         context_object_name = 'alarms'
 
 

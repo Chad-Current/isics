@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse, reverse_lazy
@@ -84,6 +85,11 @@ class TicketSystemDelete(UserPermissonMixin, DeleteView):
     model = SubscriberTicket
     template_name = 'ticketsystem/tickets_confirm_delete.html'
     success_url = reverse_lazy('ticketsystem:ticket-system-page')
+
+class TicketSystemRead(LoginRequiredMixin, DetailView):
+    model = SubscriberTicket
+    template_name = 'ticketsystem/ticket_detail.html'
+    context_object_name = 'ticket'
 
 
 class TicketSystemReadResults(LoginRequiredMixin, ListView):

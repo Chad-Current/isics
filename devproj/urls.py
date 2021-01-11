@@ -37,6 +37,7 @@ urlpatterns = [
     path('', include('towersite.urls', namespace='tower-site')),
     path('', include('sitemaintenance.urls', namespace='site-maintenance')),
     path('', include('suggestion.urls', namespace='suggestion')),
+    path('', include('notam.urls', namespace='notam')),
 ]
 
 if settings.DEBUG:

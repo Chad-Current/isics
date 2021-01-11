@@ -82,7 +82,7 @@ class ServiceList(LoginRequiredMixin, ListView):
     template_name = 'servicecall/servicecall_list.html'
     model = ServiceTicket
     context_object_name = 'tickets'
-    paginate_by = 1
+    paginate_by = 2
     ordering = ['-date']
 
 

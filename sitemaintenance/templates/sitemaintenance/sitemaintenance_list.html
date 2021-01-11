@@ -17,7 +17,7 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title text-shadow min-headspace'>EMAILS TO AFFECTED SYSTEM USERS</h1>
+    <h1 class='title text-shadow min-headspace'>EMAILS SENT TO SYSTEM USERS</h1>
   </div>
   <div class='container-centered headspace'>
     <form action="{% url 'sitemaintenance:site-maintenance-email-search-page'%}" method='GET'>
@@ -31,6 +31,7 @@
       <button type='submit'>Search</button>
     </form>
   </div>
+  <hr></hr>
    {% endblock main %}
       {% block sub_one %}
       <div class='container headspace'>
@@ -50,8 +51,10 @@
             </div>
           {% endfor %}
         </div>
+      </div>
+      <hr></hr>
 
-        <div class="container-pagination min-headspace">
+        <div class="container-row min-headspace">
           <div>
           {% if page_obj.has_previous %}
             <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>

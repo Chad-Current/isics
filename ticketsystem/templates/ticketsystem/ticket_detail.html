@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'base/index.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+
+  {% block main %}
+  <div class='container-centered'>
+    <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Subscriber radio tickets</h1></a>
+  </div>
+  <div class='container-centered'>
+    <ul class='display-list forms'>
+        <li><h4><tag>Badge:</tag>    {{ ticket.badge_identifier }}&nbsp&nbsp&nbsp&nbsp<tag>Location:</tag>   {{ ticket.location }}&nbsp&nbsp&nbsp&nbsp<tag>Talkgroup:</tag>    {{ ticket.talkgroup_assoc }}</h4></li>
+        <li><h4><tag>RSSI:</tag>    {{ ticket.rssi }}&nbsp&nbsp&nbsp&nbsp<tag>Mobile:</tag>   {{ ticket.mobile|yesno:'Yes,No' }}&nbsp&nbsp&nbsp&nbsp<tag>Portable:</tag>    {{ ticket.portable|yesno:'Yes,No' }}</h4></li>
+        <li><h4><tag>Description of issue:</tag>    </br></br>{{ ticket.desc_issue|wordwrap:60|linebreaksbr }}</h4></li>
+        <li><h4><tag>Issue resolved:</tag>    {{ ticket.issue_resolve|yesno:'Yes,No' }}</h4></li>
+        <li><h4><tag>Description of resolution:</tag>    {{ ticket.desc_resolve }}</h4></li>
+        <li><h4><tag>Time Stamp:</tag>   {{ ticket.date }}</h4></li>
+        {% if perms.tickets.change_ticket %}
+        <div class='container-centered'>
+          <li><a href="{% url 'ticketsystem:ticket-system-update-page' ticket.id %}" class='sub-nav-link'>-- Update Ticket --</a></li>
+          <li><a href="{% url 'ticketsystem:ticket-system-delete-page' ticket.id %}" class='sub-nav-link'>-- Delete Ticket --</a></li>
+        </div>
+        {% endif %}
+    </ul>
+  </div>
+  {% endblock main %}
+  {% block sub_one %}
+  {% endblock sub_one %}
+  {% block sub_two %}
+  <div class='footer'>
+  </div>
+  {% endblock sub_two %}
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

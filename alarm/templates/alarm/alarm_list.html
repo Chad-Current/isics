@@ -37,13 +37,13 @@
       <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
     </div>
   </div>
-
+  <hr></hr>
   {% endblock main %}
     {% block sub_one %}
     <div class='container min-headspace'>
       <div class="container-row">
         {% for alarm in alarms %}
-          <div class='forms'>
+          <div class=''>
             <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
             <ul>
               <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</li>
@@ -51,16 +51,17 @@
               <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</li>
               <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</li>
               <li><hr></li>
-              <li><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>-- History --<a/></li>
-              <li><a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='sub-nav-link'>-- Update --</a></li>
-              <li>{% if perms.alarm.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='sub-nav-link'>-- Close Ticket --</a>{% endif %}</li>
+              <li><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='ticket-link'>History<a/>
+              <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='ticket-link'>Update</a>
+              {% if perms.alarm.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='ticket-link'>Close Ticket</a>{% endif %}</li>
              </ul>
            </a>
            </div>
         {% endfor %}
+        </div>
       </div>
-
-      <div class="container-pagination">
+        <hr></hr>
+      <div class="container-row">
         <div>
         {% if page_obj.has_previous %}
           <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
@@ -81,7 +82,6 @@
         {% if perms.alarm_archive.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Alarm archive page</a>{% endif %}
         <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
       </div>
-    </div>
     {% endblock sub_one %}
 
     {% block sub_two %}

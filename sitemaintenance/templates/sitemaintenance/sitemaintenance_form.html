@@ -24,13 +24,12 @@
         <div class='container-centered headspace'>
           <h1 class='title'>EMAIL AFFECTED SYSTEM USERS</h1>
         </div>
-        <a href="{% url 'sitemaintenance:site-maintenance-email-listing-page' %}" class='headspace nav-link'>( GO TO SENT EMAILS )</a>
-            <div class='container-centered headspace boxed'>
+            <div class='container-centered headspace '>
               <form action='' method="post" >
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-lg-4">
                         <p class='field_label smallspace'>{{ field.label_tag }}</p>
                         {% if field.help_text %}
                           <sup>{{ field.help_text }}</sup>
@@ -40,7 +39,7 @@
                              <div class="alert alert-danger">{{error}}</div>
                            </div>
                           {% endfor %}
-                       </div><div class="col-sm-3 pull-left">
+                       </div><div class="col-lg-6 pull-left">
                          <p class='field smallspace'>{{ field }}</p>
                        </div>
                     </div>
@@ -50,6 +49,8 @@
                 </div>
             </form>
             </div>
+            <a href="{% url 'sitemaintenance:site-maintenance-email-listing-page' %}" class='headspace nav-link'>( GO TO SENT EMAILS )</a>
+            <hr></hr>
           </div>
 
       <div class='footer'>

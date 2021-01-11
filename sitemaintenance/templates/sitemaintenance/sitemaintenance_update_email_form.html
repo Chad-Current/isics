@@ -21,35 +21,23 @@
 
     {% block sub_one %}
       <div class='container-centered'>
-        <div class='container-centered headspace'>
-          <h1 class='title'>EMAIL AFFECTED SYSTEM USERS</h1>
-        </div>
-        <a href="{% url 'sitemaintenance:site-maintenance-email-listing-page' %}" class='nav-link'>( GO TO SENT EMAILS )</a>
-            <div class='container-centered headspace forms_2'>
-              <form action='' method="post" >
-                <h1 class='title'>Activate user email</h1>
+        <h1 class='title'>Activate user email</h1>
+            <div class='headspace'>
+              <form action='' method="post">
+                <div class='form_p'>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="row">
-                        <p class='field_label smallspace'>{{ field.label }}</p>
-                        {% if field.help_text %}
-                          <sup>{{ field.help_text }}</sup>
-                          {% endif %}
-                          {% for error in field.errors %}
-                           <div class="row">
-                             <div class="alert alert-danger">{{error}}</div>
-                           </div>
-                          {% endfor %}
-                         <p class='field smallspace'>{{ field }}</p>
-                      </div>
-                    {% endfor %}
-                  <div class='container-centered headspace'>
-                  <button type="submit">Save</button>
+                    <p><tag>{{form.name.label_tag}}</tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{form.name}}</p>
+                    <p><tag>{{form.county.label_tag}}</tag>&nbsp&nbsp&nbsp&nbsp{{form.county}}</p>
+                    <p><tag>{{form.email.label_tag}}</tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{form.email}}</p>
+                    <p><tag>{{form.is_active.label_tag}}</tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{form.is_active}}</p>
+                </div>
+                <div class='container-centered min-headspace'>
+                  <button type="submit">Activate User</button>
                 </div>
             </form>
             </div>
           </div>
-          <div class='container-centered'>
+          <div class='container-centered max_headspace'>
             <a href="{% url 'sitemaintenance:site-maintenance-email-deletion-page' emailto.id %}" class='sub-nav-link min-headspace'>Delete Email Request</a>
           </div>
 

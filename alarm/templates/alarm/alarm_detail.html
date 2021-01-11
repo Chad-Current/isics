@@ -22,29 +22,32 @@
   <div class='container-centered'>
     <h1 class='title text-shadow min-headspace'>Alarm History</h1>
   </div>
+  <hr></hr>
   {% endblock main %}
 
 
   {% block sub_one %}
-  <div class='container'>
+  <div class='container-centered headspace'>
     {% for alarm in alarm_object %}
-      <ul class='forms'>
+      <ul class=''>
+        <li><tag>Site name:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.site_name}}</li>
+        <li><tag>Alarm:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm}}</li>
+        <li><tag>Alarm date:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm_date}}</li>
         <li><tag>Time stamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
-        <li><tag>Site name:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.site_name}}</li>
-        <li><tag>Alarm:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.alarm}}</li>
-        <li><tag>Alarm date:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.alarm_date}}</li>
     </ul>
     {% endfor %}
+    <br>
     {% for alarm in alarm_history %}
-    <ul class='forms'>
-      <li><tag>Timestamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
+    <ul class=''>
       <li><tag>Comments:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.comments}}</li>
+      <li><tag>Timestamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
     </ul>
     {% endfor %}
   </div>
   <div class='container-centered'>
-   <a href="{% url 'alarm-check:alarm-update' alarm.id %}" class='sub-nav-link'>Add comment</a>
+   <a href="{% url 'alarm-check:alarm-update' alarm.id %}" class='abtn'>Add comment</a>
   </div>
+  <hr></hr>
   <div class='container-row'>
     <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
     <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>

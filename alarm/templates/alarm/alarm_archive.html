@@ -22,7 +22,7 @@
   {% endblock main %}
     {% block sub_one %}
   <div class='container-centered'>
-  <div class='headspace forms_2'>
+  <div class='headspace '>
     <form action='' method="post" >
       {% csrf_token %}
         <ul>
@@ -31,12 +31,12 @@
           <li><tag>Alarm date:</tag>   &nbsp&nbsp&nbsp&nbsp{{ object.alarm_date }}</li>
         </ul>
         <div class='container-centered headspace'>
-        <button type="submit" class='alert-info'>Close ticket?</button>
+        <button type="submit" class='alert-caution'>Close ticket?</button>
       </div>
   </form>
   </div>
 </div>
-
+<hr></hr>
 <div class='container-row'>
   <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm listing page</a>
   <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>

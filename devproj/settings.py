@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['50.17.201.91','localhost','127.0.0.1']
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'suggestion.apps.SuggestionConfig',
     'ticketsystem.apps.TicketsystemConfig',
     'towersite.apps.TowersiteConfig',
+    'notam.apps.NotamConfig',
     'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,26 +95,26 @@ with open(os.path.join(BASE_DIR, 'devproj/app-config.json')) as f:
 
 SECRET_KEY = SHENANIGANS['SKK']
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'Interoperability',
-#        'USER': 'Administrator',
-#        'PASSWORD': '@ISPtech918#',
-#        'HOST': 'localhost',
-#        'PORT': '5432',
-#    }
-#}
 DATABASES = {
-    'default': {
-    'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
-    'NAME': SHENANIGANS['DATABASE_NAME'],
-    'USER': SHENANIGANS['DATABASE_USER'],
-    'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
-    'HOST': SHENANIGANS['DATABASE_HOST'],
-    'PORT': SHENANIGANS['DATABASE_PORT'],
-     }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       'NAME': 'Interoperability',
+       'USER': 'Administrator',
+       'PASSWORD': '@ISPtech918#',
+       'HOST': 'localhost',
+       'PORT': '5432',
+   }
 }
+# DATABASES = {
+#     'default': {
+#     'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
+#     'NAME': SHENANIGANS['DATABASE_NAME'],
+#     'USER': SHENANIGANS['DATABASE_USER'],
+#     'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
+#     'HOST': SHENANIGANS['DATABASE_HOST'],
+#     'PORT': SHENANIGANS['DATABASE_PORT'],
+#      }
+# }
 
 
 # Password validation

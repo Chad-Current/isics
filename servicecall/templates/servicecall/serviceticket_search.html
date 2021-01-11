@@ -45,7 +45,7 @@
             {% if tickets %}
             {% for ticket in tickets %}
             <ul>
-              <li><h3 class='title'>Date: &nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</h3></li>
+              <li><tag>Date: </tag>&nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</li>
               <li><tag>Ticket No:</tag> &nbsp&nbsp&nbsp&nbsp{{ ticket.ticketno }}</li>
               <li><tag>Subject:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.site_loc }}</li>
               <li><tag>Message:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.issue }}</li>
