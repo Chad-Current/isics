@@ -95,26 +95,26 @@ with open(os.path.join(BASE_DIR, 'devproj/app-config.json')) as f:
 
 SECRET_KEY = SHENANIGANS['SKK']
 
+#DATABASES = {
+#   'default': {
+#       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#       'NAME': 'Interoperability',
+#       'USER': 'Administrator',
+#       'PASSWORD': '@ISPtech918#',
+#       'HOST': 'localhost',
+#       'PORT': '5432',
+#   }
+#}
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'Interoperability',
-       'USER': 'Administrator',
-       'PASSWORD': '@ISPtech918#',
-       'HOST': 'localhost',
-       'PORT': '5432',
-   }
+    'default': {
+    'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
+    'NAME': SHENANIGANS['DATABASE_NAME'],
+    'USER': SHENANIGANS['DATABASE_USER'],
+    'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
+    'HOST': SHENANIGANS['DATABASE_HOST'],
+    'PORT': SHENANIGANS['DATABASE_PORT'],
+     }
 }
-# DATABASES = {
-#     'default': {
-#     'ENGINE': SHENANIGANS['DATABASE_ENGINE'],
-#     'NAME': SHENANIGANS['DATABASE_NAME'],
-#     'USER': SHENANIGANS['DATABASE_USER'],
-#     'PASSWORD': SHENANIGANS['DATABASE_PASSWORD'],
-#     'HOST': SHENANIGANS['DATABASE_HOST'],
-#     'PORT': SHENANIGANS['DATABASE_PORT'],
-#      }
-# }
 
 
 # Password validation
