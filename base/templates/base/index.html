@@ -93,6 +93,7 @@
             <span class='side-link-text'>Profile</span>
           </a>
         </li>
+	{% if perms.emailto.view_email %}
         {% if email_request %}
        <li class='side-nav-item-envelope'>
           <a href="{% url 'site-maintenance:site-maintenance-email-activation-page' email_request.id %}" class='side-nav-link'>
@@ -101,6 +102,7 @@
           </a>
         </li>
         {% endif %}
+	{% endif %}
         <li class='side-nav-item'>
           <a href="{% url 'base:logout' %}" class='side-nav-link'>
             <i class="fas fa-sign-out-alt"></i>
@@ -238,7 +240,7 @@ function countdown( elementName, minutes, seconds )
     updateTimer();
 }
 
-countdown( "clock", 10, 0 );
+countdown( "clock", 30, 0 );
 </script>
 
 

@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['50.17.201.91','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['www.isics.info','isics.info']
 
 
 # Application definition
@@ -173,13 +173,16 @@ USE_L10N = True
 USE_TZ = True
 
 # Logout after a period of inactivity
-INACTIVE_TIME = 10*60  # 15 minutes - or whatever period you think appropriate
+INACTIVE_TIME = 30*60  # 15 minutes - or whatever period you think appropriate
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
-
-
+CSRF_COOKIE_DOMAIN = ".isics.info"
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDER_PROTO","https")
+#SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -192,7 +195,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 ### MAKE SURE TO CORRECT BEFORE LOGIN PAGE
 
 
-# LOGIN_REDIRECT_URL = 'base:index-home' # Go to index homepage after successful login
-# LOGIN_URL = 'home:login'  # Redirects to Login Screen home page
 LOGIN_REDIRECT_URL = 'base:home-page' # Go to index homepage after successful login
 LOGIN_URL = 'base:login'  # Redirects to Login Screen home page

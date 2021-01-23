@@ -111,15 +111,14 @@ class UserForm(AuthenticationForm):
     password = forms.CharField(max_length=32, widget=forms.PasswordInput)
 
 class EmailRequestForm(forms.ModelForm):
+    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES, attrs={'style':'height:2.5em;width:14em;border-radius:5px;'}))
     class Meta:
         model = EmailTo
         fields = ['name','county','email']
-        widgets = {
-        'county': forms.Select(choices=COUNTY_CHOICES)
-        }
+
 
 class ContactUpdateForm(forms.ModelForm):
-    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES))
+    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES, attrs={'style':'height:2.5em;width:14em;border-radius:5px;'}))
     notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:8em;width:15em;border-radius:5px;'}), required=False)
     organization = forms.CharField(required=True)
     job_title = forms.CharField(required=True)

@@ -15,7 +15,7 @@
 
 <body>
   {% block main %}
-  <div class='container-row'>
+  <div class='container-row'> 
   <div class='container-centered'>
     <img src="{% static 'base/images/ISICS Logo Login.png' %}" class='image-mid'/>
     <div class='container-centered headspace'>
@@ -29,9 +29,8 @@
   </div>
   <div class='container-centered'>
     <h1 class='title '>Sign in</h1>
-    <a href="{% url 'user:register' %}" class='sub-nav-link'>or create an account</a>
       <div class='headspace forms_2'>
-        <form action='' method="post" >
+        <form method="POST" >
           {% csrf_token %}
           <ul>
             <li>{{ form.username.label }}<br>{{ form.username }}</li>
@@ -42,10 +41,20 @@
             </ul>
         </form>
       </div>
+      <a href="{% url 'user:register' %}" class='nav-link headspace'>or create an account</a>
     </div>
   </div>
+ 
   {% endblock main %}
+  
   {% block sub_one %}
+  <div class='container-centered'>
+   {% if messages %}
+   {% for message in messages %}
+   <p>{{ message }}</p>
+   {% endfor %}
+   {% endif %}
+  </div>
   {% endblock sub_one %}
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

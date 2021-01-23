@@ -17,10 +17,10 @@
 <body>
   {% block sub_one %}
   <div class='container'>
-  <ul>
+   <ul>
     <li><hr></hr></li>
-  </ul>
-</div>
+   </ul>
+  </div>
   <div class='container'>
        <div class='top-navbar min_headspace'>
                  <a class='nav-link' type='button' data-toggle='collapse' data-target='#badge_identifier' aria-expanded='false' aria-controls='badge_identifier'>Badge</a>
@@ -74,8 +74,8 @@
          </div>
        </div>
       </div>
-
-
+    </div>
+  
   {% if messages %}
   <div class='container-centered'>
     <ul class="headspace">
@@ -85,33 +85,52 @@
     </ul>
   </div>
   {% endif %}
-    {% if not messages %}
+ 
     {% if object_list %}
-    <div class='container-centered  headspace'>
-      {% for item in object_list %}
-      <ul class='display-list forms'>
-          <li><h4><tag>Badge:</tag>    {{ item.badge_identifier }}&nbsp&nbsp&nbsp&nbsp<tag>Location:</tag>   {{ item.location }}&nbsp&nbsp&nbsp&nbsp<tag>Talkgroup:</tag>    {{ item.talkgroup_assoc }}</h4></li>
-          <li><h4><tag>RSSI:</tag>    {{ item.rssi }}&nbsp&nbsp&nbsp&nbsp<tag>Mobile:</tag>   {{ item.mobile|yesno:'Yes,No' }}&nbsp&nbsp&nbsp&nbsp<tag>Portable:</tag>    {{ item.portable|yesno:'Yes,No' }}</h4></li>
-          <li><h4><tag>Description of issue:</tag>    </br></br>{{ item.desc_issue|wordwrap:60|linebreaksbr }}</h4></li>
-          <li><h4><tag>Issue resolved:</tag>    {{ item.issue_resolve|yesno:'Yes,No' }}</h4></li>
-          <li><h4><tag>Description of resolution:</tag>    {{ item.desc_resolve }}</h4></li>
-          <li><h4><tag>Time Stamp:</tag>   {{ item.date }}</h4></li>
-          {% if perms.tickets.change_ticket %}
-        <div class='container-centered'>
-          <li><a href="{% url 'ticketsystem:ticket-system-update-page' item.id %}" class='sub-nav-link'>-- Update Ticket --</a></li>
-          <li><a href="{% url 'ticketsystem:ticket-system-delete-page' item.id %}" class='sub-nav-link'>-- Delete Ticket --</a></li>
-        </div>
-        {% endif %}
-      </ul>
-      {% endfor %}
+    <hr></hr>
+   <div class='container-row'>
+     <table>
+      <thead>
+       <tr>
+	<td><tag>Badge</tag></td>
+	<td><tag>Location</tag></td>
+	<td><tag>Talkgroup</tag></td>
+	<td><tag>RSSI</tag></td>
+	<td><tag>Mobile</tag</td>
+	<td><tag>Portable</tag></td>
+	<td><tag>Issue</tag></td>
+	<td><tag>Resolved</tag></td>
+	<td><tag>Resolution</tag></td>
+	<td><tag>Date</tag></td>
+	{% if perms.tickets.change_ticket %}
+	<td><tag>Update</tag></td>
+	<td><tag>Delete</tag></td>
+	{% endif %}
+       </tr>
+      </thead>
+      <tbody>
+       {% for item in object_list %}
+       <tr>
+	<td>{{ item.badge_identifier }}</td>
+	<td>{{ item.location|wordwrap:20|linebreaksbr }}</td>
+	<td>{{ item.talkgroup_assoc }}</td>
+	<td>{{ item.rssi }}</td>
+	<td>{{ item.mobile|yesno:'Yes,No' }}</td>
+	<td>{{ item.portable|yesno:'Yes,No' }}</td>
+	<td>{{ item.desc_issue|wordwrap:40|linebreaksbr }}</td>
+	<td>{{ item.issue_resolved|yesno:'Yes,No' }}</td>
+	<td>{{ item.desc_resolve }}</td>
+	<td>{{ item.date|date:'Y-m-d' }}</td>
+	{% if perms.tickets.change_ticket %}
+        <td><a href="{% url 'ticketsystem:ticket-system-update-page' item.id %}" class='sub-nav-link'>Update</a></td>
+        <td><a href="{% url 'ticketsystem:ticket-system-delete-page' item.id %}" class='sub-nav-link'>Delete</a></td>
+	{% endif %}
+       </tr>
+	{% endfor %}
+      </tbody>
+     </table>
+     {% endif %}
     </div>
-    {% endif %}
-    {% endif %}
-  </div>
-
-</div>
-<div class='footer'>
-</div>
 
 
   <script>

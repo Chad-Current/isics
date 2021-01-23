@@ -130,7 +130,7 @@ def password_reset_request(request):
 					}
 					email = render_to_string(email_template_name, c)
 					try:
-						send_mail(subject, email, 'admin@isics.info', [user.email], fail_silently=False)
+						send_mail(subject, email, [user.email], fail_silently=False)
 					except BadHeaderError:
 						return HttpResponse('Invalid header found.')
 					messages.success(request, 'A message with reset password instructions has been sent to your inbox.')

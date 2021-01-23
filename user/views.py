@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings 
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.views.generic.detail import DetailView
@@ -35,26 +36,36 @@ class ActivationSent(TemplateView):
     template_name = 'user/activation_sent.html'
 
 
-def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    # checking if the user exists, if the token is valid.
-    if user is not None and account_activation_token.check_token(user, token):
-        # if valid set active true
-        user.is_active = True
-        # set signup_confirmation true
-        user.profile.signup_confirmation = True
-        user.save()
-        login(request, user)
-        return redirect('home:home-page')
-    else:
-        return render(request, 'user/activation_invalid.html')
+class Activate(TemplateView):
+    template_name = 'base/login.html'
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        # checking if the user exists, if the token is valid.
+        if user is not None and account_activation_token.check_token(user, token):
+            # if valid set active true
+            user.is_active = True
+            # set signup_confirmation true
+            user.profile.signup_confirmation = True
+            user.save()
+            #login(request, user)
+            return redirect('home:login')
+        else:
+            return redirect('home:login')
 
-def signup_view(request):
-    if request.method  == 'POST':
+
+class Signup(TemplateView):
+    form_class = SignUpForm
+    template_name = 'user/signup.html'
+    
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form':form})
+        
+    def post(self, request, *args, **kwargs):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -77,8 +88,9 @@ def signup_view(request):
                 # method will generate a hash value with user related data
                 'token': account_activation_token.make_token(user),
             })
-            user.email_user(subject, message)
+            user.email_user(subject, message, 'admin@isics.info', auth_user=settings.EMAIL_HOST_USER, auth_password=settings.EMAIL_HOST_PASSWORD, fail_silently=False)
             return redirect('user:activation-sent')
-    else:
-        form = SignUpForm()
-    return render(request, 'user/signup.html', {'form': form})
+        else:
+            messages.error(request, f'Username or Email already exist!')
+            form = SignUpForm()
+        return render(request, 'user/signup.html', {'form': form})

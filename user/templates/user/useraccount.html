@@ -16,12 +16,13 @@
 
 <body>
   {% block main %}
-      {% if request.user.email == 'brittain@dps.state.ia.us' %}
+     {% if request.user.email == 'brittain@dps.state.ia.us' %}
       <div class='container-middle-align '>
         <div class='max_headspace'>
-       <img src="{% static 'base/images/dave.jpg' %}"/>
-     </div>
-      </div>
+         <img src="{% static 'base/images/dave.jpg' %}"/>
+        </div>
+      </div> 
+    
       {% else %}
       <div class='container-centered'>
          <ul class='forms_2 max_headspace'>

@@ -33,6 +33,7 @@
       <button type='submit'>Search</button>
     </form>
   </div>
+  <hr></hr>
   {% endblock main %}
     {% block sub_one %}
     <div class='container headspace'>
@@ -45,14 +46,14 @@
               <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.arcv_alarm }}</li>
               <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.arcv_alarm_date }}</li>
               <li><tag>Ticket closed:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.arcv_ticket_closed |yesno:'Yes,No' }}</li>
-              <li><tag>Comments:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.all_comments }}</li>
-              <li><tag>Closed at: </tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.time_stamp }}</li>
+              <li><tag>Closed at:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.time_stamp }}</li>
+              <li><tag>Comments </tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.all_comments }}</li>
              </ul>
            </div>
              {% endfor %}
       </div>
     </div>
-
+   <hr></hr>
       <div class="container-row">
         <div>
         {% if page_obj.has_previous %}
@@ -69,7 +70,7 @@
         {% endif %}
         </div>
       </div>
-      <div class='container-row'>
+      <div class='container-row min-headspace'>
         <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
         <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm listing page</a>
         <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>

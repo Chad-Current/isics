@@ -44,24 +44,25 @@
       <div class="container-row">
        {% for alarm in alarms %}
          {% if alarm.ticket_closed == False %}
-          <div class=''>
-            <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
+         <div class=''> 
+	  <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
             <ul>
               <li><tag>Site name:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.site_name}}</li>
               <li><tag>Alarm:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm}}</li>
               <li><tag>Alarm date:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm_date}}</li>
               <li><tag>Time stamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
-              <li><hr></li>
-              <li><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>-- History --</a><br></li>
-              <li><a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='sub-nav-link'>-- Update --</a><br></li>
-              <li>{% if perms.alarm.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='sub-nav-link'>-- Close Ticket --</a>{% endif %}</li>
-             </ul>
+	      <li><hr></hr></li>
+	        <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='ticket-link'>History</a>
+	        <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='ticket-link'>Update</a>
+               {% if perms.alarm.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='ticket-link'>Close Ticket</a>{% endif %}
+            </ul>
            </a>
-          </div>
+	 </div>
           {% endif %}
         {% endfor %}
       </div>
     </div>
+   </div>
     <hr></hr>
       <div class="container-row">
         <div>
@@ -70,21 +71,22 @@
           {% else %}
           <a class="nav-link nav-link-disabled"><< Previous</a>
         {% endif %}
-      </div>
-      <div>
+        </div>
+         <div>
         {% if page_obj.has_next %}
           <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
           {% else %}
           <a class="nav-link nav-link-disabled">Next >></a>
         {% endif %}
         </div>
-      </div>
+       </div>
+
       <div class='container-row'>
         <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
         {% if perms.alarm.view_alarm %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
         <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
       </div>
-    </div>
+
     {% endblock sub_one %}
 
     {% block sub_two %}

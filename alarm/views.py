@@ -106,7 +106,7 @@ class ArchiveAlarmRecords(UserPermissonMixin, ListView):
 
 class AlarmUpdate(UserPermissonMixin, UpdateView):
     raise_exception = False
-    permission_required = 'alarm.change_alarm'
+    permission_required = 'alarm.view_alarm'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'alarm/'
@@ -188,7 +188,7 @@ class AlarmSearch(UserPermissonMixin, ListView):
 
 class ArchiveAlarmSearch(UserPermissonMixin, ListView):
         raise_exception = False
-        permission_required = 'alarm.view_alarm'
+        permission_required = 'alarm_archive.view_alarm_archive'
         permisson_denied_message = 'Not authorized to make changes'
         login_url = '/'
         redirect_field_name = 'alarm/'

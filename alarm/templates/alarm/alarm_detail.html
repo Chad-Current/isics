@@ -27,22 +27,42 @@
 
 
   {% block sub_one %}
-  <div class='container-centered headspace'>
-    {% for alarm in alarm_object %}
-      <ul class=''>
-        <li><tag>Site name:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.site_name}}</li>
-        <li><tag>Alarm:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm}}</li>
-        <li><tag>Alarm date:  </tag>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{alarm.alarm_date}}</li>
-        <li><tag>Time stamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
-    </ul>
-    {% endfor %}
-    <br>
-    {% for alarm in alarm_history %}
-    <ul class=''>
-      <li><tag>Comments:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.comments}}</li>
-      <li><tag>Timestamp:  </tag>&nbsp&nbsp&nbsp&nbsp{{alarm.time_stamp}}</li>
-    </ul>
-    {% endfor %}
+  <div class='container-centered'>
+  <div class='container-centered-middle headspace'>
+    <table>
+     <thead>
+      <tr>
+       <td><tag>Site name</tag></td>
+       <td><tag>Alarm</tag></td>
+       <td><tag>Date</tag></td>
+      </tr>
+     </thead>
+     <tbody>
+     {% for alarm in alarm_object %}
+      <tr>
+       <td>{{ alarm.site_name }}</td>
+       <td>{{ alarm.alarm|wordwrap:60|linebreaks }}</td>
+       <td>{{ alarm.time_stamp|date:'Y-m-d' }}</td>
+      </tr>
+      {% endfor %}
+     </tbody>
+    </table>
+   
+    <table>
+     <thead>
+      <tr>
+       <td><tag>Comments</tag></td>
+      </tr>
+     </thead>
+      <tbody>
+        {% for alarm in alarm_history %}
+	<tr> 
+         <td>{{ alarm.comments|wordwrap:40|linebreaksbr }}</td>
+	</tr>
+	{% endfor %}
+      </tbody>
+    </table>
+   </div>
   </div>
   <div class='container-centered'>
    <a href="{% url 'alarm-check:alarm-update' alarm.id %}" class='abtn'>Add comment</a>
@@ -55,9 +75,8 @@
   </div>
 
 
-      <div class='footer'>
-      </div>
-   {% endblock sub_one %}
+  
+     {% endblock sub_one %}
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

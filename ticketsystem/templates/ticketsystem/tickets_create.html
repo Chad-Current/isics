@@ -22,7 +22,7 @@
       {% csrf_token %}
       {% for field in form %}
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <p class='field_label smallspace'>{{ field.label_tag }}</p>
               {% if field.help_text %}
                 <sup>{{ field.help_text }}</sup>
@@ -32,13 +32,19 @@
                    <div class="alert alert-danger">{{error}}</div>
                  </div>
                 {% endfor %}
-             </div><div class="col-lg-6">
+             </div><div class="col-lg-2">
                <p class='field smallspace'>{{ field }}</p>
              </div>
           </div>
         {% endfor %}
-        <div class='container-centered headspace'>
+        <div class='container-row headspace'>
+	<div class='col-sm-5'>
+        </div>
+	<div class='col-sm-4'>
         <button type="submit">Save</button>
+	</div>
+	<div class='col-sm-1'>
+        </div>
       </div>
   </form>
   </div>

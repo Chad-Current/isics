@@ -34,44 +34,35 @@
 <hr></hr>
    {% endblock main %}
       {% block sub_one %}
-      <div class='container headspace'>
-        <div class='container-row'>
-          {% for ticket in tickets %}
-              <div class=''>
-                <ul>
-                  <li><tag>Ticket No:</tag>&nbsp&nbsp&nbsp&nbsp{{ ticket.ticketno|rjust:"10" }}</li>
-                  <li><tag>Subject:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.site_loc }}</li>
-                  <li><tag>Message:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.issue }}</li>
-                  <li><tag>Date:</tag> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ ticket.date|date:'Y-m-d H:i' }}</li>
-                </ul>
-              </div>
-          {% endfor %}
-        </div>
+      <div class='container-centered headspace'>
+        <table>
+         <thead>
+          <tr>
+           <td><tag>Date</tag></td>
+           <td><tag>Ticket No.</tag></td>
+           <td><tag>Subject</tag></td>
+           <td><tag>Message</tag><td>
+          </tr>
+        </thead>
+        <tbody>
+         {% for ticket in tickets %}
+          <tr>
+           <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>
+           <td>{{ ticket.ticketno }}</td>
+           <td>{{ ticket.site_loc }}</td>
+           <td>{{ ticket.issue }}</td>
+          </tr>
+         {% endfor %}
+         </tbody>
+       </table>
       </div>
-      <hr></hr>
+     <hr></hr>
+
         <div class="container-row">
-          <div>
-          {% if page_obj.has_previous %}
-            <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
-            {% else %}
-            <a class="nav-link nav-link-disabled"><< Previous</a>
-          {% endif %}
-        </div>
-        <div>
-          {% if page_obj.has_next %}
-            <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
-            {% else %}
-            <a class="nav-link nav-link-disabled">Next >></a>
-          {% endif %}
-          </div>
-        </div>
-        <div class='container-row'>
           <a href="{% url 'servicecall:service-call-page' %}" class='nav-link min-headspace'>Service call page</a>
           <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
         </div>
-      </div>
-    <div class='footer'>
-    </div>
+	
     {% endblock sub_one %}
 
 
