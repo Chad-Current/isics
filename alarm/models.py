@@ -5,7 +5,7 @@ from django.dispatch import receiver
 class Alarm(models.Model):
     site_name = models.CharField(max_length=50)
     site_identity = models.CharField(max_length=50)
-    alarm = models.CharField(max_length=255)
+    alarm = models.CharField(max_length=2000)
     alarm_date = models.CharField(max_length=255) #Check Record for formatting details
     ticket_closed = models.BooleanField(default=False)
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=False) # Change to auto_now_add = True
@@ -42,7 +42,7 @@ class AlarmComment(models.Model):
 class AlarmArchive(models.Model):
     arcv_site_name = models.CharField(max_length=50)
     arcv_site_identity = models.CharField(max_length=50) #Neccassary?
-    arcv_alarm = models.CharField(max_length=255)
+    arcv_alarm = models.CharField(max_length=2000)
     arcv_alarm_date = models.CharField(max_length=255)
     # arcv_dispatch = models.BooleanField(default=False) #Neccassary?
     # arcv_dispatch_personnel = models.CharField(max_length=50, blank=True)
