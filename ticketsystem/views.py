@@ -25,10 +25,10 @@ class UserPermissonMixin(PermissionRequiredMixin):
             return HttpResponseRedirect('/tickets/')
         return super(UserPermissonMixin, self).dispatch(request, *args, **kwargs)
 
-class TicketSystemHome(LoginRequiredMixin, TemplateView):
+class TicketSystemHome(LoginRequiredMixin, ListView):
     template_name = 'ticketsystem/tickets.html'
     model = SubscriberTicket
-    context_name = 'tickets'
+    context_object_name = 'ticket_list'
 
 class TicketSystemCreate(LoginRequiredMixin, SuccessMessageMixin, FormView):
 

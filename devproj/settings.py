@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['www.isics.info','isics.info']
 INSTALLED_APPS = [
     'alarm.apps.AlarmConfig',
     'base.apps.BaseConfig',
+    'generator.apps.GeneratorConfig',
     'isicsapplicant.apps.IsicsapplicantConfig',
     'pointofcontact.apps.PointofcontactConfig',
     'servicecall.apps.ServicecallConfig',
@@ -78,6 +79,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'devproj.wsgi.application'
 
@@ -178,11 +180,12 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
-CSRF_COOKIE_DOMAIN = ".isics.info"
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDER_PROTO","https")
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#CSRF_COOKIE_DOMAIN = ".isics.info"
+##SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDER_PROTO","https")
 #SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -193,7 +196,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 ### MAKE SURE TO CORRECT BEFORE LOGIN PAGE
-
 
 LOGIN_REDIRECT_URL = 'base:home-page' # Go to index homepage after successful login
 LOGIN_URL = 'base:login'  # Redirects to Login Screen home page

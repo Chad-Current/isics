@@ -75,13 +75,13 @@
 </div>
 {% endif %}
   {% if not messages %}
-  {% if object_list %}
+  {% if poc %}
   <div class='container'>
       <div class='headspace'>
         <div class='container-centered'>
-         <h3 class="title">{{ object_list.count }}&nbsp&nbspRecords returned</h3>
+         <h3 class="title">{{ poc.count }}&nbsp&nbspRecords returned</h3>
        </div>
-         {% for item in object_list %}
+         {% for item in poc %}
          <ul class="forms">
            <li><h3>{% if item.county != 'NA' %}{{ item.county }}&nbspCounty{% endif %}</h3></li>
            <li><h3>{% if item.job_title != 'NA' %}{{ item.job_title }}&nbsp&nbsp{% endif %}{{ item.name }}</h3></li>

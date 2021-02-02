@@ -37,51 +37,54 @@
       <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
     </div>
   </div>
-  <hr></hr>
+<hr></hr>
   {% endblock main %}
     {% block sub_one %}
     <div class='container min-headspace'>
-      <div class="container-row">
-        {% for alarm in alarms %}
-          <div class=''>
-            <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
-            <ul>
-              <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</li>
-              <li><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_identity }}</li>
-              <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</li>
-              <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</li>
-              <li><hr></li>
-              <li><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='ticket-link'>History<a/>
-              <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='ticket-link'>Update</a>
-              {% if perms.alarm.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='ticket-link'>Close Ticket</a>{% endif %}</li>
-             </ul>
-           </a>
-           </div>
-        {% endfor %}
-        </div>
-      </div>
-        <hr></hr>
-      <div class="container-row">
-        <div>
-        {% if page_obj.has_previous %}
-          <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
-          {% else %}
-          <a class="nav-link nav-link-disabled"><< Previous</a>
-        {% endif %}
-      </div>
-      <div>
-        {% if page_obj.has_next %}
-          <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
-          {% else %}
-          <a class="nav-link nav-link-disabled">Next >></a>
-        {% endif %}
-        </div>
-      </div>
+      <table class='table table-bordered'>
+	<thead>
+	  <tr class='orange'>
+	    <th style='width:35px;'>Site</th>
+	    <th style='width:35px;'>Alarm</th>
+	    <th style='width:35px;'>Date</th>
+	    <th style='width:35px;'>Time Stamp</th>
+	    <th style='width:35px;'>History</th>
+	    {% if perms.alarm.change_alarm %}
+	    <th style='width:35px;'>Update</th>
+	    {% endif %}
+	    {% if perms.alarm_archive.view_alarm_archive %}
+	    <th style='width:35px;'>Close</th>
+	    {% endif %}
+	  </tr>
+	</thead>
+	<tbody>
+	    {% for alarm in alarms %}
+	     <tr>
+	       <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
+              <td>{{alarm.site_name}}</td>
+              <td>{{alarm.alarm}}</td>
+	      <td>{{alarm.alarm_date}}</td>
+	      <td>{{alarm.time_stamp}}</td>
+     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='ticket-link'>History</a></td>
+	        </a>
+	      {% if perms.alarm.change_alarm %}
+ 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='ticket-link'>Update</a></td>
+	      {% endif %}
+	      {% if perms.alarm_archive.view_alarm_archive %}
+	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='ticket-link'>Close</a></td>
+	      {% endif %}
+	  </tr>
+	   {% endfor %}
+	 </tbody>
+	</table>
+    </div>
+
       <div class='container-row'>
         <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
-        {% if perms.alarm_archive.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Alarm archive page</a>{% endif %}
+        {% if perms.alarm.view_alarm %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
         <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
       </div>
+
     {% endblock sub_one %}
 
     {% block sub_two %}

@@ -5,7 +5,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 3px;
+  width: 5px;
 }
 
 body::-webkit-scrollbar-track {
@@ -13,7 +13,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #FAFAFA;
+  background: orange;
 }
 
 html {
@@ -81,7 +81,7 @@ h5 {
   color: white;
 }
 
- a {
+a {
    text-decoration: none;
    cursor: pointer;
  }
@@ -106,20 +106,32 @@ h5 {
    text-align: center;
  }
 
+tr { 
+   border: none;
+   }
+
+tr:hover {
+   background: #050505;
+   font-color: #FAFAFA;
+}
+
 th {
    color: #FAFAFA;
    font-family: 'Lora';
-   border-top: solid 1px white;
-   padding: 1em;
- }
+   font-size: 1.5rem;
+   position: sticky;
+   top: 0;
+}
+
 
 td {
   color: #FAFAFA;
   font-family: 'Lora';
-  font-size: 1.75rem;
+  font-size: 1.35rem;
   padding: 1em;
   margin:0;
 }
+
 
 button {
   margin-top: 2rem;
@@ -141,11 +153,6 @@ button:hover {
   transition-duration: 350ms;
   background-color: white;
   color: black;
-}
-
-label {
-  /* padding-left: 1em; */
-  /* top:0; */
 }
 
 img {
@@ -181,8 +188,9 @@ input {
   font-family: 'Lobster';
   font-weight: 900;
   cursor: pointer;
-  /* width: 18em; */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  height: 2.5em;
+  width: 18em; 
+/*  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); */
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -192,6 +200,8 @@ input:focus {
 
 table {
   table-layout: fixed;
+  position: relative;
+  background: rgba(30,80,96,0.8);
 }
 
 select {
@@ -211,10 +221,35 @@ strong {
   color:red;
 }
 
+sup {
+  font-size: 1.5rem;
+  color: #FAFAFA;
+}
 
 tag {
   font-size: 2rem;
   color:orange;
+}
+
+.label {
+  font-size: 2.0rem;
+  color: #FAFAFA;
+  margin:0em 0em 1em 0em;
+  padding:0;
+}
+
+.error {
+  font-size: 2rem;
+  color: red;
+  margin:0;
+  padding:0;
+}
+
+.help-text p{
+  font-size: 1.5rem;
+  color: orange;
+  margin:0;
+  padding:0;
 }
 
 .image-large {
@@ -316,20 +351,18 @@ tag {
 }
 
 .form_homepage {
-  margin: 1em 5em;
+  margin: 1em 3em;
   padding: 0em;
-  min-width: 25em;
-  min-height: 20em;
-  max-width: 25em;
-  max-height: 20em;
+  height: 25em;
+  width: 25em;
   overflow: auto;
   border: solid 5px #FAFAFA;
   border-radius: 5px;
   box-shadow: -1rem 0rem 3rem #050505;
 }
 
-.form_homepage ul li {
-  padding:0;
+.form_homepage ul, li {
+  padding: 0.5em 0.25em 0em 0.5em;
   margin:0;
   color: #FAFAFA;
 }
@@ -467,9 +500,13 @@ tag {
 }
 
 .login-form {
-  display: flex;
-  justify-content: space-around;
-  align-content: flex-start;
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content:center;
+  align-items:center;
+  padding:2em;
+  border: solid 10px #FAFAFA;
+  border-radius: 5px;
 }
 
 .table-space-max {
@@ -574,6 +611,14 @@ tag {
   padding: 1rem;
 }
 
+.container-row-between {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content:space-between;
+  align-items:center;
+  padding: 1rem;
+}
+
 .container-column {
   display: flex;
   flex-flow: column;
@@ -611,6 +656,14 @@ tag {
   height: 75vh;
 }
 
+.container-form {
+  display:flex;
+  flex-flow:column nowrap;
+  justify-content:flex-start;
+  align-items:flex-start;
+  padding:0;
+  margin:0;
+}
 
 .ticketgination {
   display: flex;
@@ -650,13 +703,12 @@ tag {
 .container-top-nav {
   display: flex;
   flex-flow: row wrap;
-  /* align-content: space-around; */
   margin: 0em;
   padding: 1em 0em;
 }
 
 .container-top-nav a {
-  padding: 0em 1em 0em 1em;
+  padding: 0em 1.25em 0em 1.25em;
 }
 
 .sticky {
@@ -696,12 +748,10 @@ tag {
 }
 
 .side-navbar {
-   width: 6rem;
+   width: 9rem;
    height: 100vh;
    position: fixed;
    background: #050505;
-   /* border-left: solid 5px #022140; */
-   /* border-right: solid 3px #022140; */
    transition: width 350ms ease;
    z-index: 1;
  }
@@ -1096,8 +1146,9 @@ tag {
   border-radius: 10px;
   box-shadow: -2rem 0rem 5rem #050505;
   padding: 1.5em;
-  min-width: 20em;
+  min-width: 50em;
 }
+
 /* TICKET CSS */
 .accordion {
   /* background-image: linear-gradient(to top, #DDD,  #FFF); */
@@ -1138,11 +1189,14 @@ tag {
 /* END TICKET CSS */
 
 #clock {
-  font-size: 1.75rem;
+  font-size: 1em;
+  font-family: 'Lobster';
+  font-weight: 700;
   text-align: center;
   padding: 0;
   margin:0;
   color: #FAFAFA;
+  background: #265060;
   border: solid 2px orange;
   border-radius: 5px;
 
@@ -1152,7 +1206,7 @@ tag {
   padding:0;
   margin: 0;
   font-size: 1.5rem;
-  font-family: 'Arimo';
+  font-family: 'Lobster';
 }
 
 .blinking {
@@ -1284,7 +1338,7 @@ tag {
   top: 50px;
   left: 150px;
   /* margin:auto; */
-  z-index: 1;
+  z-index: -1;
   text-shadow: -2px 3px 1px #050505;
 }
 
@@ -1296,11 +1350,21 @@ tag {
   font-size: 4rem;
   position: absolute;
   top: 0px;
-  z-index: 1;
+  z-index: -1;
   text-shadow: -2px 3px 1px #050505;
 }
 
 .
 .hide {
 display: none;
+}
+
+tr.yellow th{
+  background: yellow;
+  color: black;
+}
+
+tr.orange th{
+  background: orange;
+  color: black;
 }

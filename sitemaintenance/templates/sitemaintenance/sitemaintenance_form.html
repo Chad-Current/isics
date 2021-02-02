@@ -24,32 +24,30 @@
         <div class='container-centered headspace'>
           <h1 class='title'>EMAIL AFFECTED SYSTEM USERS</h1>
         </div>
-            <div class='container-centered headspace '>
-              <form action='' method="post" >
+	<div class='forms_2'>
+              <form action='' method="post" class='container-form'>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                        {% if field.help_text %}
-                          <sup>{{ field.help_text }}</sup>
-                          {% endif %}
-                          {% for error in field.errors %}
-                           <div class="row">
-                             <div class="alert alert-danger">{{error}}</div>
-                           </div>
-                          {% endfor %}
-                       </div><div class="col-lg-6 pull-left">
-                         <p class='field smallspace'>{{ field }}</p>
-                       </div>
-                    </div>
-                  {% endfor %}
-                  <div class='container-centered headspace'>
+			{% for field in form %}
+		<ul>
+			<li>
+			<div class=''>
+				<div class='label'>{{ field.label_tag }}</div>
+				<div>{{ field }}</div>
+			</div>
+			</li>
+			<li>
+				{% if field.help_text %}
+				<div>{{ field.help_text }}</div>
+				{% endif %}
+			</li>
+		</ul>
+			{% endfor %}
+		<div class='container-row'>
                   <button type="submit">Save</button>
-                </div>
+		</div>
             </form>
-            </div>
-            <a href="{% url 'sitemaintenance:site-maintenance-email-listing-page' %}" class='headspace nav-link'>( GO TO SENT EMAILS )</a>
+	</div>
+         <a href="{% url 'sitemaintenance:site-maintenance-email-listing-page' %}" class='headspace nav-link'>( GO TO SENT EMAILS )</a>
             <hr></hr>
           </div>
 

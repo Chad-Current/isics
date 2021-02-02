@@ -5,28 +5,35 @@ from django.views import generic
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Site
+from towersite.models import Site
 
 
-class TowerSiteHome(LoginRequiredMixin, TemplateView):
+class TowerSiteHome(LoginRequiredMixin, ListView):
+    model = Site 
     template_name = 'towersite/tower.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['towers'] = Site.objects.all()
+        return context
 
 class TowerSiteResults(LoginRequiredMixin, ListView):
     model = Site
     template_name = 'towersite/tower.html'
+    context_object_name = 'tower_list'
 
     def get_queryset(self):
 
         if self.request.GET.get('site_name'):
             query = self.request.GET.get('site_name')
-            object_list = Site.objects.filter(site_name__istartswith=query).order_by('site_name', 'state_owned')
-            if not object_list:
+            tower_list = Site.objects.filter(site_name__istartswith=query).order_by('site_name', 'state_owned')
+            if not tower_list:
                 messages.warning(self.request, 'No Results Found')
-            return object_list
+            return tower_list
 
         elif self.request.GET.get('site_id'):
             query = self.request.GET.get('site_id')
-            object_list = Site.objects.filter(site_id__iexact=query).order_by('site_name', 'state_owned')
-            if not object_list:
+            tower_list = Site.objects.filter(site_id__iexact=query).order_by('site_name', 'state_owned')
+            if not tower_list:
                 messages.warning(self.request, 'No Results Found')
-            return object_list
+            return tower_list

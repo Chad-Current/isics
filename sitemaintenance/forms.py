@@ -6,7 +6,7 @@ TOWER_CHOICES = [
 ('ADAMS', 'ADAMS'),
 ('ALBIA', 'ALBIA'),
 ('ALLAMAKEE', 'ALLAMAKEE'),
-('AMES AREA CELL ', 'AMES AREA CELL '),
+('AMES AREA CELL', 'AMES AREA CELL'),
 ('APPANOOSE', 'APPANOOSE'),
 ('ATLANTIC', 'ATLANTIC'),
 ('BEAVERDALE', 'BEAVERDALE'),
@@ -17,8 +17,8 @@ TOWER_CHOICES = [
 ('CHEROKEE', 'CHEROKEE'),
 ('CLAYTON', 'CLAYTON'),
 ('CNCIL BLFFS CELL', 'CNCIL BLFFS CELL'),
-('CR_CELL', 'CR_CELL'),
-('Dallas ', 'DALLAS '),
+('CR CELL', 'CR CELL'),
+('dallas ', 'DALLAS '),
 ('DAVIS ATC', 'DAVIS ATC'),
 ('DBQ AREA CELL', 'DBQ AREA CELL'),
 ('DENISON', 'DENISON'),
@@ -27,13 +27,13 @@ TOWER_CHOICES = [
 ('FAIRFIELD', 'FAIRFIELD'),
 ('FAYETTE', 'FAYETTE'),
 ('FRANKLIN', 'FRANKLIN'),
-('Fremont-hamburg', 'FREMONT HAMBURG'),
+('FREMONT', 'FREMONT'),
 ('FORT DODGE', 'FORT DODGE'),
-('Hamilton', 'HAMILTON'),
+('hamilton', 'HAMILTON'),
 ('HARDIN', 'HARDIN'),
 ('HARRISON', 'HARRISON'),
 ('HOOPER', 'HOOPER'),
-('Humboldt', 'HUMBOLDT'),
+('humboldt', 'HUMBOLDT'),
 ('IOWA', 'IOWA'),
 ('JACKSON', 'JACKSON'),
 ('JONES', 'JONES'),
@@ -51,13 +51,13 @@ TOWER_CHOICES = [
 ('MARION', 'MARION'),
 ('MARSHALL', 'MARSHALL'),
 ('MASON CITY', 'MASON CITY'),
-('Mills expansion', 'MILLS EXPANSION'),
+('mills expansion', 'MILLS EXPANSION'),
 ('MONONA', 'MONONA'),
-('Montgomery', 'MONTGOMERY'),
+('montgomery', 'MONTGOMERY'),
 ('NEWTON', 'NEWTON'),
 ('OBRIEN', 'OBRIEN'),
 ('PAGE CELL', 'PAGE CELL'),
-('Page-bradyville', 'PAGE-BRADYVILLE'),
+('page-bradyville', 'PAGE-BRADYVILLE'),
 ('PLYMOUTH', 'PLYMOUTH'),
 ('RINGGOLD', 'RINGGOLD'),
 ('SCOTT CELL', 'SCOTT CELL'),
@@ -65,16 +65,22 @@ TOWER_CHOICES = [
 ('SPRINGBROOK', 'SPRINGBROOK'),
 ('STORM LAKE', 'STORM LAKE'),
 ('TAMA', 'TAMA'),
-('UNION', 'UNION'),
+('union', 'UNION'),
 ('VAN WERT', 'VAN WERT'),
 ('WATERLOO CELL', 'WATERLOO CELL'),
 ('WESTCOM CELL', 'WESTCOM CELL'),
 ('WINNEBAGO', 'WINNEBAGO'),
 ('WOODBURY CELL', 'WOODBURY CELL'),
-('WORTH', 'WORTH'),
-('WRIGHT', 'WRIGHT'),
+('worth', 'WORTH'),
+('wright', 'WRIGHT'),
 ('ZWINGLE', 'ZWINGLE'),
-('FREMONT', 'FREMONT')
+('REGION 1', 'REGION 1'),
+('REGION 2', 'REGION 2'),
+('REGION 3', 'REGION 3'),
+('REGION 4', 'REGION 4'),
+('REGION 5', 'REGION 5'),
+('REGION 6', 'REGION 6'),
+('STATE WIDE', 'STATE WIDE'),
 ]
 
 MAINTENANCE_FIELDS = [
@@ -88,7 +94,7 @@ MAINTENANCE_FIELDS = [
 class EmailForm(forms.Form):
     tower_cell = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
     subject = forms.CharField(widget=forms.Select(choices=MAINTENANCE_FIELDS))
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(widget=forms.Textarea(attrs={'style':'height:15em;width:20em;'}))
 
 class EmailActivationForm(forms.ModelForm):
     class Meta:

@@ -13,6 +13,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse, reverse_lazy
 from django.views import generic
+from django.contrib.auth.models import User
+from datetime import datetime as dt
 from .models import Notam
 from .forms import NotamForm
 
@@ -29,17 +31,28 @@ class UserPermissonMixin(PermissionRequiredMixin):
 class NotamHome(TemplateView):
     template_name = 'notam/notam_home.html'
 
-class NotamCreate(CreateView):
+class NotamCreate(FormView):
     raise_exception = False
     permission_required = 'notam.change_notam'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'notam/'
 
-    model = Notam
-    fields = '__all__'
+    form_class = NotamForm
+#    model = Notam
+#    fields = '__all__'
     template_name = 'notam/notam_create.html'
     success_url = reverse_lazy('notam:notam-home')
+
+    def form_valid(self, form):
+        self.site_name = form.cleaned_data['site_name']
+        try:
+            Notam.objects.create(site_name=self.site_name, date=dt.now(tz=None), user_id=self.request.user.id)
+        except TypeError as e:
+            print('None value',e)
+        return super().form_valid(form)
+
+
 
 class NotamUpdate(UpdateView):
     raise_exception = False
@@ -88,6 +101,8 @@ class NotamAll(ListView):
     model = Notam
     fields = '__all__'
     template_name = 'notam/notam_list.html'
-    paginate_by = 2
+#    paginate_by = 2
     context_object_name = 'notams'
     ordering = ['-date']
+
+

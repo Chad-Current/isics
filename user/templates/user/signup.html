@@ -19,41 +19,38 @@
     <div class='container-centered '>
       <h1 class='title'>Sign up Form</h1>
       <p style='color:#FAFAFA;font-size:1.75rem;' class='min-headspace'>Only <strong>AUTHORIZED</strong> state employees will be granted access to this site</p>
+	
       {% if messages %}
-      <ul class='messages'>
-      {% for message in messages %}
-      <li style='color:red;font-size:2.5rem;border:solid 1px white;border-radius:5px;padding:1em;background:black;'>{{ message }}</li>
-      {% endfor %}
-      </ul>
+       <ul>
+        {% for message in messages %}
+         <li class='errors'>{{ message }}</li>
+        {% endfor %}
+       </ul>
       {% endif %}
-      <div class='container headspace boxed'>
-        <form action='' method="post" >
-          {% csrf_token %}
-          {% for field in form %}
-              <div class="row">
-                <div class="col-lg-6">
-                  <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                  {% if field.help_text %}
-                    <p style="color: #FAFAFA;">{{ field.help_text }}</p>
-                  {% endif %}
-                    {% for error in field.errors %}
-                     <div class="row">
-                       <div style='margin-left:5em;'class="alert alert-danger" >{{error}}</div>
-                     </div>
-                    {% endfor %}
-                 </div>
-                 <div class="col-lg-6 container-centered">
-                   <p class='field smallspace'>{{ field }}</p>
-                 </div>
-              </div>
-            {% endfor %}
-            <div class='container-centered headspace'>
-            <button type="submit">Sign Up</button>
-          </div>
-      </form>
+      
+       <form method='POST' class='boxed headspace'>
+	     
+	{% csrf_token %}
+	<p><strong>{{ form.email.errors }}</strong></p>
+	<p><strong>{{ form.password1.errors }}</strong></p>
+	<p><strong>{{ form.password2.errors }}</strong></p>
+	<ul>
+	{% for field in form %}
+	<li>
+	<div class='container-row-between'>
+		<div class='label'>{{ field.label }}</div>
+		<div>{{ field }}</div>
+	</div>
+	  <li class='help-text'><p style="padding-left:1em;">{{ field.help_text|wordwrap:80|linebreaksbr }}<p></li>
+	{% endfor %}
+	</ul>
+	    <div class='container-centered headspace'>
+             <button type="submit">Sign Up</button>
+	    </div> 
+	</form> 
+
       </div>
     </div>
-  </div>
   <div class='footer'>
   </div>
     {% endblock main %}

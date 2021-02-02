@@ -93,6 +93,13 @@
             <span class='side-link-text'>Profile</span>
           </a>
         </li>
+	<li class='side-nav-item'>
+	  <a href="{% url 'generator:generator-home' %}" class='side-nav-link'>
+		  <i class='fas fa-cogs'></i>
+		  <span class='side-link-text'>Generators</span>
+		</a>
+	</li>
+	
 	{% if perms.emailto.view_email %}
         {% if email_request %}
        <li class='side-nav-item-envelope'>
@@ -118,7 +125,9 @@
 <div class='container-centered'>
   <div class='container-row'>
     <div class='container-centered'>
-      <h3 class='forms_homepage_tag'>{{alarms.count}}&nbsp&nbspAlarms</h3>
+	    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>	
+		    <h3 class='forms_homepage_tag'>{{alarms.count}}&nbsp&nbspAlarms</h3>
+            </a>
       <div class='form_homepage'>
         {% if alarms %}
         {% for alarm in alarms %}
@@ -142,7 +151,7 @@
             <ul class='min-headspace'>
               <a href="{% url 'ticketsystem:ticket-system-read-page' ticket.id %}" class='nav-link'>
               <li><tag>Badge</tag>&nbsp&nbsp{{ ticket.badge_identifier }}</li>
-              <li><tag>Description</tag>&nbsp&nbsp{{ ticket.desc_issue}}</li>
+              <li><tag>Description</tag>&nbsp&nbsp{{ ticket.desc_issue }}</li>
               </a>
               <br>
             </ul>
@@ -201,7 +210,7 @@
   <div class='container-right'>
   <div class='sticky-timer'>
     <ul>
-      <li><p class='timer'>SESSION EXPIRE<a href="{% url 'base:home-page-secret' %}" style="color:orange;text-decoration:none">S</a></p></li>
+      <li><p class='timer'>SESSION EXPIRE<a href="{% url 'home:home-page-secret' %}" style="color:orange;text-decoration:none">S</a></p></li>
       <li><div id='clock'>8:10:45</div></li>
     </ul>
   </div>
@@ -241,6 +250,8 @@ function countdown( elementName, minutes, seconds )
 }
 
 countdown( "clock", 30, 0 );
+
+
 </script>
 
 

@@ -21,6 +21,7 @@
   {% block main %}
   <div class='container-centered'>
     <h1 class='title text-shadow min-headspace'>Tower site search</h1>
+    <a href="{% url 'tower-site:tower-site-page' %}" class='sub-nav-link'>Display all tower sites</a>
   </div>
 
   <div class='container'>
@@ -48,7 +49,7 @@
     </div>
    </div>
   </div>
-
+ 
   {% if messages %}
   <div class='container-centered'>
   <ul class="headspace">
@@ -58,25 +59,64 @@
   </ul>
   </div>
   {% endif %}
-    {% if not messages %}
-    {% if object_list %}
-      <div class='container'>
-        <div class='headspace'>
-           {% for item in object_list %}
-           <ul class="forms">
-             <li><h3>{% if item.site_name %}Site Name: &nbsp&nbsp {{ item.site_name }}{% endif %}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{% if item.state_owned == False %}Non-State Owned{% endif %}</h3></li>
-             <li><h3>{% if item.site_id %}Site ID: &nbsp&nbsp {{ item.site_id }}{% endif %}</h3></li>
-             <li><h3>{% if item.site_location %}911 Address: &nbsp&nbsp {{ item.site_location }}{% endif %}</h3></li>
-             <li><h3>{% if item.site_asr %}ASR: &nbsp&nbsp {{ item.site_asr }}{% endif %}</h3></li>
-           </ul>
-           {% endfor %}
+
+  {% if tower_list %}
+   <div class='container headspace'>
+        <table class='table table-bordered'>
+		<thead>
+			<tr class='orange'>
+				<th style='width:30px;'>ID</th>
+				<th style='width:100px;'>Site</th>
+				<th style='width:250px;'>911 Address</th>
+				<th style='width:100px;'>ASR</th>
+				<th style='width:50px;'>State owned</th>
+			</tr>
+		</thead>
+		<tbody>
+		  {% for tower in tower_list %}
+		        <tr>
+				<td>{{ tower.site_id }}</td>
+				<td>{{ tower.site_name }}</td>
+				<td>{{ tower.site_location }}</td>
+				<td>{{ tower.site_asr }}</td>
+				<td>{{ tower.state_owned|yesno:'Yes,No' }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+     </div>
+   {% endif %}
+
+   {% if towers %}   
+   <div class='container headspace'>
+	     <table class='table table-bordered'>
+	      <thead>
+	       <tr class='orange'>
+		 <th style='width:30px;'>ID</th>
+		 <th style='width:100px;'>Site</th>
+		 <th style='width:250px;'>911 Address</th>
+		 <th style='width:100px;'>ASR</th>
+		 <th style='width:50px;'>State owned</th>
+	       </tr>
+	      </thead>
+	      <tbody>
+	      {% for item in towers %}
+	       <tr>
+                   <td>{{ item.site_id }}</td>
+		   <td>{{ item.site_name }}</td>
+		   <td>{{ item.site_location }}</td>
+		   <td>{{ item.site_asr }}</td>
+		   <td>{{ item.state_owned|yesno:'Yes,No' }}</td>
+		</tr>
+		{% endfor %}
+	       </tbody>
+	     </table>
          </div>
-       </div>
-           {% endif %}
-           {% endif %}
-       </div>
+       {% endif %}
+
        <div class='footer'>
        </div>
+  </div>
   {% endblock %}
 
 

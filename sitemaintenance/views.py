@@ -50,7 +50,7 @@ class EmailHome(UserPermissonMixin, FormView):
         ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
         self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
         site = Sitemaintenance.objects.get(tower_cell=self.tower_cell) #GET ASSOCIATION COUNTY NAMES
-        object_list = EmailTo.objects.filter(county__in=site.tower_assoc, is_active=False)# USING tower_assoc to find emailto Personnel
+        object_list = EmailTo.objects.filter(county__in=site.tower_assoc, is_active=True)# USING tower_assoc to find emailto Personnel
         self.contact_list = []
         try:
             for i in range(len(object_list.values_list())):

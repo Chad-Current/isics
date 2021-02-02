@@ -27,43 +27,32 @@
 
 
   {% block sub_one %}
-  <div class='container-centered'>
-  <div class='container-centered-middle headspace'>
-    <table>
+  <div class='container headspace'>
+    <table class='table table-bordered'>
      <thead>
-      <tr>
-       <td><tag>Site name</tag></td>
-       <td><tag>Alarm</tag></td>
-       <td><tag>Date</tag></td>
+      <tr class='orange'>
+       <th style='width:35px;'>Site name</th>
+       <th style='width:35px;'>Alarm</th>
+       <th style='width:35px;'>Date</th>
       </tr>
      </thead>
      <tbody>
      {% for alarm in alarm_object %}
       <tr>
        <td>{{ alarm.site_name }}</td>
-       <td>{{ alarm.alarm|wordwrap:60|linebreaks }}</td>
+       <td>{{ alarm.alarm }}</td>
        <td>{{ alarm.time_stamp|date:'Y-m-d' }}</td>
       </tr>
       {% endfor %}
      </tbody>
     </table>
-   
-    <table>
-     <thead>
-      <tr>
-       <td><tag>Comments</tag></td>
-      </tr>
-     </thead>
-      <tbody>
-        {% for alarm in alarm_history %}
-	<tr> 
-         <td>{{ alarm.comments|wordwrap:40|linebreaksbr }}</td>
-	</tr>
-	{% endfor %}
-      </tbody>
-    </table>
+     <div>
+	{% for alarm in alarm_history %}
+	<sup> {{ alarm.time_stamp|date:'Y-m-d H:i' }}<br>{{ alarm.comments|wordwrap:40|linebreaksbr }}</sup>
+	<hr></hr>
+        {% endfor %}
+       </div>
    </div>
-  </div>
   <div class='container-centered'>
    <a href="{% url 'alarm-check:alarm-update' alarm.id %}" class='abtn'>Add comment</a>
   </div>

@@ -37,11 +37,52 @@
     </ul>
     {% endif %}
   </div>
+  <hr></hr>
   {% endblock sub_one %}
   {% block sub_two %}
-  <div class='footer'>
+  {% if ticket_list %}
+  <div class='container headspace'>
+      <table class='table table-bordered'>
+	  <thead>
+		  <tr class='orange'>
+			  <th style='width:15px;'>Badge</th>
+			  <th style='width:35px;'>Location</th>
+			  <th style='width:35px;'>Talk group</th>
+			  <th style='width:10px;'>RSSI</th>
+			  <th style='width:10px;'>Mobile</th>
+			  <th style='width:10px;'>Portble</th>
+			  <th style='width:75px;'>Description of issue</th>
+			  <th style='width:25px;'>Resolved</th>
+			  <th style='width:35px;'>Time Stamp</th>
+		  </tr>
+	  </thead>
+	  <tbody>
+		  {% for ticket in ticket_list %}
+		  {% if ticket.issue_resolved == False %}
+		  <tr>
+			  <td><a href="{% url 'ticket-system:ticket-system-read-page' ticket.id %}" class='mini-nav-link'>{{ ticket.badge_identifier }}</a></td>
+		   <td>{{ ticket.location }}</td>
+		   <td>{{ ticket.talkgroup_assoc }}</td>
+		   <td>{{ ticket.rssi }}</td>
+		   <td>{{ ticket.mobile|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.portable|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.desc_issue }}</td>
+		   <td>{{ ticket.issue_resolved|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>
+		  </tr>
+		  {% endif %}
+		  {% endfor %}
+	  </tbody>
+  </table>
+
+   {% endif %}
   </div>
-  {% endblock sub_two %}
+
+<div class='footer'>
+</div>
+{% endblock sub_two %}
+
+
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

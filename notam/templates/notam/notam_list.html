@@ -15,13 +15,30 @@
 </head>
 
 <body>
-  {% block main %}
+  {% block sub_two %}
+     <div class='container'>
+	<table class='table table-bordered headspace'>
+		<thead>
+			<tr class='orange'>
+				<th>Date</th>
+				<th>Site</th>
+				<th>Submitted by</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for notam in notams %}
+			<tr>
+				<td>{{ notam.date|date:'Y-m-d H:i' }}</td>
+				<td>{{ notam.site_name }}</td>
+				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+   </div>
+  {% endblock sub_two %}
 
-  {% endblock main %}
 
-  {% block sub_one %}
-
-  {% endblock sub_one %}
 
 
 </body>

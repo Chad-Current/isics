@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from base import views as base_views
 from django.conf import settings
+from django.conf.urls import handler404, handler500
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -31,14 +33,17 @@ urlpatterns = [
     path('', include('user.urls', namespace='user')),
     path('alarm/', include('alarm.urls', namespace='alarm-check')),
     path('', include('isicsapplicant.urls', namespace='isics-applicant')),
-    path('', include('pointofcontact.urls', namespace='point-of-contant')),
+    path('pointofcontact/', include('pointofcontact.urls', namespace='point-of-contant')),
     path('servicecall/', include('servicecall.urls', namespace='service-call')),
     path('tickets/', include('ticketsystem.urls', namespace='ticket-system')),
-    path('', include('towersite.urls', namespace='tower-site')),
+    path('towersite/', include('towersite.urls', namespace='tower-site')),
     path('', include('sitemaintenance.urls', namespace='site-maintenance')),
     path('', include('suggestion.urls', namespace='suggestion')),
     path('', include('notam.urls', namespace='notam')),
+    path('generator/', include('generator.urls', namespace='genertor')),
 ]
+
+handler500 = base_views.error_500
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

@@ -57,7 +57,7 @@ class Activate(TemplateView):
             return redirect('home:login')
 
 
-class Signup(TemplateView):
+class Signup(FormView):
     form_class = SignUpForm
     template_name = 'user/signup.html'
     
@@ -91,6 +91,4 @@ class Signup(TemplateView):
             user.email_user(subject, message, 'admin@isics.info', auth_user=settings.EMAIL_HOST_USER, auth_password=settings.EMAIL_HOST_PASSWORD, fail_silently=False)
             return redirect('user:activation-sent')
         else:
-            messages.error(request, f'Username or Email already exist!')
-            form = SignUpForm()
-        return render(request, 'user/signup.html', {'form': form})
+            return render(request, 'user/signup.html', {'form': form})
