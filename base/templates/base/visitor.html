@@ -16,38 +16,25 @@
 
 <body>
   {% block main %}
+        <div class='login-bar'>
+		<a href="{% url 'home:login' %}" class='nav-link'>Back to login</a>
+        </div>
   <div class='container-middle-align'>
-    <h1 class=' title min-headspace'>Site maintenance email request</h1>
-      <div class='headspace forms 'style='height:25em;'>
-        <form action='' method="post">
+    <p>If you wish to be notified when system maintenance or outages occurs in your area</p>
+    <p>please fill out the following form and once approved you will be added to the list</p>
+        <form action='' method="post" class='forms_2'>
           {% csrf_token %}
-          {% for field in form %}
-              <div class="row">
-                <div class='col-sm-4'>
-                  <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                  {% if field.help_text %}
-                    <sup>{{ field.help_text }}</sup>
-                    {% endif %}
-                    {% for error in field.errors %}
-                     <div class="row">
-                       <div class="alert alert-danger">{{error}}</div>
-                     </div>
-                    {% endfor %}
-                 </div>
-                 <div class='col-sm-6'>
-                   <p class='field smallspace'>{{ field }}</p>
-                 </div>
-              </div>
-            {% endfor %}
-            <div class='container-centered headspace'>
+		  <div class='label'>{{ form.name.label }}</div>
+		  <div>{{ form.name }}</div><br>
+	  	  <div class='label'>{{ form.county.label }}</div>
+		  <div>{{ form.county }}</div><br>
+		  <div class='label'>{{ form.email.label }}</div>
+		  <div>{{ form.email }}</div><br>
+	     <div class='container-centered'>
              <button type="submit">Subscribe</button>
             </div>
         </form>
-      </div>
-        <div class='container-centered headspace'>
-          <a href="{% url 'base:login' %}" class='sub-nav-link'>Back</a>
         </div>
-    </div>
 
 {% endblock %}
 

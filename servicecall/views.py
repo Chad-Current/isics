@@ -10,10 +10,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Q
-from .forms import TicketForm
+from .forms import TicketForm, TicketFormUpdate
 from .models import ServiceTicket
 from django.conf import settings
 from datetime import datetime
+from datetime import timedelta
 from dateutil import tz
 import pytz
 
@@ -60,10 +61,10 @@ class ServiceUpdate(UserPermissonMixin, UpdateView):
     login_url = '/'
     redirect_field_name = 'servicecall/'
 
-    model = ServiceTicket
-    fields = ['site_loc', 'alarm', 'issue']
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('servicecall:service-call-page')
+    model = ServiceTicket
+    form_class = TicketFormUpdate
+    success_url = reverse_lazy('servicecall:service-list')
 
 
 class ServiceDelete(UserPermissonMixin, DeleteView):
@@ -75,7 +76,7 @@ class ServiceDelete(UserPermissonMixin, DeleteView):
 
     model = ServiceTicket
     template_name_suffix = '_confirm_delete'
-    success_url = reverse_lazy('servicecall:service-call-page')
+    success_url = reverse_lazy('servicecall:service-list')
 
 
 class ServiceList(LoginRequiredMixin, ListView):

@@ -133,9 +133,9 @@ class TicketUpdateForm(forms.ModelForm):
     rssi = forms.IntegerField()
     mobile = forms.BooleanField(required=False)
     portable = forms.BooleanField(required=False)
-    desc_issue = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:25em;border-radius:5px;'}))
+    desc_issue = forms.CharField(widget=forms.Textarea(attrs={'style':'height:10em;width:20em;border-radius:5px;'}))
     issue_resolved = forms.BooleanField(required=False)
-    desc_resolve = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:25em;border-radius:5px;'}), required=False)
+    desc_resolve = forms.CharField(widget=forms.Textarea(attrs={'style':'height:10em;width:20em;border-radius:5px;'}), required=False)
 
     class Meta:
         model = SubscriberTicket

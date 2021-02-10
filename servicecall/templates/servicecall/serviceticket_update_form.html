@@ -19,41 +19,26 @@
       <div class='container-centered'>
       <div class='container-centered headspace'>
         <h1 class='title text-shadow'>Update service call ticket</h1>
-        <h3 class='title'>No.&nbsp&nbsp&nbsp&nbsp{{ object.ticketno}}</h3>
       </div>
-      <div class='container-centered'>
-      <div class='headspace forms'>
-          <form action="" method="post" >
+      <div class='boxed headspace'>
+          <form action="" method="post">
             {% csrf_token %}
             {% for field in form %}
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                    {% if field.help_text %}
-                      <sup>{{ field.help_text }}</sup>
-                      {% endif %}
-                      {% for error in field.errors %}
-                       <div class="row">
-                         <div class="alert alert-danger">{{error}}</div>
-                       </div>
-                      {% endfor %}
-                   </div>
-                     <div class="col-sm-7 pull-left">
-                      <p class='field smallspace'>{{ field }}</p>
-                     </div>
-                </div>
-              {% endfor %}
+		    <div class='container-row-between'>
+			    <div class='label'>{{ field.label }}</div>
+			    <div>{{ field }}</div>
+		    </div>
+             {% endfor %}
+	    <div class='container-centered'>
+		    <button type='submit'>Submit</button>
+	    </div>
         </form>
       </div>
     </div>
-  </div>
-  <div class='container-centered headspace'>
-    <button type="submit">Save</button>
-  </div>
   {% endblock main %}
   {% block sub_one %}
   <div class='container-row'>
-    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link min-headspace'>Alarm list page</a>
+    <a href="{% url 'service-call:service-list' %}" class='nav-link min-headspace'>Service ticket list page</a>
     <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home page</a>
   </div>
  {% endblock sub_one %}

@@ -54,13 +54,17 @@
 			  <th style='width:75px;'>Description of issue</th>
 			  <th style='width:25px;'>Resolved</th>
 			  <th style='width:35px;'>Time Stamp</th>
+			  {% if request.user.is_superuser %}
+			  <th style='width:10px;'>Update</th>
+			  <th style='width:10px;'>Delete</th>
+			  {% endif %}
 		  </tr>
 	  </thead>
 	  <tbody>
 		  {% for ticket in ticket_list %}
 		  {% if ticket.issue_resolved == False %}
 		  <tr>
-			  <td><a href="{% url 'ticket-system:ticket-system-read-page' ticket.id %}" class='mini-nav-link'>{{ ticket.badge_identifier }}</a></td>
+		   <td>{{ ticket.badge_identifier }}</td>
 		   <td>{{ ticket.location }}</td>
 		   <td>{{ ticket.talkgroup_assoc }}</td>
 		   <td>{{ ticket.rssi }}</td>
@@ -68,7 +72,11 @@
 		   <td>{{ ticket.portable|yesno:'Yes,No' }}</td>
 		   <td>{{ ticket.desc_issue }}</td>
 		   <td>{{ ticket.issue_resolved|yesno:'Yes,No' }}</td>
-		   <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>
+		   <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>i
+		   {% if request.user.is_superuser %}
+		   <td><a href="{% url 'ticket-system:ticket-system-update-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		   <td><a href="{% url 'ticket-system:ticket-system-delete-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		   {% endif %}
 		  </tr>
 		  {% endif %}
 		  {% endfor %}

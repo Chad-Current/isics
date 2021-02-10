@@ -9,11 +9,11 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: #050505;
+  background: orange;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: orange;
+  background: #050505;
 }
 
 html {
@@ -54,8 +54,7 @@ html {
 
  p {
    color: orange;
-   /* margin-left: 5rem; */
- }
+   font-size: 1.75rem; }
 
  h1 {
    color: white;
@@ -71,6 +70,7 @@ h3 {
 }
 
 h4 {
+  font-size: 2.5rem;
   font-family: 'Roboto';
   color: white;
 }
@@ -119,6 +119,7 @@ th {
    color: #FAFAFA;
    font-family: 'Lora';
    font-size: 1.5rem;
+   text-align:center;
    position: sticky;
    top: 0;
 }
@@ -128,6 +129,7 @@ td {
   color: #FAFAFA;
   font-family: 'Lora';
   font-size: 1.35rem;
+  text-align:center;
   padding: 1em;
   margin:0;
 }
@@ -258,8 +260,8 @@ tag {
 }
 
 .image-mid {
-  width: 30rem;
-  height: 30rem;
+  width: 35em;
+  height: 35em;
 }
 
 .image-small {
@@ -619,6 +621,14 @@ tag {
   padding: 1rem;
 }
 
+.container-row-around {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items;
+  padding: 1rem;
+} 
+ 
 .container-column {
   display: flex;
   flex-flow: column;
@@ -647,12 +657,19 @@ tag {
   justify-content: flex-end;
 }
 
+.container-centered-between {
+  display:flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .container-middle-align {
   display: flex;
-  flex-flow: column;
+  flex-flow: column nowrap;
   justify-content: center;
-  align-content: center;
   align-items: center;
+  width: 100vw;
   height: 75vh;
 }
 
@@ -899,9 +916,9 @@ tag {
 }
 
 .mini-nav-link {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-family: 'Lora';
-  color:white;
+  color: #FAFAFA;
   /* margin-left: 26rem; */
 }
 
@@ -1368,3 +1385,6 @@ tr.orange th{
   background: orange;
   color: black;
 }
+
+
+

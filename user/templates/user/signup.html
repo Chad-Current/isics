@@ -34,16 +34,14 @@
 	<p><strong>{{ form.email.errors }}</strong></p>
 	<p><strong>{{ form.password1.errors }}</strong></p>
 	<p><strong>{{ form.password2.errors }}</strong></p>
-	<ul>
 	{% for field in form %}
-	<li>
 	<div class='container-row-between'>
 		<div class='label'>{{ field.label }}</div>
 		<div>{{ field }}</div>
 	</div>
-	  <li class='help-text'><p style="padding-left:1em;">{{ field.help_text|wordwrap:80|linebreaksbr }}<p></li>
+	  <p style="padding-left:1em;" class='help-text'>{{ field.help_text|wordwrap:80|linebreaksbr }}<p>
 	{% endfor %}
-	</ul>
+
 	    <div class='container-centered headspace'>
              <button type="submit">Sign Up</button>
 	    </div> 

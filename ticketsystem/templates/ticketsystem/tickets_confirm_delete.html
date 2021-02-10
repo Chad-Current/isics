@@ -16,27 +16,22 @@
 
 <body>
   {% block main %}
-  <div class='container-centered'>
-    <h1 class='title'>Are you sure you want to delete?</h1>
-  </div>
   {% endblock main %}
   {% block sub_one %}
- <div class='container-centered'>
-  <div class='headspace boxed'>
-    <form action='' method="post" >
+ <div class='container-middle-align'>
+  <div class='container-centered headspace'>
+    <form action='' method="post">
       {% csrf_token %}
-        <ul>
-          <li><h4><tag>Badge:</tag>    {{ object.badge_identifier }}</h4></li>
-          <li><h4><tag>Location:</tag>   {{ object.location }}</h4></li>
-          <li><h4><tag>Talkgroup:</tag>    {{ object.talkgroup_assoc }}</h4></li>
-          <li><h4><tag>Mobile:</tag>   {{ object.mobile|yesno:'Yes,No' }}</h4></li>
-          <li><h4><tag>Portable:</tag>    {{ object.portable|yesno:'Yes,No' }}</h4></li>
-          <li><h4><tag>Description of issue:</tag>   {{ object.desc_issue }}</h4></li>
-          <li><h4><tag>Issue resolved:</tag>    {{ object.issue_resolve|yesno:'Yes,No' }}</h4></li>
+        <p>Badge&nbsp&nbsp&nbsp&nbsp{{ object.badge_identifier }}</p>
+	<p>Locations&nbsp&nbsp&nbsp&nbsp{{ object.location }}</p>
+	<p>Talkgroup&nbsp&nbsp&nbsp&nbsp{{ object.talkgroup_assoc }}</p>
+	<p>Mobile&nbsp&nbsp&nbsp&nbsp{{ object.mobile|yesno:'Yes,No' }}</p>
+	<p>Portable&nbsp&nbsp&nbsp&nbsp{{ object.portable|yesno:'Yes,No' }}</p>
+	<p>Description &nbsp&nbsp&nbsp&nbsp{{ object.desc_issue|wordwrap:60|linebreaksbr }}</p>
+	<p>Resolved &nbsp&nbsp&nbsp&nbsp {{ object.issue_resolve|yesno:'Yes,No' }}</p>
           {% if not object.desc_resolve == '' %}
-          <li><h4><tag>Description of resolution:</tag>    {{ object.desc_resolve }}</h4></li>
+        <p>Resolution&nbsp&nbsp&nbsp&nbsp{{ object.desc_resolve }}</p>
           {% endif %}
-        </ul>
         <div class='container-centered headspace'>
         <button type="submit" class='alert-delete'>Confirm deletion</button>
       </div>

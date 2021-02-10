@@ -11,11 +11,57 @@
   <link rel="stylesheet" media="screen and (max-width: 900px)" href="{% static 'base/css/smallscreen.css' %}">
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
   <title>Radio User Database</title>
+  <style>
+    .marquee   {
+	    position: relative;
+	    overflow: hidden;
+	    height: 24em;
+    }
+    .marquee > div {
+	    text-align:center;
+	    margin:0;
+	    line-height:40px;
+	    width: 100%;
+	    height: 100%;
+	    -moz-animation: marquee 7500ms linear infinite;
+	    -webkit-animation: marquee 7500ms linear infinite;
+	    animation: marquee 7500ms linear infinite;
+	}
+   	
+    @-moz-keyframes marquee {
+	    0% {
+		    transform: translateY(100%);
+		}
+	    100% { 
+		    transform: translateY(-100%);
+		 }
+    }
+    @-webkit-keyframes marquee {
+	    0% {
+		    transform: translateY(100%);
+		}
+	    100% { 
+		    transform: translateY(-100%);
+		 }
+    }
+
+    @keyframes marquee {
+	    0% {
+		    -moz-transform: translateY(100%);
+		    -webkit-transform: translateY(100%);
+		    transform: translateY(100%);
+		}		
+	   100% {
+		    -moz-transform: translateY(-100%);
+		    -webkit-transform: translateY(-100%);
+		    transform: translateY(-100%);
+		}
+    }
+  </style>
 
 </head>
 
 <body>
-
   {% block sidebar %}
     <nav class='side-navbar'>
       <ul class='side-navbar-nav'>
@@ -40,7 +86,7 @@
         <li class='side-nav-item'>
           <a href="{% url 'alarm-check:alarm-home' %}" class='side-nav-link'>
             <i class="fas fa-bell"></i>
-            <span class='side-link-text mobile'>Alarm</span>
+            <span class='side-link-text mobile'>Alarms</span>
           </a>
         </li>
         {% if perms.sitemaintenance.view_sitemaintenance %}
@@ -54,51 +100,33 @@
         <li class='side-nav-item'>
           <a href="{% url 'towersite:tower-site-page' %}" class='side-nav-link'>
             <i class="fas fa-broadcast-tower"></i>
-            <span class='side-link-text'>Site Ids</span>
+            <span class='side-link-text'>Tower sites</span>
           </a>
         </li>
         <li class='side-nav-item'>
           <a href="{% url 'pointofcontact:point-of-contact-page' %}" class='side-nav-link'>
             <i class="fas fa-users"></i>
-            <span class='side-link-text'>ISICS Point of Contact</span>
+            <span class='side-link-text'>Point of Contacts</span>
           </a>
         </li>
-<!--        {% if perms.applicants.view_isic_applicant %}
-        <li class='side-nav-item'>
-          <a href="{% url 'isicsapplicant:applicant-page' %}" class='side-nav-link'>
-            <i class="fas fa-poll"></i>
-            <span class='side-link-text'>ISICS Applicants</span>
-          </a>
-        </li>
-        {% endif %}
--->
-      {% if notam %}
-       <li class='side-nav-item'>
-          <a href="{% url 'notam:notam-home' %}" class='side-nav-link'>
-            <i class="far fa-lightbulb blinking "></i>
-            <span class='side-link-text'>{{ notam.count }}&nbspNotams</span>
-          </a>
-        </li>
-      {% else %}
       <li class='side-nav-item'>
         <a href="{% url 'notam:notam-home' %}" class='side-nav-link'>
           <i class="far fa-lightbulb"></i>
           <span class='side-link-text'>Notam</span>
         </a>
       </li>
-      {% endif %}
-       <li class='side-nav-item'>
-          <a href="{% url 'user:profile-page' %}" class='side-nav-link'>
-            <i class="far fa-user-circle"></i>
-            <span class='side-link-text'>Profile</span>
-          </a>
-        </li>
 	<li class='side-nav-item'>
 	  <a href="{% url 'generator:generator-home' %}" class='side-nav-link'>
 		  <i class='fas fa-cogs'></i>
 		  <span class='side-link-text'>Generators</span>
 		</a>
 	</li>
+       <li class='side-nav-item'>
+          <a href="{% url 'user:profile-page' %}" class='side-nav-link'>
+            <i class="far fa-user-circle"></i>
+            <span class='side-link-text'>Profile</span>
+          </a>
+        </li>
 	
 	{% if perms.emailto.view_email %}
         {% if email_request %}
@@ -122,7 +150,7 @@
 
 
   {% block main %}
-<div class='container-centered'>
+  <div class='container-centered'>
   <div class='container-row'>
     <div class='container-centered'>
 	    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>	
@@ -144,7 +172,7 @@
       </div>
     </div>
       <div class='container-centered'>
-      <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ticketsys.count}}&nbsp&nbspTickets</h3></a>
+      <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ticketsys.count}}&nbsp&nbspRadio Tickets</h3></a>
           <div class='form_homepage'>
             {% if ticketsys %}
             {% for ticket in ticketsys %}
@@ -174,28 +202,46 @@
             </div>
           </div>
        </div>
-  <div class='container-row'>
-    <div class='container-centered'>
-      <h3>YTD Alarms</h3>
-      <div class='form_homepage container-centered'>
-        <h1>{{ total_alarms }}</h1>
-      </div>
-    </div>
-    <div class='container-centered'>
-      <h3>YTD Tickets</h3>
-        <div class='form_homepage container-centered'>
-          <h1>{{ ticketsys.count }}</h1>
-        </div>
-      </div>
-        <div class='container-centered'>
-          <h3>Total ISICS Site online</h3>
-          <div class='form_homepage container-centered'>
-            <h1>127</h1>
+
+       <div class='container-row'>
+          <div class='container-centered'>
+		  <a href="{% url 'service-call:service-list' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ service_tickets.count }}&nbsp&nbspService tickets</h3></a>
+	   <div class='form_homepage'>
+	     {% if service_tickets %}
+	     {% for service in service_tickets %}
+	     <ul class='min-headspace'>
+   	      <li><tag>Ticket No.</tag>&nbsp&nbsp{{ service.ticketno }}</li>
+	      <li><tag>Location</tag>&nbsp&nbsp{{ service.site_loc }}</li>
+	      <li><tag>Issue</tag>&nbsp&nbsp{{ service.issue }}</li>
+	      <li><tag>Date</tag>&nbsp&nbsp{{ service.date|date:'Y-m-d' }}</li>
+	      <br>
+	     </ul>
+	     {% endfor %}
+	     {% endif %}
+	   </div>
           </div>
-        </div>
-      </div>
+
+	  <div class='container-centered'>
+		  <a href="#" class='nav-link'><h3 class='forms_homepage_tag'>Year to date</h3></a>
+	         	  <div class='form_homepage'>
+		              <div class='marquee'>
+				   <div class='container-centered-between'>
+					     <h4>Alarms {{ total_alarms }}</h4>
+					     <h4>Subscriber tickets {{ ticketsys.count }}</h4>
+					     <h4>Total Towers 127</h4>
+			           </div>
+		                </div>
+		           </div>
+           </div>
+
+	</div>
+
 
 </div>
+
+	<div class='footer'>
+	</div>
+
   {% endblock main %}
   {% block sub_one %}
 

@@ -21,8 +21,8 @@
   </div>
   {% endblock main %}
   {% block sub_one %}
-  <div class='container headspace boxed'>
-      <form action="" method="post" >
+  <div class='container-centered headspace'>
+      <form action="" method="post" class='boxed' >
         {% csrf_token %}
         {% for field in form %}
             <div class="row">

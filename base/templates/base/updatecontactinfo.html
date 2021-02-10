@@ -16,10 +16,10 @@
 
 <body>
   {% block main %}
-    <div class='login-bar'><a href="{% url 'base:login' %}" class='sub-nav-link'>Back to login</a></div>
+    <div class='login-bar'><a href="{% url 'base:login' %}" class='nav-link'>Back to login</a></div>
   <div class='container-centered'>
     <h1 class=' title '>Contact Information</h1>
-      <div class='headspace forms'>
+      <div class='headspace forms_2'>
         <form action='' method="post">
           {% csrf_token %}
           {% for field in form %}

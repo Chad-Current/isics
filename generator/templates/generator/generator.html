@@ -56,7 +56,7 @@
 				<td>{{ generator.gen_vendor }}</td>
 				<td>{{ generator.gen_poc }}</td>
 				<td>{{ generator.gen_phonenumber }}</td>
-				<td>{{ generator.gen_email }}</td>
+				<td><a href="mailto:{{ generator.gen_email }}" class='mini-nav-link'>{{ generator.gen_email }}</a></td>
 			</tr>
 		{% endfor %}
 		</tbody>

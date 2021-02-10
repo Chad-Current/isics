@@ -17,30 +17,28 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-  <div class='container-centered headspace'>
-    <h1 class='title text-shadow'>Are you sure you want to delete?</h1>
-  </div>
-  <div class='headspace forms'>
+    <div class='container-centered headspace'>
+      <h1 class='title text-shadow'>Are you sure you want to delete?</h1>
+     </div>
+  <div class='forms_2 headspace'>
     <form action='' method="post" >
       {% csrf_token %}
-        <ul class='container-centered'>
-          <li><h3>TICKET: {{ object.ticketno }}</h3></li>
-          <li><h5>SITE LOCATION: {{ object.site_loc |truncatechars:100 }}</h5></li>
-          {% if object.alarm != 'NO ALARM' %}
-          <li><h5>ALARM: {{ object.alarm |truncatechars:100 }}</h5></li>
-          {% endif %}
-          <li><h5>REPORTED ISSUE: {{ object.issue |truncatechars:100 }}</h5></li>
-        </ul>
+      <p><tag>Ticket</tag>&nbsp&nbsp {{ object.ticketno }}</p>
+      <p><tag>Site</tag>&nbsp&nbsp {{ object.site_loc |truncatechars:100 }}</p>
+      <p><tag>Reported issue</tag>&nbsp&nbsp {{ object.issue |truncatechars:100 }}</p>
+      <p><tag>Date</tag>&nbsp&nbsp {{ object.date|date:'Y-m-d H:i' }}</p>
+       <div class='container-centered headspace'>
+	<button type="submit" class='alert-delete'>Confirm</button>
+       </div>
     </form>
+   </div>
   </div>
-</div>
-<div class='container-centered headspace'>
-  <button type="submit">Delete</button>
-</div>
-<div class='container-row'>
-  <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link min-headspace'>Alarm list page</a>
-  <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home page</a>
-</div>
+
+
+  <div class='container-row'>
+    <a href="{% url 'service-call:service-list' %}" class='nav-link min-headspace'>Service ticket list page</a>
+    <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home page</a>
+  </div>
   {% endblock main %}
 
 </body>

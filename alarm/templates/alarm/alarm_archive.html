@@ -21,9 +21,8 @@
   </div>
   {% endblock main %}
     {% block sub_one %}
-  <div class='container-centered'>
-  <div class='headspace '>
-    <form action='' method="post" >
+  <div class='container-centered headspace'>
+    <form action='' method="post">
       {% csrf_token %}
         <ul>
           <li><tag>Site name:</tag>    &nbsp&nbsp&nbsp&nbsp{{ object.site_name }}</li>
@@ -34,7 +33,6 @@
         <button type="submit" class='alert-caution'>Close ticket?</button>
       </div>
   </form>
-  </div>
 </div>
 <hr></hr>
 <div class='container-row'>

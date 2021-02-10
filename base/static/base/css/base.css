@@ -144,8 +144,6 @@ button:hover {
 }
 
 label {
-  /* padding-left: 1em; */
-  /* top:0; */
 }
 
 img {
@@ -449,8 +447,6 @@ tag {
   background-color: green;
   color: white;
 }
-
-
 
 .field_label {
   font-size: 2rem;
@@ -1090,8 +1086,6 @@ tag {
   border: solid 8px #FAFAFA;
   border-radius: 10px;
   box-shadow: -2rem 0rem 5rem #050505;
-  padding: 1.5em;
-  min-width: 20em;
 }
 /* TICKET CSS */
 .accordion {

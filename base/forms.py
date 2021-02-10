@@ -1,5 +1,7 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import ValidationError
 from user.models import Profile
 from sitemaintenance.models import EmailTo
 from pointofcontact.models import PointOfContactUpdate
@@ -74,7 +76,7 @@ COUNTY_CHOICES = [('Adair', 'Adair'),
  ('Monroe', 'Monroe'),
  ('Montgomery', 'Montgomery'),
  ('Muscatine', 'Muscatine'),
- ("O'Brien", "O'Brien"),
+ ("OBrien", "O'Brien"),
  ('Osceola', 'Osceola'),
  ('Page', 'Page'),
  ('Palo Alto', 'Palo Alto'),
@@ -106,12 +108,30 @@ COUNTY_CHOICES = [('Adair', 'Adair'),
 
 #Not used at the moment
 class UserForm(AuthenticationForm):
-    username = forms.CharField(max_length=255, error_messages={'required':'username required'},\
-                                help_text='username must be all lowercase')
+    username = forms.CharField(max_length=255, error_messages={'required':'username required'})
     password = forms.CharField(max_length=32, widget=forms.PasswordInput)
+    
+    def clean_username(self):
+        username = self.cleaned_data['username'].lower()
+        if username != username.lower():
+            raise ValidationError('Username must be lower case')
+        return username
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        try:
+            username = self.cleaned_data.get('username').lower()
+            user = authenticate(username=username, password=password)
+            if user is None:
+                raise ValidationError('Incorrect password')
+            return password
+        except AttributeError as a:
+            raise ValidationError('and password is incorrect!')
+        
+
 
 class EmailRequestForm(forms.ModelForm):
-    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES, attrs={'style':'height:2.5em;width:14em;border-radius:5px;'}))
+    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES))
     class Meta:
         model = EmailTo
         fields = ['name','county','email']
@@ -128,3 +148,5 @@ class ContactUpdateForm(forms.ModelForm):
     class Meta:
         model = PointOfContactUpdate
         fields = '__all__'
+
+

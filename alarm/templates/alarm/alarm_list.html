@@ -22,7 +22,6 @@
   <div class='container-centered headspace'>
     <form action="{% url 'alarm-check:alarm-search'%}" method='GET'>
       {% csrf_token %}
-      <label for='alarm'><tag>Alarm Name&nbsp&nbsp&nbsp&nbsp</tag></label>
       <input type='text' id='alarm' placeholder='Alarm' name='alarm'>
       <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
       <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
@@ -31,12 +30,14 @@
       <button type='submit'>Search</button>
     </form>
   </div>
+  {% if request.user.is_superuser %}
   <div class='container-centered min-headspace'>
     <div class='container-top-nav '>
       <a href="{% url 'alarm-check:alarm-open-tickets' %}" class='sub-nav-link min-headspace'>Download report</a>
       <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
     </div>
   </div>
+  {% endif %}
 <hr></hr>
   {% endblock main %}
     {% block sub_one %}
@@ -48,30 +49,28 @@
 	    <th style='width:35px;'>Alarm</th>
 	    <th style='width:35px;'>Date</th>
 	    <th style='width:35px;'>Time Stamp</th>
-	    <th style='width:35px;'>History</th>
+	    <th style='width:20px;'>History</th>
 	    {% if perms.alarm.change_alarm %}
-	    <th style='width:35px;'>Update</th>
+	    <th style='width:20px;'>Update</th>
 	    {% endif %}
 	    {% if perms.alarm_archive.view_alarm_archive %}
-	    <th style='width:35px;'>Close</th>
+	    <th style='width:20px;'>Close</th>
 	    {% endif %}
 	  </tr>
 	</thead>
 	<tbody>
 	    {% for alarm in alarms %}
 	     <tr>
-	       <a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='sub-nav-link'>
               <td>{{alarm.site_name}}</td>
               <td>{{alarm.alarm}}</td>
 	      <td>{{alarm.alarm_date}}</td>
 	      <td>{{alarm.time_stamp}}</td>
-     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='ticket-link'>History</a></td>
-	        </a>
+     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
 	      {% if perms.alarm.change_alarm %}
- 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='ticket-link'>Update</a></td>
+ 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
 	      {% endif %}
 	      {% if perms.alarm_archive.view_alarm_archive %}
-	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='ticket-link'>Close</a></td>
+	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
 	      {% endif %}
 	  </tr>
 	   {% endfor %}

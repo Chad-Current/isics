@@ -20,28 +20,29 @@
     <img src="{% static 'base/images/ISICS Logo Login.png' %}" class='image-mid'/>
     <div class='container-centered headspace'>
       <ul class='container-centered'>
-        <!-- <li style='color:#FAFAFA'></li> -->
-        <li><a href="{% url 'base:visitor-page' %}"  class='sub-nav-link'>Join our email list&nbsp&nbsp<i class="fas fa-envelope-open-text"></i><a></li>
+        <li><a href="{% url 'base:visitor-page' %}"  class='nav-link'>Join our email list&nbsp&nbsp<i class="fas fa-envelope-open-text"></i><a></li>
           <li>or</li>
-          <li><a href="{% url 'base:contact-info-page' %}"  class='sub-nav-link'>Update your contact information<a></li>
+          <li><a href="{% url 'base:contact-info-page' %}"  class='nav-link'>Update your contact information<a></li>
           </ul>
         </div>
   </div>
   <div class='container-centered'>
     <h1 class='title '>Sign in</h1>
+      <a href="{% url 'user:register' %}" class='nav-link min-headspace'>or create an account</a>
       <div class='headspace forms_2'>
         <form method="POST" >
           {% csrf_token %}
+	  <p><strong>{{ form.username.errors }}</strong></p>
+	  <p><strong>{{ form.password.errors }}</strong></p>
           <ul>
-            <li>{{ form.username.label }}<br>{{ form.username }}</li>
+            <li class='label'>{{ form.username.label }}<br>{{ form.username }}</li>
             <li>{{ form.username.help_text }}</li><br>
-            <li>{{ form.password.label }}<br>{{ form.password }}</li>
+            <li class='label'>{{ form.password.label }}<br>{{ form.password }}</li>
             <li><a href="{% url 'password_reset' %}" class='mini-nav-link' >Forgot Password?</a></li><br>
             <li><button type="submit" >Login</button></li>
             </ul>
         </form>
       </div>
-      <a href="{% url 'user:register' %}" class='nav-link headspace'>or create an account</a>
     </div>
   </div>
  

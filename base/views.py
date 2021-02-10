@@ -50,6 +50,7 @@ class Index(LoginRequiredMixin, ListView):
         context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
         context['notams'] = Notam.objects.all().order_by('date','site_name')
+        context['service_tickets'] = ServiceTicket.objects.all().order_by('-date')
         return context
 
 
@@ -69,6 +70,7 @@ class SecretIndex(LoginRequiredMixin, ListView):
         context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
         context['notams'] = Notam.objects.all().order_by('date','site_name')
+        context['service_tickets'] = ServiceTicket.objects.all().order_by('-date')
         return context
 
 class Visitor(SuccessMessageMixin, FormView):

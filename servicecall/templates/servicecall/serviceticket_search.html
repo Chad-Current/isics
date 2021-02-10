@@ -52,6 +52,10 @@
 		    <th style='width:50px;'>Ticket No.</th>
 		    <th style='width:50px;'>Subject</th>
 		    <th style='width:50px;'>Message</th>
+		    {% if request.user.is_superuser %}
+		    <th style='width:10px;'>Update</th>
+		    <th style='width:10px;'>Delete</th>
+		    {% endif %}
 		   </tr>
 		  </thead>
 		  <tbody>
@@ -61,6 +65,10 @@
 		     <td>{{ ticket.ticketno }}</td>
 		     <td>{{ ticket.site_loc }}</td>
 		     <td>{{ ticket.issue }}</td>
+		     {% if request.user.is_superuser %}
+		     <td><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		     <td><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		     {% endif %}
 		    </tr>
 		    {% endfor %}
 		  </tbody>
