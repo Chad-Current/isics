@@ -44,7 +44,10 @@
                 <th style='width:50px;'>Subject</th>
                 <th style='width:150px;'>Message</th>
                 <th style='width:150px;'>Sent to</th>
-                <ul>
+              </tr>
+              <thead>
+                <tbody>
+                  <tr>
                   {% for email in emails %}
                   <td>{{ email.date|date:'Y-m-d H:i' }}</h3></li>
                   <td>{{ email.tower_cell }}</h4></li>
@@ -52,7 +55,9 @@
                   <td>{{ email.message  }}</h4></li>
                   <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
                   {% endfor %}
-                </ul>
+                  <tr>
+                </tbody>
+              </table>
               </div>
             </div>
       <hr></hr>
