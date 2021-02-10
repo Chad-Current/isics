@@ -36,47 +36,33 @@
       {% block sub_one %}
       <div class='container headspace'>
         <div class="container">
-          {% for email in emails %}
-            <div class="infinite-item">
-              <div class='forms'>
+          <table>
+            <thead>
+              <tr>
+                <th style='width:20px;'>Date</th>
+                <th style='width:30px;'>Tower</th>
+                <th style='width:50px;'>Subject</th>
+                <th style='width:150px;'>Message</th>
+                <th style='width:150px;'>Sent to</th>
                 <ul>
-                  <li><h3 class='title'>Date: {{ email.date|date:'Y-m-d H:i' }}</h3></li>
-                  <li><h4>Tower: {{ email.tower_cell }}</h4></li>
-                  <li><h4>Subject: {{ email.subject }}</h4></li>
-                  <li><h4>Message: {{ email.message  }}</h4></li>
-                  <li><h4>Sent List</h4></li>
-                  <li class='easy-text'>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</li>
+                  {% for email in emails %}
+                  <td>{{ email.date|date:'Y-m-d H:i' }}</h3></li>
+                  <td>{{ email.tower_cell }}</h4></li>
+                  <td>{{ email.subject }}</h4></li>
+                  <td>{{ email.message  }}</h4></li>
+                  <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
+                  {% endfor %}
                 </ul>
               </div>
             </div>
-          {% endfor %}
-        </div>
-      </div>
       <hr></hr>
 
-        <div class="container-row min-headspace">
-          <div>
-          {% if page_obj.has_previous %}
-            <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
-            {% else %}
-            <a class="nav-link nav-link-disabled"><< Previous</a>
-          {% endif %}
-        </div>
-        <div>
-          {% if page_obj.has_next %}
-            <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
-            {% else %}
-            <a class="nav-link nav-link-disabled">Next >></a>
-          {% endif %}
-          </div>
-        </div>
         <div class='container-row'>
           <a href="{% url 'sitemaintenance:site-maintenance-home-page' %}" class='nav-link min-headspace'>Sitemaintenance page</a>
           <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
         </div>
       </div>
     <div class='footer'>
-    </div>
     {% endblock sub_one %}
 
 
