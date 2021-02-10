@@ -17,8 +17,27 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title text-shadow min-headspace'>Email search</h1>
+    <a href="{% url 'alarm-check:alarm-home' %}" class="nav-link"><h1 class='title text-shadow min-headspace'>Site alarms</h1></a>
   </div>
+  <div class='container-centered headspace'>
+    <form action="{% url 'alarm-check:alarm-search'%}" method='GET'>
+      {% csrf_token %}
+      <input type='text' id='alarm' placeholder='Alarm' name='alarm'>
+      <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
+      <label for='end_date'><tag>End Date &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='end_date' placeholder="YYYY-MM-DD" name='end_date' required=True>
+      <button type='submit'>Search</button>
+    </form>
+  </div>  {% if request.user.is_superuser %}
+    <div class='container-centered min-headspace'>
+      <div class='container-top-nav '>
+        <a href="{% url 'alarm-check:alarm-open-tickets' %}" class='sub-nav-link min-headspace'>Download report</a>
+        <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
+      </div>
+    </div>
+    {% endif %}
+  <hr></hr>
    {% endblock main %}
       {% block sub_one %}
       <div class='container headspace'>

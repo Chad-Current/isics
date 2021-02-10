@@ -181,7 +181,6 @@ class AlarmSearch(UserPermissonMixin, ListView):
                 object_list = Alarm.objects.filter(Q(alarm__istartswith=query_alarm) & Q(time_stamp__gte=query_start_date) & Q(time_stamp__lte=query_end_date)).order_by('-time_stamp')[:5]
                 if not object_list:
                     messages.warning(self.request, 'No Results Found')
-                    return redirect(reverse_lazy(('alarm-check:alarm-list')))
                 return object_list
             except ValidationError as v:
                 print('Null values ',v)
@@ -209,7 +208,6 @@ class ArchiveAlarmSearch(UserPermissonMixin, ListView):
                 & Q(time_stamp__lte=query_end_date)).order_by('time_stamp')
                 if not object_list:
                     messages.warning(self.request, 'No Results Found')
-                    return redirect(reverse_lazy(('alarm-check:alarm-archive-records')))
                 return object_list
             except ValidationError as v:
                 print('Null values ',v)
