@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
   <link rel="stylesheet" media="screen and (max-width: 900px)" href="{% static 'base/css/smallscreen.css' %}">
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" type="image/jpg" href="{% static 'base/images/favicon.ico' %}"/>
   <title>Radio User Database</title>
   <style>
     .marquee   {
@@ -27,12 +28,12 @@
 	    -webkit-animation: marquee 7500ms linear infinite;
 	    animation: marquee 7500ms linear infinite;
 	}
-   	
+
     @-moz-keyframes marquee {
 	    0% {
 		    transform: translateY(100%);
 		}
-	    100% { 
+	    100% {
 		    transform: translateY(-100%);
 		 }
     }
@@ -40,7 +41,7 @@
 	    0% {
 		    transform: translateY(100%);
 		}
-	    100% { 
+	    100% {
 		    transform: translateY(-100%);
 		 }
     }
@@ -50,7 +51,7 @@
 		    -moz-transform: translateY(100%);
 		    -webkit-transform: translateY(100%);
 		    transform: translateY(100%);
-		}		
+		}
 	   100% {
 		    -moz-transform: translateY(-100%);
 		    -webkit-transform: translateY(-100%);
@@ -127,7 +128,7 @@
             <span class='side-link-text'>Profile</span>
           </a>
         </li>
-	
+
 	{% if perms.emailto.view_email %}
         {% if email_request %}
        <li class='side-nav-item-envelope'>
@@ -153,7 +154,7 @@
   <div class='container-centered'>
   <div class='container-row'>
     <div class='container-centered'>
-	    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>	
+	    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>
 		    <h3 class='forms_homepage_tag'>{{alarms.count}}&nbsp&nbspAlarms</h3>
             </a>
       <div class='form_homepage'>
