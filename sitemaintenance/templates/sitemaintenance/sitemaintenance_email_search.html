@@ -23,31 +23,41 @@
    {% endblock main %}
       {% block sub_one %}
       <div class='container headspace'>
-        {% if messages %}
-        {% for message in messages %}
-        <div class='container-centered'>
-          <sup class="alert-no-info">{{ message }}</sup>
-        </div>
-        {% endfor %}
-        {% else %}
         {% if emails %}
-      <div class='container headspace'>
-        <div>
-          {% for email in emails %}
-
-            <div class="infinite-item">
-                <ul>
-                  <li><h3 class='title'>Date: {{ email.date|date:'Y-m-d H:i' }}</h3></li>
-                  <li><h4>Tower: {{ email.tower_cell }}</h4></li>
-                  <li><h4>Subject: {{ email.subject }}</h4></li>
-                  <li><h4>Message: {{ email.message  }}</h4></li>
-                  <li><h4>Sent List</h4></li>
-                  <li class='easy-text'>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr}}</li>
-                </ul>
-            </div>
-            <hr>
-          {% endfor %}
-        </div>
+        <div class='container headspace'>
+          <div class="container">
+            <table class='table table-bordered'>
+              <thead>
+                <tr class='orange'>
+                  <th style='width:40px;'>Date</th>
+                  <th style='width:40px;'>Tower</th>
+                  <th style='width:50px;'>Subject</th>
+                  <th style='width:150px;'>Message</th>
+                  <th style='width:150px;'>Sent to</th>
+                </tr>
+                <thead>
+                  <tbody>
+                    <tr>
+                    {% for email in emails %}
+                    <td>{{ email.date|date:'Y-m-d H:i' }}</h3></li>
+                    <td>{{ email.tower_cell }}</h4></li>
+                    <td>{{ email.subject }}</h4></li>
+                    <td>{{ email.message  }}</h4></li>
+                    <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
+                    {% endfor %}
+                    <tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+              {% if messages %}
+              {% for message in messages %}
+              <div class='container-centered'>
+                <sup class="alert-no-info">{{ message }}</sup>
+              </div>
+              {% endfor %}
+              {% else %}
+        <hr></hr>
         {% endif %}
         <div class='container-row'>
           <a href="{% url 'sitemaintenance:site-maintenance-home-page' %}" class='nav-link min-headspace'>Sitemaintenance page</a>

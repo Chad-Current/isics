@@ -116,4 +116,13 @@ class EmailSearch(UserPermissonMixin, ListView):
     ordering = ['-date']
 
     def get_queryset(self):
-        return Email.objects.all().order_by('-date')[:10]
+        tower_cell = self.request.GET.get('tower_cell')
+        query_start_date = self.request.GET.get('start_date')
+        query_end_date = self.request.GET.get('end_date')
+        try:
+            object_list = Email.objects.filter(Q(tower_cell__istartswith=tower_cell) & Q(time_stamp__gte=query_start_date) & Q(time_stamp__lte=query_end_date)).order_by('-date')[:5]
+            if not object_list:
+                messages.warning(self.request, 'No Results Found')
+            return object_list
+        except ValidationError as v:
+            print('Null values ',v)
