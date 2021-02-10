@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <link rel="shortcut icon" type="image/jpg" href="{% static 'base/images/favicon.ico' %}"/>
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
 
   <title>Radio User Database</title>
@@ -15,7 +16,7 @@
 
 <body>
   {% block main %}
-  <div class='container-row'> 
+  <div class='container-row'>
   <div class='container-centered'>
     <img src="{% static 'base/images/ISICS Logo Login.png' %}" class='image-mid'/>
     <div class='container-centered headspace'>
@@ -45,9 +46,9 @@
       </div>
     </div>
   </div>
- 
+
   {% endblock main %}
-  
+
   {% block sub_one %}
   <div class='container-centered'>
    {% if messages %}
