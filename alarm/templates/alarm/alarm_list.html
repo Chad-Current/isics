@@ -41,6 +41,7 @@
       </div>
     </form>
   </div>
+  <hr></hr>
   {% if request.user.is_superuser %}
   <div class='container-centered min-headspace'>
     <div class='container-top-nav '>
@@ -88,7 +89,7 @@
 	 </tbody>
 	</table>
     </div>
-
+    <hr></hr>
       <div class='container-row'>
         <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
         {% if perms.alarm.view_alarm %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}

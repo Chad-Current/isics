@@ -104,7 +104,7 @@
    {% endif %}
         <div class='container-row'>
           <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
-          {% if perms.alarm_archive.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
+          <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>
           <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
         </div>
 
