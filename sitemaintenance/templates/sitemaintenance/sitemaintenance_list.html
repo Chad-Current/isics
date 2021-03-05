@@ -31,36 +31,34 @@
       <button type='submit'>Search</button>
     </form>
   </div>
-  <hr></hr>
-   {% endblock main %}
-      {% block sub_one %}
-      <div class='container headspace'>
-        <div class="container">
-          <table class='table table-bordered'>
-            <thead>
-              <tr class='orange'>
-                <th style='width:40px;'>Date</th>
-                <th style='width:40px;'>Tower</th>
-                <th style='width:50px;'>Subject</th>
-                <th style='width:150px;'>Message</th>
-                <th style='width:150px;'>Sent to</th>
-              </tr>
-              <thead>
-                <tbody>
-                  <tr>
-                  {% for email in emails %}
-                  <td>{{ email.date|date:'Y-m-d H:i' }}</h3></li>
-                  <td>{{ email.tower_cell }}</h4></li>
-                  <td>{{ email.subject }}</h4></li>
-                  <td>{{ email.message  }}</h4></li>
-                  <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
-                  {% endfor %}
-                  <tr>
-                </tbody>
-              </table>
-              </div>
-            </div>
-      <hr></hr>
+{% endblock main %}
+{% block sub_one %}
+<div class='container headspace'>
+<div class="container">
+  <table class='table table-bordered'>
+    <thead>
+      <tr class='orange'>
+	<th style='width:40px;'>Date</th>
+	<th style='width:40px;'>Tower</th>
+	<th style='width:50px;'>Subject</th>
+	<th style='width:150px;'>Message</th>
+	<th style='width:150px;'>Sent to</th>
+      </tr>
+      <thead>
+	<tbody>
+	  <tr>
+	  {% for email in emails %}
+	  <td>{{ email.date|date:'Y-m-d' }}</h3></li>
+	  <td>{{ email.tower_cell }}</h4></li>
+	  <td>{{ email.subject }}</h4></li>
+	  <td>{{ email.message  }}</h4></li>
+	  <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
+	  {% endfor %}
+	  <tr>
+	</tbody>
+      </table>
+      </div>
+    </div>
 
         <div class='container-row'>
           <a href="{% url 'sitemaintenance:site-maintenance-home-page' %}" class='nav-link min-headspace'>Sitemaintenance page</a>

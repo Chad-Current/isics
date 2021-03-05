@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-  <link rel="stylesheet" media="screen and (max-width: 900px)" href="{% static 'base/css/smallscreen.css' %}">
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" type="image/jpg" href="{% static 'base/images/favicon.ico' %}"/>
   <title>Radio User Database</title>
@@ -162,9 +161,12 @@
         {% for alarm in alarms %}
         <ul class='min-headspace'>
           <a href="{% url 'alarm-check:alarm-detail' alarm.id %}" class='nav-link'>
-            <li><tag>Site</tag>&nbsp&nbsp{{alarm.site_name}}</li>
+            <li><tag>Ticket</tag>&nbsp&nbsp{{alarm.ticket}}</li>
+            <li><tag>Site</tag>&nbsp&nbsp{{alarm.site}}</li>
             <li><tag>Alarm</tag>&nbsp&nbsp{{alarm.alarm}}</li>
-            <li><tag>Date</tag>&nbsp&nbsp{{alarm.alarm_date}}</li>
+            <li><tag>Status</tag>&nbsp&nbsp{{alarm.status}}</li>
+	    <li><tag>Notes</tag>&nbsp&nbsp{{alarm.notes}}</li>
+            <li><tag>Opened</tag>&nbsp&nbsp{{alarm.opened}}</li>
           </a>
           <br>
         </ul>
@@ -229,7 +231,7 @@
 				   <div class='container-centered-between'>
 					     <h4>Alarms {{ total_alarms }}</h4>
 					     <h4>Subscriber tickets {{ ticketsys.count }}</h4>
-					     <h4>Total Towers 127</h4>
+					     <h4>Total Towers {{ towers.count }}</h4>
 			           </div>
 		                </div>
 		           </div>

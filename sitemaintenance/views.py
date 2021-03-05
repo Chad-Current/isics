@@ -46,9 +46,9 @@ class EmailHome(UserPermissonMixin, FormView):
         self.message = form.cleaned_data['message']
         self.tower_cell= form.cleaned_data['tower_cell']
         self.sender = 'ISICS_COMM@Iowa.gov'
-        tz = pytz.timezone('US/Central')
-        ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
-        self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
+#        tz = pytz.timezone('US/Central')
+#        ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
+#        self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
         site = Sitemaintenance.objects.get(tower_cell=self.tower_cell) #GET ASSOCIATION COUNTY NAMES
         object_list = EmailTo.objects.filter(county__in=site.tower_assoc, is_active=True)# USING tower_assoc to find emailto Personnel
         self.contact_list = []
@@ -56,7 +56,7 @@ class EmailHome(UserPermissonMixin, FormView):
             for i in range(len(object_list.values_list())):
                 self.contact_list.append(object_list.values_list()[i][3])
             send_mail(self.subject, self.message, self.sender , [*self.contact_list], fail_silently=False)
-            Email.objects.create(tower_cell=self.tower_cell, subject=self.subject, message=self.message, sent_list=self.contact_list, date=self.date)
+            Email.objects.create(tower_cell=self.tower_cell, subject=self.subject, message=self.message, sent_list=self.contact_list)
         except TypeError as e:
             print('None value ',e)
         return super().form_valid(form)

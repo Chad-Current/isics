@@ -21,13 +21,13 @@
   </div>
   {% endblock main %}
     {% block sub_one %}
-  <div class='container-centered headspace'>
+  <div class='container-centered  headspace'>
     <form action='' method="post">
       {% csrf_token %}
-        <ul>
-          <li><tag>Site name:</tag>    &nbsp&nbsp&nbsp&nbsp{{ object.site_name }}</li>
+        <ul class='forms_2'>
+          <li><tag>Site name:</tag>    &nbsp&nbsp&nbsp&nbsp{{ object.site }}</li>
           <li><tag>Alarm:</tag>   &nbsp&nbsp&nbsp&nbsp{{ object.alarm}}</li>
-          <li><tag>Alarm date:</tag>   &nbsp&nbsp&nbsp&nbsp{{ object.alarm_date }}</li>
+          <li><tag>Alarm date:</tag>   &nbsp&nbsp&nbsp&nbsp{{ object.opened }}</li>
         </ul>
         <div class='container-centered headspace'>
         <button type="submit" class='alert-caution'>Close ticket?</button>

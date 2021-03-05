@@ -39,7 +39,7 @@
                   <tbody>
                     <tr>
                     {% for email in emails %}
-                    <td>{{ email.date|date:'Y-m-d H:i' }}</h3></li>
+                    <td>{{ email.date|date:'Y-m-d' }}</h3></li>
                     <td>{{ email.tower_cell }}</h4></li>
                     <td>{{ email.subject }}</h4></li>
                     <td>{{ email.message  }}</h4></li>

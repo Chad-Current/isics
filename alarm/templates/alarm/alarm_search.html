@@ -22,24 +22,34 @@
   <div class='container-centered headspace'>
     <form action="{% url 'alarm-check:alarm-search'%}" method='GET'>
       {% csrf_token %}
-      <input type='text' id='alarm' placeholder='Alarm' name='alarm'>
-      <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
-      <label for='end_date'><tag>End Date &nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' id='end_date' placeholder="YYYY-MM-DD" name='end_date' required=True>
+      <div class='container'>
+	      <div class='container-row'>
+      <label for='site'><tag>Site &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='site' name='site' required=True>
+      <label for='alarm'><tag>Alarm &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='alarm' name='alarm' required=True>
+      	      </div>
+	      <div class='container-row'>
+      <label for='start'><tag>From&nbsp</tag></label>
+      <input type='date' id='start' name='start' required=True>
+      <label for='end'><tag>To &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='end' name='end' required=True>
+      	      </div>
+	      <div class='container-centered'>
       <button type='submit'>Search</button>
+      	      </div>
+      </div>
     </form>
-  </div>  {% if request.user.is_superuser %}
+  {% if request.user.is_superuser %}
     <div class='container-centered min-headspace'>
       <div class='container-top-nav '>
         <a href="{% url 'alarm-check:alarm-open-tickets' %}" class='sub-nav-link min-headspace'>Download report</a>
-        <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
       </div>
     </div>
     {% endif %}
-  <hr></hr>
    {% endblock main %}
       {% block sub_one %}
+      
       <div class='container headspace'>
         {% if messages %}
         {% for message in messages %}
@@ -48,36 +58,57 @@
         </div>
         {% endfor %}
         {% else %}
-        {% if alarms %}
-      <div class='container headspace'>
-        <div class="container">
-          <div>
-            {% for alarm in alarms %}
-              <div>
-                <ul>
-                  <li><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</li>
-                  <li><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_identity }}</li>
-                  <li><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</li>
-                  <li><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</li>
-                  <li><tag>Time:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.time_stamp }}</li>
-                 </ul>
-               </div>
-               <hr>
-            {% endfor %}
-          </div>
-        </div>
-        {% endif %}
+      </div>
+
+   {% if alarms %}
+    <div class='container'>
+      <table class='table table-bordered'>
+	<thead>
+	  <tr class='orange'>
+	    <th style='width:35px;'>Ticket</th>
+	    <th style='width:35px;'>Site</th>
+	    <th style='width:35px;'>Alarm</th>
+	    <th style='width:50px;'>Date</th>
+	    <th style='width:20px;'>Status</th>
+	    <th style='width:20px;'>History</th>
+	    {% if perms.alarm.change_alarm %}
+	    <th style='width:20px;'>Update</th>
+	    {% endif %}
+	    {% if perms.alarm_archive.view_alarm_archive %}
+	    <th style='width:20px;'>Close</th>
+	    {% endif %}
+	  </tr>
+	</thead>
+	<tbody>
+	    {% for alarm in alarms %}
+	     <tr>
+              <td>{{alarm.ticket}}</td>
+              <td>{{alarm.site}}</td>
+              <td>{{alarm.alarm}}</td>
+	      <td>{{alarm.timestamp}}</td>
+	      <td>{{alarm.status}}</td>
+     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+	      {% if perms.alarm.change_alarm %}
+ 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+	      {% endif %}
+	      {% if perms.alarm_archive.view_alarm_archive %}
+	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+	      {% endif %}
+	  </tr>
+	   {% endfor %}
+	 </tbody>
+	</table>
+    </div>
+    {% endif %}
+  </div>
+   {% endif %}
         <div class='container-row'>
           <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
           {% if perms.alarm_archive.view_alarm_archive %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
           <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
         </div>
-      </div>
 
-      {% endif %}
-    </div>
-    <div class='footer'>
-    </div>
+ 
     {% endblock sub_one %}
 
 

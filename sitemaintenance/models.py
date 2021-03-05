@@ -34,7 +34,7 @@ class Email(models.Model):
     subject = models.CharField(max_length=255)
     message = models.CharField(max_length=255)
     sent_list = models.TextField(default='No record of email being sent')
-    date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    date = models.DateField(auto_now=False, auto_now_add=True)
     class Meta:
         managed = True
         db_table = 'email_record'

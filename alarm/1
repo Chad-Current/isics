@@ -169,16 +169,16 @@ class AlarmSearch(UserPermissonMixin, ListView):
 
         template_name = 'alarm/alarm_search.html'
         model = Alarm
-        context_object_name = 'alarms'
+        context_object_name = 'alarm'
 
         def get_queryset(self):
             query_site = self.request.GET.get('site')
-            query_alarm = self.request.GET.get('alarm')
-            start_date = self.request.GET.get('start')
-            end_date = self.request.GET.get('end')
+            query_start_date = self.request.GET.get('start_date')
+            query_start_date  = parse(query_start_date)
+            query_end_date = self.request.GET.get('end_date')
+            query_end_date = parse(query_end_date)
             try:
-                object_list = Alarm.objects.filter(Q(site__icontains=query_site) & Q(alarm__icontains=query_alarm) \
-                                                   & Q(timestamp__gte=start_date) & Q(timestamp__lte=end_date)).order_by('-timestamp')
+                object_list = Alarm.objects.filter(Q(site__icontains=query_site) & Q(timestamp__gte=query_start_date) & Q(timestamp__lte=query_end_date)).order_by('-timestamp')
                 if not object_list:
                     messages.warning(self.request, 'No Results Found')
                 return object_list

@@ -86,51 +86,51 @@
   </div>
   {% endif %}
  
-    {% if object_list %}
-    <hr></hr>
-   <div class='container-row'>
-     <table class='table table-bordered'> 
-      <thead>
-       <tr class='orange'>
-        <th style='width:15px;'>Badge</th>
-	<th style='width:35px;'>Location</th>
-	<th style='width:25px;'>Talkgroup</th>
-	<th style='width:7px;'>RSSI</th>
-	<th style='width:9px;'>Mobile</th>
-	<th style='width:9px;'>Portable</th>
-	<th style='width:60px;'>Description of Issue</th>
-	<th style='width:20px;'>Resolved</th>
-	<th style='width:50px;'>Resolution</th>
-	<th style='width:25px;'>Date</th>
-	{% if perms.tickets.change_ticket %}
-	<th style='width:15px;'>Update</th>
-	<th style='width:15px;'>Delete</th>
-	{% endif %}
-       </tr>
-      </thead>
-      <tbody>
-       {% for item in tickets %}
-       <tr>
-	<td>{{ item.badge_identifier }}</td>
-	<td>{{ item.location|wordwrap:20|linebreaksbr }}</td>
-	<td>{{ item.talkgroup_assoc }}</td>
-	<td>{{ item.rssi }}</td>
-	<td>{{ item.mobile|yesno:'Yes,No' }}</td>
-	<td>{{ item.portable|yesno:'Yes,No' }}</td>
-	<td>{{ item.desc_issue|wordwrap:40|linebreaksbr }}</td>
-	<td>{{ item.issue_resolved|yesno:'Yes,No' }}</td>
-	<td>{{ item.desc_resolve }}</td>
-	<td>{{ item.date|date:'Y-m-d' }}</td>
-	{% if perms.tickets.change_ticket %}
-        <td><a href="{% url 'ticketsystem:ticket-system-update-page' item.id %}" class='mini-nav-link'>Update</a></td>
-        <td><a href="{% url 'ticketsystem:ticket-system-delete-page' item.id %}" class='mini-nav-link'>Delete</a></td>
-	{% endif %}
-       </tr>
-	{% endfor %}
-      </tbody>
-     </table>
-     {% endif %}
-    </div>
+  {% if object_list %}
+  <div class='container headspace'>
+      <table class='table table-bordered'>
+	  <thead>
+		  <tr class='orange'>
+			  <th style='width:15px;'>Badge</th>
+			  <th style='width:35px;'>Location</th>
+			  <th style='width:35px;'>Talk group</th>
+			  <th style='width:10px;'>RSSI</th>
+			  <th style='width:10px;'>Mobile</th>
+			  <th style='width:10px;'>Portble</th>
+			  <th style='width:75px;'>Description of issue</th>
+			  <th style='width:25px;'>Resolved</th>
+			  <th style='width:35px;'>Time Stamp</th>
+			  {% if request.user.is_superuser %}
+			  <th style='width:10px;'>Update</th>
+			  <th style='width:10px;'>Delete</th>
+			  {% endif %}
+		  </tr>
+	  </thead>
+	  <tbody>
+		  {% for ticket in object_list %}
+		  {% if ticket.issue_resolved == False %}
+		  <tr>
+		   <td>{{ ticket.badge_identifier }}</td>
+		   <td>{{ ticket.location }}</td>
+		   <td>{{ ticket.talkgroup_assoc }}</td>
+		   <td>{{ ticket.rssi }}</td>
+		   <td>{{ ticket.mobile|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.portable|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.desc_issue }}</td>
+		   <td>{{ ticket.issue_resolved|yesno:'Yes,No' }}</td>
+		   <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>
+		   {% if request.user.is_superuser %}
+		   <td><a href="{% url 'ticket-system:ticket-system-update-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		   <td><a href="{% url 'ticket-system:ticket-system-delete-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		   {% endif %}
+		  </tr>
+		  {% endif %}
+		  {% endfor %}
+	  </tbody>
+  </table>
+
+   {% endif %}
+  </div>
 
 
   <script>

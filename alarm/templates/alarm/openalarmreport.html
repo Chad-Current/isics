@@ -30,14 +30,12 @@
       {% for alarm in open_tickets %}
       <div class='container-centered'>
       <div class='forms'>
-          <p><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_name}}</p>
-          <p><tag>Site id:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site_identity }}</p>
+          <p><tag>SITE location:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.site}}</p>
           <p><tag>Alarm:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm }}</p>
-          <p><tag>Alarm date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.alarm_date }}</p>
-          <p><tag>Dispatched:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.dispatch|yesno:'Yes,No'}}</p>
-          <p><tag>Person dispatched:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.dispatch_personnel }}</p>
-          <p><tag>Dispatch date:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.dispatch_date}}</p>
-          <p><tag>Ticket closed:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.ticket_closed |yesno:'Yes,No' }}</p>
+          <p><tag>TimeStamp:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.timestamp }}</p>
+          <p><tag>Opened:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.opened}}</p>
+          <p><tag>Status:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.status }}</p>
+          <p><tag>Notes:</tag>&nbsp&nbsp&nbsp&nbsp {{ alarm.notes}}</p>
           <br>
           <hr>
           <br>

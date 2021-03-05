@@ -22,33 +22,43 @@
   <div class='container-centered headspace'>
     <form action="{% url 'alarm-check:alarm-search'%}" method='GET'>
       {% csrf_token %}
-      <input type='text' id='alarm' placeholder='Alarm' name='alarm'>
-      <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
-      <label for='end_date'><tag>End Date &nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' id='end_date' placeholder="YYYY-MM-DD" name='end_date' required=True>
+      <div class='container'>
+	      <div class='container-row'>
+      <label for='site'><tag>Site &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='site' name='site' required=True>
+      <label for='alarm'><tag>Alarm &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='alarm' name='alarm' required=True>
+      	      </div>
+	      <div class='container-row'>
+      <label for='start'><tag>From&nbsp</tag></label>
+      <input type='date' id='start' name='start' required=True>
+      <label for='end'><tag>To &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='end' name='end' required=True>
+      	      </div>
+	      <div class='container-centered'>
       <button type='submit'>Search</button>
+      	      </div>
+      </div>
     </form>
   </div>
   {% if request.user.is_superuser %}
   <div class='container-centered min-headspace'>
     <div class='container-top-nav '>
       <a href="{% url 'alarm-check:alarm-open-tickets' %}" class='sub-nav-link min-headspace'>Download report</a>
-      <a href="{% url 'alarm-check:alarm-open-tickets-page' %}" class='sub-nav-link min-headspace'>View open tickets</a>
     </div>
   </div>
   {% endif %}
-<hr></hr>
   {% endblock main %}
     {% block sub_one %}
-    <div class='container min-headspace'>
+    <div class='container headspace'>
       <table class='table table-bordered'>
 	<thead>
 	  <tr class='orange'>
+	    <th style='width:35px;'>Ticket</th>
 	    <th style='width:35px;'>Site</th>
 	    <th style='width:35px;'>Alarm</th>
-	    <th style='width:35px;'>Date</th>
-	    <th style='width:35px;'>Time Stamp</th>
+	    <th style='width:50px;'>Date</th>
+	    <th style='width:20px;'>Status</th>
 	    <th style='width:20px;'>History</th>
 	    {% if perms.alarm.change_alarm %}
 	    <th style='width:20px;'>Update</th>
@@ -61,10 +71,11 @@
 	<tbody>
 	    {% for alarm in alarms %}
 	     <tr>
-              <td>{{alarm.site_name}}</td>
+              <td>{{alarm.ticket}}</td>
+              <td>{{alarm.site}}</td>
               <td>{{alarm.alarm}}</td>
-	      <td>{{alarm.alarm_date}}</td>
-	      <td>{{alarm.time_stamp}}</td>
+	      <td>{{alarm.timestamp}}</td>
+	      <td>{{alarm.status}}</td>
      	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
 	      {% if perms.alarm.change_alarm %}
  	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>

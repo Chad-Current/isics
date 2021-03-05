@@ -22,7 +22,7 @@ html {
 
 .form_homepage::-webkit-scrollbar {
   /* display:none; */
-  width: 3px;
+  width: 10px;
 }
 
 .form_homepage::-webkit-scrollbar-track {
@@ -31,6 +31,9 @@ html {
 
 .form_homepage::-webkit-scrollbar-thumb {
   background: orange;
+}
+.form_homepate::-webkit-scrollbar {
+  width: 10px;
 }
 
 .card-list::-webkit-scrollbar {
@@ -168,7 +171,6 @@ textarea {
   color: black;
   font-size: 1.75rem;
   border: solid 2px gray;
-  background: orange;
   border-radius: 3px;
 }
 
@@ -184,7 +186,6 @@ input {
   padding: 0.75rem;
   border: white;
   border-radius: 5px;
-  background: orange;
   color: black;
   font-size: 1.5rem;
   font-family: 'Lobster';
@@ -210,7 +211,6 @@ select {
   padding: 0.75rem;
   border: white;
   border-radius: 5px;
-  background: orange;
   color: black;
   font-size: 1.5rem;
   font-family: 'Lora';
@@ -356,7 +356,7 @@ tag {
   margin: 1em 3em;
   padding: 0em;
   height: 25em;
-  width: 25em;
+  width: 30em;
   overflow: auto;
   border: solid 5px #FAFAFA;
   border-radius: 5px;
@@ -382,6 +382,12 @@ tag {
 
 .form_p p {
   padding: 2em;
+}
+
+.forms_homepage_tag {
+  font-size: 3.5rem;
+  font-family: 'Lora';
+  color:orange;
 }
 
 .alert-delete {
@@ -1347,10 +1353,10 @@ tag {
 
 .chaseme {
   animation-name: backgroundColorPalette;
-  animation-duration: 5000ms;
+  animation-duration: 10000ms;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  font-size: 4rem;
+  font-size: 6rem;
   position: absolute;
   top: 50px;
   left: 150px;
@@ -1361,10 +1367,10 @@ tag {
 
 .chaseme2 {
   animation-name: backgroundColorPalette2;
-  animation-duration: 2500ms;
+  animation-duration: 5000ms;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  font-size: 4rem;
+  font-size: 6rem;
   position: absolute;
   top: 0px;
   z-index: -1;

@@ -18,6 +18,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from sitemaintenance.models import Email, EmailTo
 from servicecall.models import ServiceTicket
+from towersite.models import Site
 from ticketsystem.models import SubscriberTicket
 from pointofcontact.models import PointOfContactUpdate
 from alarm.models import Alarm, AlarmArchive
@@ -43,35 +44,38 @@ class Index(LoginRequiredMixin, ListView):
         self.now = datetime.datetime.now()
         context = super().get_context_data(**kwargs)
         context['emailsent'] = Email.objects.last()
-        context['alarms'] = Alarm.objects.all()
+        context['alarms'] = Alarm.objects.all().order_by('-ticket','-opened')
         context['total_alarms'] = AlarmArchive.objects.filter(Q(time_stamp__gte=one_year)).count() + \
-                                         Alarm.objects.filter(Q(time_stamp__gte=one_year)).count()
-        context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', alarm_date__lte=self.now)
+                                         Alarm.objects.filter(Q(timestamp__gte=one_year)).count()
+        context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', timestamp__lte=self.now)
         context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
         context['notams'] = Notam.objects.all().order_by('date','site_name')
         context['service_tickets'] = ServiceTicket.objects.all().order_by('-date')
+        context['towers'] = Site.objects.distinct('site_name','state_owned')
         return context
 
 
 class SecretIndex(LoginRequiredMixin, ListView):
     template_name = 'base/secret.html'
     model = Email
-
+    
     def get_context_data(self, *args, **kwargs):
         one_year = datetime.datetime.now() - datetime.timedelta(days=1*365)
         self.now = datetime.datetime.now()
         context = super().get_context_data(**kwargs)
         context['emailsent'] = Email.objects.last()
-        context['alarms'] = Alarm.objects.all()
+        context['alarms'] = Alarm.objects.all().order_by('-ticket','-opened')
         context['total_alarms'] = AlarmArchive.objects.filter(Q(time_stamp__gte=one_year)).count() + \
-                                         Alarm.objects.filter(Q(time_stamp__gte=one_year)).count()
-        context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', alarm_date__lte=self.now)
+                                         Alarm.objects.filter(Q(timestamp__gte=one_year)).count()
+        context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', timestamp__lte=self.now)
         context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
         context['notams'] = Notam.objects.all().order_by('date','site_name')
         context['service_tickets'] = ServiceTicket.objects.all().order_by('-date')
+        context['towers'] = Site.objects.distinct('site_name','state_owned')
         return context
+
 
 class Visitor(SuccessMessageMixin, FormView):
     template_name = 'base/visitor.html'

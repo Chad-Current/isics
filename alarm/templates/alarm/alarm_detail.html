@@ -31,17 +31,21 @@
     <table class='table table-bordered'>
      <thead>
       <tr class='orange'>
-       <th style='width:35px;'>Site name</th>
-       <th style='width:35px;'>Alarm</th>
-       <th style='width:35px;'>Date</th>
+       <th style='width:20px;'>Date</th>
+       <th style='width:20px;'>Site</th>
+       <th style='width:10px;'>Alarm</th>
+       <th style='width:10px;'>Status</th>
+       <th style='width:50px;'>Notes</th>
       </tr>
      </thead>
      <tbody>
      {% for alarm in alarm_object %}
       <tr>
-       <td>{{ alarm.site_name }}</td>
+       <td>{{ alarm.opened }}</td>
+       <td>{{ alarm.site }}</td>
        <td>{{ alarm.alarm }}</td>
-       <td>{{ alarm.time_stamp|date:'Y-m-d' }}</td>
+       <td>{{ alarm.status }}</td>
+       <td>{{ alarm.notes }}</td>
       </tr>
       {% endfor %}
      </tbody>

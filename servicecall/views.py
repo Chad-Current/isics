@@ -93,14 +93,13 @@ class ServiceSearch(LoginRequiredMixin, ListView):
     context_object_name = 'tickets'
 
     def get_queryset(self):
-        query_tower = self.request.GET.get('ticket_number')
+        ticketno = self.request.GET.get('ticket_number')
         query_start_date = self.request.GET.get('start_date')
         query_end_date = self.request.GET.get('end_date')
         try:
-            object_list = ServiceTicket.objects.filter(Q(ticketno__istartswith=query_tower) & Q(date__gte=query_start_date) & Q(date__lte=query_end_date)).order_by('date')
+            object_list = ServiceTicket.objects.filter(Q(ticketno__istartswith=ticketno) & Q(date__gte=query_start_date) & Q(date__lte=query_end_date)).order_by('date')
             if not object_list:
                 messages.warning(self.request, 'No Results Found')
-                return redirect(reverse_lazy(('servicecall:service-list')))
             return object_list
         except ValidationError as v:
             print('Null values ',v)

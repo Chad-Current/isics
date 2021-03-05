@@ -29,7 +29,7 @@
         <li><h4><tag>Description of resolution:</tag>    {{ ticket.desc_resolve }}</h4></li>
         <li><h4><tag>Time Stamp:</tag>   {{ ticket.date }}</h4></li>
         {% if perms.tickets.change_ticket %}
-        <div class='container-centered'>
+        <div class='container-centered headspace'>
           <li><a href="{% url 'ticketsystem:ticket-system-update-page' ticket.id %}" class='sub-nav-link'>-- Update Ticket --</a></li>
           <li><a href="{% url 'ticketsystem:ticket-system-delete-page' ticket.id %}" class='sub-nav-link'>-- Delete Ticket --</a></li>
         </div>

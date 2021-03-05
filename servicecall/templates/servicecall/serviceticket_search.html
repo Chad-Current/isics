@@ -35,15 +35,6 @@
    {% endblock main %}
       {% block sub_one %}
    
-	<div class='container headspace'>
-        {% if messages %}
-        {% for message in messages %}
-        <div class='container-centered'>
-          <sup class="alert-no-info">{{ message }}</sup>
-        </div>
-        {% endfor %}
-	{% endif %}
-	</div>
 	 <div class='container headspace'>
 		 <table class='table table-bordered'>
 		  <thead>
@@ -75,6 +66,15 @@
 		 </table>
 
 	 </div>
+	<div class='container headspace'>
+        {% if messages %}
+        {% for message in messages %}
+        <div class='container-centered'>
+          <sup class="alert-no-info">{{ message }}</sup>
+        </div>
+        {% endfor %}
+	{% endif %}
+	</div>
       <hr></hr>
 
           <div class='container-row'>
