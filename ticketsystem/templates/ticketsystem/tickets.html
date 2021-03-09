@@ -74,8 +74,8 @@
 		   <td>{{ ticket.issue_resolved|yesno:'Yes,No' }}</td>
 		   <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>i
 		   {% if request.user.is_superuser %}
-		   <td><a href="{% url 'ticket-system:ticket-system-update-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
-		   <td><a href="{% url 'ticket-system:ticket-system-delete-page' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		   <td><a href="{% url 'ticket-system:ticket-system-update-page' ticket.id %}" class='mini-nav-link'>◉</a></td>
+		   <td><a href="{% url 'ticket-system:ticket-system-delete-page' ticket.id %}" class='mini-nav-link'>◉</a></td>
 		   {% endif %}
 		  </tr>
 		  {% endif %}

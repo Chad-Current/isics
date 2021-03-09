@@ -22,17 +22,19 @@
   <div class='container-centered headspace'>
     <form action='' method="post">
       {% csrf_token %}
-        <p>Badge&nbsp&nbsp&nbsp&nbsp{{ object.badge_identifier }}</p>
-	<p>Locations&nbsp&nbsp&nbsp&nbsp{{ object.location }}</p>
-	<p>Talkgroup&nbsp&nbsp&nbsp&nbsp{{ object.talkgroup_assoc }}</p>
-	<p>Mobile&nbsp&nbsp&nbsp&nbsp{{ object.mobile|yesno:'Yes,No' }}</p>
-	<p>Portable&nbsp&nbsp&nbsp&nbsp{{ object.portable|yesno:'Yes,No' }}</p>
-	<p>Description &nbsp&nbsp&nbsp&nbsp{{ object.desc_issue|wordwrap:60|linebreaksbr }}</p>
-	<p>Resolved &nbsp&nbsp&nbsp&nbsp {{ object.issue_resolve|yesno:'Yes,No' }}</p>
+       <ul class='forms_2'>
+	<li>Badge&nbsp&nbsp&nbsp&nbsp{{ object.badge_identifier }}</li>
+	<li>Locations&nbsp&nbsp&nbsp&nbsp{{ object.location }}</li>
+	<li>Talkgroup&nbsp&nbsp&nbsp&nbsp{{ object.talkgroup_assoc }}</li>
+	<li>Mobile&nbsp&nbsp&nbsp&nbsp{{ object.mobile|yesno:'Yes,No' }}</li>
+	<li>Portable&nbsp&nbsp&nbsp&nbsp{{ object.portable|yesno:'Yes,No' }}</li>
+	<li>Description &nbsp&nbsp&nbsp&nbsp{{ object.desc_issue|wordwrap:60|linebreaksbr }}</li>
+	<li>Resolved &nbsp&nbsp&nbsp&nbsp {{ object.issue_resolve|yesno:'Yes,No' }}</li>
           {% if not object.desc_resolve == '' %}
-        <p>Resolution&nbsp&nbsp&nbsp&nbsp{{ object.desc_resolve }}</p>
-          {% endif %}
-        <div class='container-centered headspace'>
+        <li>Resolution&nbsp&nbsp&nbsp&nbsp{{ object.desc_resolve }}</li>
+	{% endif %}
+       </ul>
+      <div class='container-centered headspace'>
         <button type="submit" class='alert-delete'>Confirm deletion</button>
       </div>
   </form>

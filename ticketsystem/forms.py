@@ -108,7 +108,7 @@ TALKGROUP_CHOICES = [('DPS CALL 1-A', 'DPS CALL 1-A'),
  ('TRI-STATE TF', 'TRI-STATE TF')]
 
 class TicketForm(forms.ModelForm):
-    badge_identifier = forms.IntegerField()
+    badge_identifier = forms.CharField(required=True)
     location = forms.CharField(widget=forms.TextInput())
     talkgroup_assoc = forms.CharField(widget=forms.Select(choices=TALKGROUP_CHOICES,attrs={'style':'height:3em;width:14em;border-radius:5px;'}))
     rssi = forms.IntegerField()
@@ -127,7 +127,7 @@ class TicketForm(forms.ModelForm):
 
 
 class TicketUpdateForm(forms.ModelForm):
-    badge_identifier = forms.IntegerField()
+    badge_identifier = forms.CharField(required=True)
     location = forms.CharField(widget=forms.TextInput())
     talkgroup_assoc = forms.CharField(widget=forms.Select(choices=TALKGROUP_CHOICES))
     rssi = forms.IntegerField()

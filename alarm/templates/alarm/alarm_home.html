@@ -17,18 +17,14 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title text-shadow min-headspace'>Site alarms</h1>
-    <a href="{% url 'alarm-check:alarm-list' %}" class="sub-nav-link min-headspace"><i class="fas fa-bell">&nbsp&nbsp&nbsp&nbspOpen alarms</i></a>
+    <a href="{% url 'alarm-check:alarm-list' %}" class="blinking min-headspace"><i class="fas fa-bell">&nbsp&nbsp&nbsp&nbspOpen alarms</i></a>
   </div>
 
   {% endblock main %}
 
 
-  {% block sub_one %}
-<div class='container-split headspace'>
-  <div class='col-lg-6'>
-    <div class='headspace container-savespace'>
-      <ul>
+  {% block sub_one %} 
+<div class='container headspace'>
         <li><h3 class='title'><i class="fas fa-power-off"></i>&nbsp&nbsp&nbsp&nbspCommercial Power Out – Notify ISICS admin personnel or on-call Comm Tech (After Hours)</h3></li>
         <li>(Backup generator should run keeping site active, however Comm tech will need to advise local power company of outage and find out ETA of power restoral)</li>
         <li><h3 class='title headspace'><i class="fas fa-smog"></i>&nbsp&nbsp&nbsp&nbspSmoke – Dispatch appropriate personnel to the site to investigate/extinguish fire.</h3></li>
@@ -48,35 +44,22 @@
         <li>(Shelter key, Generator Key and Transfer switch keys are contained within the shelter key lock box)</li>
         <li>(The ballistic shelter door will be very heavy, pull hard to open after unlocking)</li>
       </ul>
-      </div>
-    </div>
-    <div class='col-lg-3'>
-      <div class='container-centered max_headspace'>
-        <table class='table table-bordered'>
-          <tr>
-            <td><tag>Scott Richardson</tag></td><td>Cell 515-418-2953</td>
-          </tr>
-          <tr>
-            <td><tag>Connie Stufflebeem</tag></td><td> Cell 515-630-8781</li></td>
-          </tr>
-          <tr>
-            <td><tag>Chad Current</tag></td><td> Cell 515-868-2494</li></td>
-          </tr>
-          <tr>
-            <td><tag>Dave Brittain</tag></td><td> Cell 515-979-1663</li></td>
-          </tr>
-          <tr>
-            <td><tag>Tom Lampe</tag></td><td> Cell 515-250-0998</li></td>
-          </tr>
-          <tr>
-            <td><tag>Heath Hove</tag></td><td> Cell 515-204-7288</li></td>
-          </tr>
-          <!-- <a href="mailto:isicsadmin@dps.state.ia.us" class='nav-link'><i class='fas fa-envelope'></i>&nbsp&nbsp&nbsp&nbspisicsadmin@dps.state.ia.us</a> -->
-          </table>
-        </div>
-    </div>
-</div>
+  </div>
 
+  <div class='container headspace'>
+    <table class='table table-bordered'>
+     <tr>
+      <td><tag>Scott Richardson</tag></td><td>Cell 515-418-2953</td>
+      <td><tag>Connie Stufflebeem</tag></td><td> Cell 515-630-8781</td>
+      <td><tag>Chad Current</tag></td><td> Cell 515-868-2494</td>
+     </tr>
+     <tr>
+      <td><tag>Dave Brittain</tag></td><td> Cell 515-979-1663</td>
+      <td><tag>Tom Lampe</tag></td><td> Cell 515-250-0998</td>
+      <td><tag>Heath Hove</tag></td><td> Cell 515-204-7288</td>
+     </tr>
+    </table>
+  </div>
       <div class='footer'>
       </div>
    {% endblock sub_one %}

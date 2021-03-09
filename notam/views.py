@@ -16,7 +16,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from datetime import datetime as dt
 from .models import Notam
-from .forms import NotamForm
+from .forms import NotamForm, NotamUpdateForm
 
 
 class UserPermissonMixin(PermissionRequiredMixin):
@@ -62,9 +62,10 @@ class NotamUpdate(UpdateView):
     redirect_field_name = 'notam/'
 
     model = Notam
-    fields = '__all__'
+    form_class = NotamUpdateForm
     template_name = 'notam/notam_update.html'
     success_url = reverse_lazy('notam:notam-home')
+
 
 class NotamDetail(DetailView):
     raise_exception = False

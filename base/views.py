@@ -47,6 +47,7 @@ class Index(LoginRequiredMixin, ListView):
         context['alarms'] = Alarm.objects.all().order_by('-ticket','-opened')
         context['total_alarms'] = AlarmArchive.objects.filter(Q(time_stamp__gte=one_year)).count() + \
                                          Alarm.objects.filter(Q(timestamp__gte=one_year)).count()
+        context['site_trunking'] = Alarm.objects.filter(alarm__icontains='Trunking')
         context['lights'] = Alarm.objects.filter(alarm__icontains='Tower', timestamp__lte=self.now)
         context['ticketsys'] = SubscriberTicket.objects.all()
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()

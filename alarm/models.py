@@ -1,6 +1,6 @@
 from django.db import models
-#from django.db.models.signals import post_save
-#from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 import re
 
 class Alarm(models.Model):
@@ -11,17 +11,18 @@ class Alarm(models.Model):
     priority = models.CharField(max_length=255)
     status = models.CharField(max_length=255)
     notes = models.CharField(max_length=1000)
+    email = models.CharField(max_length=5000)
     timestamp = models.DateField(auto_now=False, auto_now_add=True, blank=True)
 
-    def __init__(self, site, alarm, opened, ticket, priority, status, notes, timestamp, *args, **kwargs):
-        super().__init__(site, alarm, opened, ticket, priority, status, notes, timestamp, *args, **kwargs)
+    def __init__(self, site, alarm, opened, ticket, priority, status, notes, email, timestamp, *args, **kwargs):
+        super().__init__(site, alarm, opened, ticket, priority, status, notes, email, timestamp, *args, **kwargs)
         Ticket = '(?<=Ticket)\s\w+'
         Notes = 'Notes:(.*)|Status:(.*)|Communications:(.*)|Assigned To:(.*)'
         Priority = 'High'
         Status = '(?<=High - )\w+'
         Opened = '(?<=Opened:)\s+(.*)(?=\(\(GMT)'
-        Site = '^[A-Z]\w+?\s?[A-Z]\w+?\s?[A-Z]?\w+(?=\_|\(|\-| -| )'
-        Alarm = '(?<=DI:)\w+'
+        Site = '^[A-Z]\w+?\s?[A-Z]?\w+?\s?[A-Z]?\w+(?=\_|\(|\-| -| )'
+        Alarm = '((?<=DI:)\w+|NOT WIDE TRUNKING SITE)'
        
         if 'Ticket' in self.ticket:
             #Ticket
@@ -99,8 +100,17 @@ class AlarmArchive(models.Model):
     arcv_site_name = models.CharField(max_length=5000)
     arcv_alarm = models.CharField(max_length=5000)
     arcv_alarm_opened = models.CharField(max_length=5000)
+    arcv_ticket = models.CharField(max_length=255)
     all_comments = models.CharField(max_length=5000)
     time_stamp = models.DateField(auto_now=False, auto_now_add=True, blank=True)
+
+#    @receiver(post_delete, sender=Alarm)
+#    def del_alarm(self, instance, *args, **kwargs):
+#        try:
+#            Alarm.objects.filter(ticket__iexact=instance.arcv_ticket).delete()
+#        except IntergrityError as e:
+#            print('Could not find objects')
+
 
     def get_absolute_url(self):
         return reverse('alarm-check:alarm-list')
@@ -108,7 +118,7 @@ class AlarmArchive(models.Model):
     def __str__(self):
         return f'ARC Site Name {self.arcv_site_name}  ARC Alarm Date: {self.arcv_alarm_opened}'
 
-
+    
 
     class Meta:
         managed = True

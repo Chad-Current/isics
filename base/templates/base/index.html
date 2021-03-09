@@ -65,7 +65,7 @@
   {% block sidebar %}
     <nav class='side-navbar'>
       <ul class='side-navbar-nav'>
-        <li class='logo'>
+        <li class='side-nav-item'>
           <a href="{% url 'base:home-page' %}" class='side-nav-link'>
             <i class="fas fa-home"></i>
             <span class='side-link-text'>Home</span>
@@ -151,12 +151,18 @@
 
   {% block main %}
   <div class='container-centered'>
+	  
   <div class='container-row'>
     <div class='container-centered'>
 	    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>
 		    <h3 class='forms_homepage_tag'>{{alarms.count}}&nbsp&nbspAlarms</h3>
             </a>
       <div class='form_homepage'>
+	    {% if site_trunking %}
+	    {% for alarm in site_trunking %}
+	    <p class='site-warning'>{{ alarm.site }}&nbspis in site trunking</p>
+	    {% endfor %}
+	    {% endif %}
         {% if alarms %}
         {% for alarm in alarms %}
         <ul class='min-headspace'>
@@ -242,12 +248,9 @@
 
 </div>
 
-	<div class='footer'>
-	</div>
 
   {% endblock main %}
   {% block sub_one %}
-
   {% endblock sub_one %}
   {% block sub_two %}
   {% endblock sub_two %}
@@ -263,6 +266,7 @@
       <li><div id='clock'>8:10:45</div></li>
     </ul>
   </div>
+  
 </div>
   {% endblock timer %}
 
@@ -300,11 +304,7 @@ function countdown( elementName, minutes, seconds )
 
 countdown( "clock", 30, 0 );
 
-
 </script>
-
-
-
 
 
 
