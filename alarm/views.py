@@ -50,15 +50,15 @@ class AlarmList(LoginRequiredMixin, ListView):
     template_name = 'alarm/alarm_list.html'
     model = Alarm
     context_object_name = 'alarms'
-    ordering = ['-ticket']
+    ordering = ['-timestamp']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         now = datetime.now()
-        context['alarm'] = Alarm.objects.all().order_by('-ticket','-opened')
+        context['alarm'] = Alarm.objects.all().order_by('-timestamp','-ticket')
         return context
 
-#NEEDS UPDATE MODEL NAMES
+
 class ArchiveAlarm(UserPermissonMixin, DeleteView):
     raise_exception = False
     permission_required = 'alarm.change_alarm'
@@ -72,14 +72,15 @@ class ArchiveAlarm(UserPermissonMixin, DeleteView):
 
     def delete(self, *args, **kwargs):
             self.object = self.get_object()
-            try:  #This will change with Zapier implementation attrs only
+            try:  #AlarmArchive creation here to keep all (single) records of opened and closed alarm (history)
                 comments = AlarmComment.objects.filter(original_alarm=self.object.id).values_list('comments', flat=True)
                 comments = str(comments).replace("<QuerySet [","")
                 comments = str(comments).replace("]>","")
-                AlarmArchive.objects.create(id=self.object.id, arcv_site_name=self.object.site, \
-                arcv_alarm=self.object.alarm, arcv_alarm_opened=self.object.opened, \
-                all_comments=comments, time_stamp=self.object.timestamp)
-
+                if 'Resolved' in self.object.status:
+                    AlarmArchive.objects.create(id=self.object.id, arcv_site_name=self.object.site, \
+                    arcv_alarm=self.object.alarm, arcv_alarm_opened=self.object.opened, \
+                    all_comments=comments, arcv_ticket=self.object.ticket)
+                
             except IntegrityError as i:
                 print('Object creation breaks IntergrityError ', i)
                 self.object.delete()

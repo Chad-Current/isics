@@ -27,11 +27,19 @@
 
 
   {% block sub_one %}
+  <div class='container-centered'>
+   <ul class='alarm-email'>
+    {% for alarm in alarm_object %}
+    <li>{{alarm.email|wordwrap:200|linebreaksbr}}</li>
+    {% endfor %}
+   </ul>
+  </div>
+
   <div class='container headspace'>
     <table class='table table-bordered'>
      <thead>
       <tr class='orange'>
-       <th style='width:20px;'>Date</th>
+       <th style='width:20px;'>Date opened</th>
        <th style='width:20px;'>Site</th>
        <th style='width:10px;'>Alarm</th>
        <th style='width:10px;'>Status</th>

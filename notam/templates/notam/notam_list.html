@@ -24,7 +24,7 @@
 				<th style='width:50px;'>Site</th>
 				<th style='width:50px;'>Submitted by</th>
 				{% if request.user.is_superuser %}
-				<th style='width:20px;'>Update</th>
+				<th style='width:20px;'>Extend</th>
 				<th style='width:20px;'>Delete</th>
 				{% endif %}
 			</tr>
@@ -32,12 +32,12 @@
 		<tbody>
 			{% for notam in notams %}
 			<tr>
-				<td>{{ notam.date|date:'Y-m-d H:i' }}</td>
+				<td>{{ notam.date|date:'Y-m-d' }}</td>
 				<td>{{ notam.site_name }}</td>
 				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
 				{% if request.user.is_superuser %}
-				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>?</a></td>
-				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>✔</a></td>
+				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>◉</a></td>
+				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>◉</a></td>
 				{% endif %}
 			</tr>
 			{% endfor %}

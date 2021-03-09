@@ -27,7 +27,7 @@
       <div id='ticket_section'>
         <div class='container-centered  max_headspace'>
             {% if messages %}
-            <ul class="messages headspace">
+            <ul class="messages">
               {% for message in messages %}
               <li class=" alert {{ message.tags }} alert-success">{{ message }}</li>
               {% endfor %}
@@ -115,7 +115,7 @@
           <tr>
             <td>*</td>
             <td>If onsite support is required to resolve the service request, the Customer Support Represenatative will dispatch the local field provider</td>
-            <td></td>
+	    <td><form action='' method=''>{% csrf_token %}{{ form.site_loc}}</form></td>
           </tr>
         </tbody>
       </table>

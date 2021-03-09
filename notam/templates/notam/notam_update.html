@@ -22,6 +22,20 @@
   {% endblock main %}
 
   {% block sub_one %}
+   <div class='container-middle-align'>
+    <form action='' method='POST'> 
+     {% csrf_token %}
+     <ul class='forms_2'>
+       {% for field in form %}
+    	<li class='title'>{{field.label}}</li>
+	<li>{{field}}</li>
+	{% endfor %}
+     </ul>
+     <div class='container-centered'>
+	<button type='submit'>30 Day extension filed</button>
+     </div>
+    </form>
+   </div>
 
   {% endblock sub_one %}
 

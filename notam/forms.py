@@ -77,6 +77,23 @@ TOWER_CHOICES = [
         ('ZWINGLE', 'ZWINGLE'),
 ]
 
-class NotamForm(forms.Form):
+class NotamForm(forms.ModelForm):
         site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
 
+        class Meta:
+            model = Notam
+            exclude = ['user', 'date']
+
+        def __init__(self, *args, **kwargs):
+            super(NotamForm, self).__init__(*args, **kwargs)
+
+class NotamUpdateForm(forms.ModelForm):
+        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
+
+        class Meta:
+            model = Notam
+            exclude = ['user','date']
+        
+        def __init__(self, *args, **kwargs):
+            super(NotamUpdateForm, self).__init__(*args, **kwargs)
+            self.fields['site_name'].disabled = True

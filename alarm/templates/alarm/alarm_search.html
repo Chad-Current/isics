@@ -19,27 +19,23 @@
   <div class='container-centered'>
     <a href="{% url 'alarm-check:alarm-home' %}" class="nav-link"><h1 class='title text-shadow min-headspace'>Site alarms</h1></a>
   </div>
-  <div class='container-centered headspace'>
+   <div class='container-centered headspace'>
     <form action="{% url 'alarm-check:alarm-search'%}" method='GET'>
       {% csrf_token %}
-      <div class='container'>
-	      <div class='container-row'>
-      <label for='site'><tag>Site &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <label for='site'><tag>Site &nbsp</tag></label>
       <input type='text' id='site' name='site' required=True>
-      <label for='alarm'><tag>Alarm &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <label for='alarm'><tag>Alarm &nbsp</tag></label>
       <input type='text' id='alarm' name='alarm' required=True>
-      	      </div>
-	      <div class='container-row'>
-      <label for='start'><tag>From&nbsp</tag></label>
+      <label for='start'><tag>From &nbsp</tag></label>
       <input type='date' id='start' name='start' required=True>
-      <label for='end'><tag>To &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <label for='end'><tag>To &nbsp</tag></label>
       <input type='date' id='end' name='end' required=True>
-      	      </div>
-	      <div class='container-centered'>
-      <button type='submit'>Search</button>
-      	      </div>
-      </div>
+        <div class='container-row'>
+          <button type='submit'>Search</button>
+        </div>
     </form>
+   </div>
+    <hr></hr>
   {% if request.user.is_superuser %}
     <div class='container-centered min-headspace'>
       <div class='container-top-nav '>
@@ -50,7 +46,7 @@
    {% endblock main %}
       {% block sub_one %}
       
-      <div class='container headspace'>
+  <div class='container-centered headspace'>
         {% if messages %}
         {% for message in messages %}
         <div class='container-centered'>
@@ -58,7 +54,6 @@
         </div>
         {% endfor %}
         {% else %}
-      </div>
 
    {% if alarms %}
     <div class='container'>
@@ -87,21 +82,22 @@
               <td>{{alarm.alarm}}</td>
 	      <td>{{alarm.timestamp}}</td>
 	      <td>{{alarm.status}}</td>
-     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+     	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% if perms.alarm.change_alarm %}
- 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+ 	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% endif %}
 	      {% if perms.alarm_archive.view_alarm_archive %}
-	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>✔</a></td>
+	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% endif %}
 	  </tr>
 	   {% endfor %}
 	 </tbody>
 	</table>
-    </div>
     {% endif %}
-  </div>
+   </div>
    {% endif %}
+  </div>
+
         <div class='container-row'>
           <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
           <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>

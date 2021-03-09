@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail, send_mass_mail
 from django.db.models import Q
 from .forms import TicketForm, TicketFormUpdate
 from .models import ServiceTicket
@@ -41,11 +42,14 @@ class ServiceHome(LoginRequiredMixin, SuccessMessageMixin, FormView):
         self.ticket = form.cleaned_data['ticketno']
         self.site = form.cleaned_data['site_loc']
         self.issue = form.cleaned_data['issue']
+        self.subject = str(self.ticket)+' '+str(self.site)
+        self.message = str(self.issue)
         tz = pytz.timezone('US/Central')
         ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
         self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
         try:
             ServiceTicket.objects.create(ticketno=self.ticket, site_loc=self.site, issue=self.issue, date=self.date)
+            send_mail(self.subject, self.message,'admin@isics.info',['ccurrent@dps.state.ia.us']) 
         except TypeError as e:
             print('None value ',e)
         return super().form_valid(form)

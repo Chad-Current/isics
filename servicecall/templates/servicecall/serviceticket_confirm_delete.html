@@ -20,13 +20,15 @@
     <div class='container-centered headspace'>
       <h1 class='title text-shadow'>Are you sure you want to delete?</h1>
      </div>
-  <div class='forms_2 headspace'>
+  <div class='headspace'>
     <form action='' method="post" >
       {% csrf_token %}
-      <p><tag>Ticket</tag>&nbsp&nbsp {{ object.ticketno }}</p>
-      <p><tag>Site</tag>&nbsp&nbsp {{ object.site_loc |truncatechars:100 }}</p>
-      <p><tag>Reported issue</tag>&nbsp&nbsp {{ object.issue |truncatechars:100 }}</p>
-      <p><tag>Date</tag>&nbsp&nbsp {{ object.date|date:'Y-m-d H:i' }}</p>
+      <ul class='forms_2'>
+      <li><tag>Ticket</tag>&nbsp&nbsp {{ object.ticketno }}</li>
+      <li><tag>Site</tag>&nbsp&nbsp {{ object.site_loc |truncatechars:100 }}</li>
+      <li><tag>Reported issue</tag>&nbsp&nbsp {{ object.issue |truncatechars:100 }}</li>
+      <li><tag>Date</tag>&nbsp&nbsp {{ object.date|date:'Y-m-d H:i' }}</li>
+      </ul>
        <div class='container-centered headspace'>
 	<button type="submit" class='alert-delete'>Confirm</button>
        </div>

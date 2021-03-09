@@ -40,12 +40,12 @@
 		  <thead>
 		   <tr class='orange'>
 		    <th style='width:50px;'>Date</th>
-		    <th style='width:50px;'>Ticket No.</th>
+		    <th style='width:50px;'>Ticket No</th>
 		    <th style='width:50px;'>Subject</th>
 		    <th style='width:50px;'>Message</th>
 		    {% if request.user.is_superuser %}
-		    <th style='width:10px;'>Update</th>
-		    <th style='width:10px;'>Delete</th>
+		    <th style='width:20px;'>Update</th>
+		    <th style='width:20px;'>Delete</th>
 		    {% endif %}
 		   </tr>
 		  </thead>
@@ -57,8 +57,8 @@
 		     <td>{{ ticket.site_loc }}</td>
 		     <td>{{ ticket.issue }}</td>
 		     {% if request.user.is_superuser %}
-		     <td><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>✔</a></td>
-		     <td><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>✔</a></td>
+		     <td><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>◉</a></td>
+		     <td><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>◉</a></td>
 		     {% endif %}
 		    </tr>
 		    {% endfor %}
@@ -66,7 +66,7 @@
 		 </table>
 
 	 </div>
-	<div class='container headspace'>
+	<div class='container'>
         {% if messages %}
         {% for message in messages %}
         <div class='container-centered'>
