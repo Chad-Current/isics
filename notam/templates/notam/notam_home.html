@@ -18,7 +18,7 @@
   {% block main %}
    <div class='container-centered'>
     <a href="{% url 'notam:notam-home' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Notam</h1></a>
-  </div>
+   </div>
   <div class='container'>
     <div class='top-navbar headspace'>
           <a class="nav-link" href="{% url 'notam:notam-create' %}">Record Notam</a>
@@ -27,6 +27,7 @@
   </div>
   <hr></hr>
   {% endblock main %}
+
   {% block sub_one %}
   <div class='container-centered'>
       <h1>Directions for Notams</h1>

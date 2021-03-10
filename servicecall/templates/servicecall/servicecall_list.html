@@ -23,7 +23,7 @@
     <form action="{% url 'servicecall:service-search'%}" method='GET'>
       {% csrf_token %}
       <label for='ticket_number'><tag>Ticket Number&nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='text' placeholder='Ticket Number' name='ticket_number'>
+      <input type='text'  name='ticket_number'>
       <label for='start_date'><tag>Start Date&nbsp&nbsp&nbsp&nbsp</tag></label>
       <input type='date' placeholder="YYYY-MM-DD" name='start_date' required=True>
       <label for='end_date'><tag>End Date&nbsp&nbsp&nbsp&nbsp</tag></label>
@@ -56,8 +56,8 @@
            <td>{{ ticket.site_loc }}</td>
            <td>{{ ticket.issue }}</td>
 	   {% if request.user.is_superuser %}
-	   <td style='text-align:center'><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>✔</td>
-	   <td style='text-align:center'><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>✔</td>
+	   <td style='text-align:center'><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>◉</td>
+	   <td style='text-align:center'><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>◉</td>
 	   {% endif %}
           </tr>
          {% endfor %}

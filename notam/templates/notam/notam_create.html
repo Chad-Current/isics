@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  {% include 'notam/notam_home.html' %}
+  {% extends 'notam/notam_home.html' %}
   {% load static %}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,18 +16,22 @@
 
 <body>
   {% block sub_one %}
-  <div class='container-centered'>
-   <form action='' method='POST'>
+   <div class='container-middle-align'>
+    <form action='' method='POST'> 
      {% csrf_token %}
-     <div class='container-centered headspace forms_2'>
-       <ul>
-       <li><tag>{{ form.site_name.label }}&nbsp&nbsp&nbsp&nbsp{{ form.site_name }}</tag></li>
-       </ul>
-       <button type='submit'>Create record</button>
+     <ul class='forms_2'>
+       {% for field in form %}
+    	<li class='title'>{{field.label}}</li>
+	<li>{{field}}</li>
+	{% endfor %}
+     </ul>
+     <div class='container-centered'>
+	<button type='submit'>Create record</button>
      </div>
-   </form>
- </div>
-
+    </form>
+   </div>
+  <div class='footer'>
+  </div>
   {% endblock sub_one %}
 
 

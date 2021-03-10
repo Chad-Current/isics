@@ -23,7 +23,8 @@ class Alarm(models.Model):
         Opened = '(?<=Opened:)\s+(.*)(?=\(\(GMT)'
         Site = '^[A-Z]\w+?\s?[A-Z]?\w+?\s?[A-Z]?\w+(?=\_|\(|\-| -| )'
         Alarm = '((?<=DI:)\w+|NOT WIDE TRUNKING SITE)'
-       
+        Email = '(.*)'
+
         if 'Ticket' in self.ticket:
             #Ticket
             self.ticket = re.search(f'{Ticket}',self.ticket)
@@ -67,6 +68,12 @@ class Alarm(models.Model):
                 self.alarm = self.alarm.group()
             else:
                 self.alarm = 'Data missing'
+            #Email
+            self.email = re.search(f'{Email}',self.email)
+            if self.email:
+                self.email = self.email.group()
+            else:
+                self.email = 'Data missing'
 
 
 

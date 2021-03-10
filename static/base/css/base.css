@@ -334,8 +334,8 @@ tag {
   align-items:  flex-start;
   /* justify-content: flex-start; */
   margin: 1.75em 1em;
-  padding: 1.5em;
   border: solid 3px white;
+  padding: 1.5em;
   border-radius: 5px;
   box-shadow: -1rem 0rem 3rem #050505;
 }
@@ -391,16 +391,16 @@ tag {
 }
 
 .alarm-email {
-  background: white;
-  border: solid 5px #050505;
+  border: solid 3px #050505;
   border-radius: 10px;
-  background: #FAFAFA;
+  background: linear-gradient(to right, #FAFAFA, #F5F5F5);
+  width:50%;
 }
 
 .alarm-email li {
   font-family: 'Roboto';
   color: black;
-  padding: 1rem;
+  padding: 1rem 0rem;
 }
 
 .alert-delete {
@@ -1181,8 +1181,8 @@ tag {
   border: solid 8px #FAFAFA;
   border-radius: 10px;
   box-shadow: -2rem 0rem 5rem #050505;
-  padding: 1.5em;
   min-width: 50em;
+  padding:1.5em;
 }
 
 /* TICKET CSS */
@@ -1433,3 +1433,16 @@ tr.yellow th{
 	transition: max-height 200ms ease-out;
 	background-color: #050505;
 }
+
+.spin {
+  -webkit-animation: rotation 5s infinite linear;
+}
+
+@keyframes rotation { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } 
+
+.spinner {
+ height: 5em;
+ width: 5em;
+}
+
+

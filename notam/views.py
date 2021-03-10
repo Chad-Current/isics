@@ -46,8 +46,12 @@ class NotamCreate(FormView):
 
     def form_valid(self, form):
         self.site_name = form.cleaned_data['site_name']
+        self.aviation = form.cleaned_data['aviation']
+        self.motorola = form.cleaned_data['motorola']
+        self.notes = form.cleaned_data['notes']
+
         try:
-            Notam.objects.create(site_name=self.site_name, date=dt.now(tz=None), user_id=self.request.user.id)
+            Notam.objects.create(site_name=self.site_name, date=dt.now(tz=None), aviation=self.aviation, motorola=self.motorola, notes=self.notes, user_id=self.request.user.id)
         except TypeError as e:
             print('None value',e)
         return super().form_valid(form)

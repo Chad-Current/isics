@@ -8,9 +8,12 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <link rel="stylesheet" media='screen and (max-width:600px)' href="{% static 'base/css/mobilescreen.css' %}">
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" type="image/jpg" href="{% static 'base/images/favicon.ico' %}"/>
   <title>Radio User Database</title>
+
+  
   <style>
     .marquee   {
 	    position: relative;
@@ -236,7 +239,7 @@
 		              <div class='marquee'>
 				   <div class='container-centered-between'>
 					     <h4>Alarms {{ total_alarms }}</h4>
-					     <h4>Subscriber tickets {{ ticketsys.count }}</h4>
+					     <h4>Radio subscriber tickets {{ ticketsyscount }}</h4>
 					     <h4>Total Towers {{ towers.count }}</h4>
 			           </div>
 		                </div>
@@ -247,7 +250,6 @@
 
 
 </div>
-
 
   {% endblock main %}
   {% block sub_one %}
@@ -264,6 +266,7 @@
     <ul>
       <li><p class='timer'>SESSION EXPIRE<a href="{% url 'home:home-page-secret' %}" style="color:orange;text-decoration:none">S</a></p></li>
       <li><div id='clock'>8:10:45</div></li>
+      <!--   <li><img src="{% static 'base/images/g3568.png' %}" class='spin spinner'/></li> -->
     </ul>
   </div>
   

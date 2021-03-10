@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  {% include 'notam/notam_home.html' %}
+  {% extends 'notam/notam_home.html' %}
   {% load static %}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,18 +15,18 @@
 </head>
 
 <body>
-  {% block sub_two %}
+  {% block sub_one %}
      <div class='container'>
 	<table class='table table-bordered headspace'>
 		<thead>
 			<tr class='orange'>
-				<th style='width:50px;'>Date</th>
-				<th style='width:50px;'>Site</th>
-				<th style='width:50px;'>Submitted by</th>
-				{% if request.user.is_superuser %}
+				<th style='width:25px;'>Date</th>
+				<th style='width:25px;'>Site</th>
+				<th style='width:35px;'>Submitted by</th>
+				<th style='width:30px;'>Aviation No.</th>
+				<th style='width:30px;'>Motorola No.</th>
 				<th style='width:20px;'>Extend</th>
 				<th style='width:20px;'>Delete</th>
-				{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -35,16 +35,16 @@
 				<td>{{ notam.date|date:'Y-m-d' }}</td>
 				<td>{{ notam.site_name }}</td>
 				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
-				{% if request.user.is_superuser %}
+				<td>{{ notam.aviation }}</td>
+				<td>{{ notam.motorola }}</td>
 				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>◉</a></td>
 				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>◉</a></td>
-				{% endif %}
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
    </div>
-  {% endblock sub_two %}
+  {% endblock sub_one %}
 
 
 

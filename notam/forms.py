@@ -79,7 +79,9 @@ TOWER_CHOICES = [
 
 class NotamForm(forms.ModelForm):
         site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
-
+        aviation = forms.CharField(label='Aviation Number',required=True)
+        motorola = forms.CharField(label='Motorola Number',required=True)
+        notes = forms.CharField(widget=forms.Textarea(), required=False)
         class Meta:
             model = Notam
             exclude = ['user', 'date']
@@ -89,7 +91,10 @@ class NotamForm(forms.ModelForm):
 
 class NotamUpdateForm(forms.ModelForm):
         site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
-
+        aviation = forms.CharField(label='Aviation Number',required=True)
+        motorola = forms.CharField(label='Motorola Number',required=True)
+        notes = forms.CharField(widget=forms.Textarea(), required=False)
+        
         class Meta:
             model = Notam
             exclude = ['user','date']
@@ -97,3 +102,5 @@ class NotamUpdateForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super(NotamUpdateForm, self).__init__(*args, **kwargs)
             self.fields['site_name'].disabled = True
+            self.fields['aviation'].disabled = True
+            self.fields['motorola'].disabled = True

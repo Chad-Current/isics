@@ -23,15 +23,15 @@
     <form action='' method="post">
       {% csrf_token %}
        <ul class='forms_2'>
-	<li>Badge&nbsp&nbsp&nbsp&nbsp{{ object.badge_identifier }}</li>
-	<li>Locations&nbsp&nbsp&nbsp&nbsp{{ object.location }}</li>
-	<li>Talkgroup&nbsp&nbsp&nbsp&nbsp{{ object.talkgroup_assoc }}</li>
-	<li>Mobile&nbsp&nbsp&nbsp&nbsp{{ object.mobile|yesno:'Yes,No' }}</li>
-	<li>Portable&nbsp&nbsp&nbsp&nbsp{{ object.portable|yesno:'Yes,No' }}</li>
-	<li>Description &nbsp&nbsp&nbsp&nbsp{{ object.desc_issue|wordwrap:60|linebreaksbr }}</li>
-	<li>Resolved &nbsp&nbsp&nbsp&nbsp {{ object.issue_resolve|yesno:'Yes,No' }}</li>
-          {% if not object.desc_resolve == '' %}
-        <li>Resolution&nbsp&nbsp&nbsp&nbsp{{ object.desc_resolve }}</li>
+	<li><tag>Badge</tag>&nbsp&nbsp&nbsp&nbsp{{ object.badge_identifier }}</li>
+	<li><tag>Locations</tag>&nbsp&nbsp&nbsp&nbsp{{ object.location }}</li>
+	<li><tag>Talkgroup</tag>&nbsp&nbsp&nbsp&nbsp{{ object.talkgroup_assoc }}</li>
+	<li><tag>Mobile</tag>&nbsp&nbsp&nbsp&nbsp{{ object.mobile|yesno:'Yes,No' }}</li>
+	<li><tag>Portable</tag>&nbsp&nbsp&nbsp&nbsp{{ object.portable|yesno:'Yes,No' }}</li>
+	<li><tag>Description</tag>&nbsp&nbsp&nbsp&nbsp{{ object.desc_issue|wordwrap:60|linebreaksbr }}</li>
+	<li><tag>Resolved</tag>&nbsp&nbsp&nbsp&nbsp {{ object.issue_resolve|yesno:'Yes,No' }}</li>
+        {% if not object.desc_resolve == '' %}
+	<li><tag>Resolution</tag>&nbsp&nbsp&nbsp&nbsp{{ object.desc_resolve }}</li>
 	{% endif %}
        </ul>
       <div class='container-centered headspace'>
