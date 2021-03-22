@@ -26,10 +26,23 @@
     <form action='' method='POST'> 
      {% csrf_token %}
      <ul class='forms_2'>
-       {% for field in form %}
-    	<li class='title'>{{field.label}}</li>
-	<li>{{field}}</li>
-	{% endfor %}
+                <div class='container-row-between'>
+		     <div>
+			     <li><tag>{{form.site_name.label}}</tag></li>
+			     <li>{{form.site_name}}</li>
+	             </div>
+		     <div>
+			     <li><tag>{{form.aviation.label}}</tag></li>
+			     <li>{{form.aviation}}</li>
+	             </div>
+		     <div>
+			     <li><tag>{{form.motorola.label}}</tag></li>
+			     <li>{{form.motorola}}</li>
+		     </div>
+		 </div>
+		     
+			     <li><tag>{{form.notes.label}}</tag></li>
+		     	     <li>{{form.notes}}</li>
      </ul>
      <div class='container-centered'>
 	<button type='submit'>30 Day extension filed</button>

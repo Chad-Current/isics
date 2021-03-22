@@ -27,22 +27,19 @@
 
   {% block sub_one %}
   <div class='container-centered'>
-  <div class='headspace forms_2'>
       <form action="" method="POST" >
         {% csrf_token %}
         {% for field in form %}
-          <ul>
-            <li class='title'>{{field.label}}</li>
+          <ul class='forms_2'>
             <li>{{field}}</li>
           </ul>
           {% endfor %}
           <div class='container-centered'>
-          <button type='submit'>Update Alarm</button>
+          <button type='submit'>Submit</button>
           </div>
     </form>
-  </div>
 </div>
-<div class='container-centered'>
+<div class='container-centered headspace'>
  <a href="{% url 'alarm-check:alarm-detail' alarm.id %}" class='sub-nav-link'>Back to details</a>
 </div>
 <hr></hr>

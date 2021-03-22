@@ -120,7 +120,7 @@ class TicketForm(forms.ModelForm):
 
     class Meta:
         model = SubscriberTicket
-        fields = '__all__'
+        exclude = ['date']
 
     def __init__(self, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
@@ -139,7 +139,7 @@ class TicketUpdateForm(forms.ModelForm):
 
     class Meta:
         model = SubscriberTicket
-        fields = '__all__'
+        exclude = ['date']
 
     def __init__(self, *args, **kwargs):
         super(TicketUpdateForm, self).__init__(*args, **kwargs)

@@ -78,10 +78,10 @@ TOWER_CHOICES = [
 ]
 
 class NotamForm(forms.ModelForm):
-        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
+        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES,attrs={'style':'height:3.35em;width:15em;margin-right:2.5em;'}))
         aviation = forms.CharField(label='Aviation Number',required=True)
         motorola = forms.CharField(label='Motorola Number',required=True)
-        notes = forms.CharField(widget=forms.Textarea(), required=False)
+        notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:43em;'}), required=False)
         class Meta:
             model = Notam
             exclude = ['user', 'date']
@@ -90,10 +90,10 @@ class NotamForm(forms.ModelForm):
             super(NotamForm, self).__init__(*args, **kwargs)
 
 class NotamUpdateForm(forms.ModelForm):
-        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
+        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES,attrs={'style':'height:3.35em;width:15em;margin-right:2.5em;'}))
         aviation = forms.CharField(label='Aviation Number',required=True)
         motorola = forms.CharField(label='Motorola Number',required=True)
-        notes = forms.CharField(widget=forms.Textarea(), required=False)
+        notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:43em;'}), required=False)
         
         class Meta:
             model = Notam

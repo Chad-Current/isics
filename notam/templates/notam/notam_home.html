@@ -21,7 +21,9 @@
    </div>
   <div class='container'>
     <div class='top-navbar headspace'>
-          <a class="nav-link" href="{% url 'notam:notam-create' %}">Record Notam</a>
+       {% if perms.notam.add_notam %}
+       <a class="nav-link" href="{% url 'notam:notam-create' %}">Record Notam</a>
+       {% endif %}
           <a class="nav-link" href="{% url 'notam:notam-all' %}">Open Notams</a>
     </div>
   </div>

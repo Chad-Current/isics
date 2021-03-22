@@ -54,13 +54,15 @@
 	    <th style='width:35px;'>Ticket</th>
 	    <th style='width:35px;'>Site</th>
 	    <th style='width:35px;'>Alarm</th>
-	    <th style='width:50px;'>Date</th>
+	    <th style='width:30px;'>Date</th>
 	    <th style='width:20px;'>Status</th>
+	    {% if perms.alarm.view_alarm %}
 	    <th style='width:20px;'>Details</th>
-	    {% if perms.alarm.change_alarm %}
-	    <th style='width:20px;'>Update</th>
 	    {% endif %}
-	    {% if perms.alarm_archive.view_alarm_archive %}
+	    {% if perms.alarm.change_alarm %}
+	    <th style='width:35px;'>Add comment</th>
+	    {% endif %}
+	    {% if perms.alarm.delete_alarm %}
 	    <th style='width:20px;'>Close</th>
 	    {% endif %}
 	  </tr>
@@ -73,11 +75,13 @@
 	      <td>{{alarm.alarm}}</td>
 	      <td>{{alarm.timestamp}}</td>
 	      <td>{{alarm.status}}</td>
+	      {% if perms.alarm.view_alarm %}
      	      <td><a href="{% url 'alarm-check:alarm-detail' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
+	      {% endif %}
 	      {% if perms.alarm.change_alarm %}
  	      <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% endif %}
-	      {% if perms.alarm_archive.view_alarm_archive %}
+	      {% if perms.alarm.delete_alarm %}
 	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% endif %}
 	  </tr>

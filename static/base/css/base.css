@@ -1300,20 +1300,23 @@ tag {
   }
   25% {
     color: #D81159;
-    padding-left: 30em;
+    padding-top: 0em;
+    padding-left: 3em;
   }
   37% {
     color: #73D2DE;
   }
   50% {
     color: #8F2D56;
-    padding-top: 20em;
+    padding-top: 6em;
+    padding-left: 3em;
   }
   62% {
     color: #FFBC42;
   }
   75% {
     color: #218380;
+    padding-top:6em;
     padding-left: 0em;
   }
   100% {
@@ -1326,21 +1329,21 @@ tag {
   0% {
     color: #73D2DE;
     padding-top: 0em;
-    padding-left: 10em;
+    padding-left: 1em;
   }
   13% {
     color: #8F2D56;
   }
   25% {
     color: #218380;
-    padding-left: 20em;
+    padding-left: 3em;
   }
   37% {
     color: #FFBC42;
   }
   50% {
     color: #D81159;
-    padding-top: 10em;
+    padding-top: 2em;
   }
   62% {
     color: #73D2DE;
@@ -1351,7 +1354,7 @@ tag {
   }
   100% {
     color: #218380;
-    padding-left: 10rem;
+    padding-left: 3rem;
     padding-top: 0em;
   }
 }
@@ -1385,8 +1388,8 @@ tag {
   animation-duration: 10000ms;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  font-size: 6rem;
-  position: absolute;
+  font-size: 4rem;
+  position: relative;
   top: 50px;
   left: 150px;
   /* margin:auto; */
@@ -1399,8 +1402,8 @@ tag {
   animation-duration: 5000ms;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  font-size: 6rem;
-  position: absolute;
+  font-size: 4rem;
+  position: relative;
   top: 0px;
   z-index: -1;
   text-shadow: -2px 3px 1px #050505;
@@ -1435,14 +1438,14 @@ tr.yellow th{
 }
 
 .spin {
-  -webkit-animation: rotation 5s infinite linear;
+  -webkit-animation: rotation 4s infinite linear;
 }
 
 @keyframes rotation { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } 
 
 .spinner {
- height: 5em;
- width: 5em;
+ height: 50em;
+ width: 50em;
 }
 
 

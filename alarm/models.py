@@ -21,7 +21,7 @@ class Alarm(models.Model):
         Priority = 'High'
         Status = '(?<=High - )\w+'
         Opened = '(?<=Opened:)\s+(.*)(?=\(\(GMT)'
-        Site = '^[A-Z]\w+?\s?[A-Z]?\w+?\s?[A-Z]?\w+(?=\_|\(|\-| -| )'
+        Site = '(^[A-Z]\w+\s[A-Z][a-z]\w+)|(^[A-Z]\d+\s[A-Z][a-z]\w+)|(^[A-Z]\w+)'
         Alarm = '((?<=DI:)\w+|NOT WIDE TRUNKING SITE)'
         Email = '(.*)'
 

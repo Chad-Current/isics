@@ -24,17 +24,17 @@
     <p>please fill out the following form and once approved you will be added to the list</p>
         <form action='' method="post" class='forms_2'>
           {% csrf_token %}
-		  <div class='label'>{{ form.name.label }}</div>
-		  <div>{{ form.name }}</div><br>
-	  	  <div class='label'>{{ form.county.label }}</div>
-		  <div>{{ form.county }}</div><br>
-		  <div class='label'>{{ form.email.label }}</div>
-		  <div>{{ form.email }}</div><br>
-	     <div class='container-centered'>
-             <button type="submit">Subscribe</button>
-            </div>
+	   <div><tag>{{ form.name.label }}</tag></div>
+	   <div>{{ form.name }}</div><br>
+	   <div><tag>{{ form.county.label }}</tag></div>
+	   <div>{{ form.county }}</div><br>
+	   <div><tag>{{ form.email.label }}</tag></div>
+	   <div>{{ form.email }}</div><br>
+	  <div class='container-centered'>
+           <button type="submit">Subscribe</button>
+          </div>
         </form>
-        </div>
+       </div>
 
 {% endblock %}
 

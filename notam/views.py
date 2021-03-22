@@ -28,19 +28,17 @@ class UserPermissonMixin(PermissionRequiredMixin):
         return super(UserPermissonMixin, self).dispatch(request, *args, **kwargs)
 
 
-class NotamHome(TemplateView):
+class NotamHome(LoginRequiredMixin,TemplateView):
     template_name = 'notam/notam_home.html'
 
-class NotamCreate(FormView):
+class NotamCreate(UserPermissonMixin, FormView):
     raise_exception = False
-    permission_required = 'notam.change_notam'
+    permission_required = 'notam.add_notam'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'notam/'
 
     form_class = NotamForm
-#    model = Notam
-#    fields = '__all__'
     template_name = 'notam/notam_create.html'
     success_url = reverse_lazy('notam:notam-home')
 
@@ -58,7 +56,7 @@ class NotamCreate(FormView):
 
 
 
-class NotamUpdate(UpdateView):
+class NotamUpdate(UserPermissonMixin,UpdateView):
     raise_exception = False
     permission_required = 'notam.change_notam'
     permisson_denied_message = 'Not authorized to make changes'
@@ -71,7 +69,7 @@ class NotamUpdate(UpdateView):
     success_url = reverse_lazy('notam:notam-home')
 
 
-class NotamDetail(DetailView):
+class NotamDetail(LoginRequiredMixin,DetailView):
     raise_exception = False
     permission_required = 'notam.change_notam'
     permisson_denied_message = 'Not authorized to make changes'
@@ -82,9 +80,9 @@ class NotamDetail(DetailView):
     fields = '__all__'
     template_name = 'notam/notam_detail.html'
 
-class NotamDelete(DeleteView):
+class NotamDelete(UserPermissonMixin,DeleteView):
     raise_exception = False
-    permission_required = 'notam.change_notam'
+    permission_required = 'notam.delete_notam'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'notam/'
@@ -96,7 +94,7 @@ class NotamDelete(DeleteView):
     success_url = reverse_lazy('notam:notam-home')
 
 
-class NotamAll(ListView):
+class NotamAll(LoginRequiredMixin,ListView):
     raise_exception = False
     permission_required = 'notam.change_notam'
     permisson_denied_message = 'Not authorized to make changes'
@@ -106,7 +104,6 @@ class NotamAll(ListView):
     model = Notam
     fields = '__all__'
     template_name = 'notam/notam_list.html'
-#    paginate_by = 2
     context_object_name = 'notams'
     ordering = ['-date']
 

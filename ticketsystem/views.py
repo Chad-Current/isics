@@ -56,13 +56,14 @@ class TicketSystemCreate(LoginRequiredMixin, SuccessMessageMixin, FormView):
              talkgroup_assoc=self.talkgroup_assoc, rssi=self.rssi, \
              mobile=self.mobile, portable=self.portable, desc_issue=self.desc_issue, \
              issue_resolved=self.issue_resolved, desc_resolve=self.desc_resolve, \
-             date=self.date) # Add sent_list to Emails
+             date=self.date)
+             
         except TypeError as e:
             print('None value ',e)
         return super().form_valid(form)
 
 
-class TicketSystemUpdate(UserPermissonMixin, UpdateView):
+class TicketSystemUpdate(LoginRequiredMixin, UpdateView):
     raise_exception = False
     permission_required = 'tickets.change_ticket'
     permisson_denied_message = 'Not authorized to make changes'

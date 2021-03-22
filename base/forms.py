@@ -131,7 +131,7 @@ class UserForm(AuthenticationForm):
 
 
 class EmailRequestForm(forms.ModelForm):
-    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES))
+    county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES, attrs={'style':'width:14em;'}))
     class Meta:
         model = EmailTo
         fields = ['name','county','email']
@@ -139,7 +139,7 @@ class EmailRequestForm(forms.ModelForm):
 
 class ContactUpdateForm(forms.ModelForm):
     county = forms.CharField(widget=forms.Select(choices=COUNTY_CHOICES, attrs={'style':'height:2.5em;width:14em;border-radius:5px;'}))
-    notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:8em;width:15em;border-radius:5px;'}), required=False)
+    notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:8em;width:12em;border-radius:5px;'}), required=False)
     organization = forms.CharField(required=True)
     job_title = forms.CharField(required=True)
     phone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '555-555-5555'}),required=True)

@@ -16,25 +16,24 @@
 
 <body>
   {% block main %}
-     {% if request.user.email == 'brittain@dps.state.ia.us' %}
-      <div class='container-middle-align '>
-        <div class='max_headspace'>
-         <img src="{% static 'base/images/dave.jpg' %}"/>
-        </div>
-      </div> 
-    
-      {% else %}
       <div class='container-centered'>
          <ul class='forms_2 max_headspace'>
-           <li><tag>Hello :</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.username }}</li>
+		 <!-- <img src="{% static 'base/images/g3568.png' %}" class='spin spinner'/> -->
+           <li><tag>Username :</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.username }}</li>
            <li><tag>First Name :</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.first_name|upper }}</li>
            <li><tag>Last Name :</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.last_name|upper }}</li>
            <li><tag>Email </tag>:&nbsp&nbsp&nbsp&nbsp{{ request.user.email|lower }}</li>
-           <li><tag>Staff :</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.is_staff|yesno:"Yes,No" }}</li>
-           <li><tag>Super user:</tag>&nbsp&nbsp&nbsp&nbsp{{ request.user.is_superuser|yesno:"Yes,No" }}</li>
+	   {% for group in request.user.groups.all %}
+	    {% if group.name == 'Admins' %}
+	    <li><tag>Group: </tag>&nbsp&nbsp&nbsp&nbsp  Admins</li>
+	    {% elif group.name == 'Managers' %}
+	    <li><tag>Group: </tag>&nbsp&nbsp&nbsp&nbsp  Managers</li>
+	    {% elif group.name == 'Staff' %}
+	    <li><tag>Group: </tag>&nbsp&nbsp&nbsp&nbsp  Staff</li>
+            {% endif %}
+	   {% endfor %}
          </ul>
      </div>
-       {% endif %}
 
     <div class='container-centered'>
       <a href="{% url 'suggestion:notes-page' %}" class='nav-link'>Submit a suggestion</a>

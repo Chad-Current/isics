@@ -30,7 +30,7 @@
   <div class='container-centered'>
    <ul class='alarm-email'>
     {% for alarm in alarm_object %}
-    <li>{{alarm.email|wordwrap:200|linebreaksbr}}</li>
+    <li>{{alarm.email|wordwrap:150|linebreaksbr}}</li>
     {% endfor %}
    </ul>
   </div>
@@ -44,6 +44,12 @@
        <th style='width:10px;'>Alarm</th>
        <th style='width:10px;'>Status</th>
        <th style='width:50px;'>Notes</th>
+       {% if perms.alarm.change_alarm %}
+       <th style='width:20px;'>Add comment</th>
+       {% endif %}
+       {% if perms.alarm.delete_alarm %}
+       <th style='width:20px;'>Close</th>
+       {% endif %}
       </tr>
      </thead>
      <tbody>
@@ -54,20 +60,24 @@
        <td>{{ alarm.alarm }}</td>
        <td>{{ alarm.status }}</td>
        <td>{{ alarm.notes }}</td>
+       {% if perms.alarm.change_alarm %}
+       <td> <a href="{% url 'alarm-check:alarm-update' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
+       {% endif %}
+       {% if perms.alarm.delete_alarm %}
+       <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
+      {% endif %}
+      </tr>
+      {% endfor %}
+      <tr>
+      {% for alarm in alarm_history %}
+      <td colspan="1">Comment</td>
+      <td colspan="5">{{ alarm.comments }}</td>
+      <td colspan="1">{{ alarm.time_stamp|date:'Y-m-d' }}</td>
       </tr>
       {% endfor %}
      </tbody>
     </table>
-     <div>
-	{% for alarm in alarm_history %}
-	<sup> {{ alarm.time_stamp|date:'Y-m-d H:i' }}<br>{{ alarm.comments|wordwrap:40|linebreaksbr }}</sup>
-	<hr></hr>
-        {% endfor %}
-       </div>
    </div>
-  <div class='container-centered'>
-   <a href="{% url 'alarm-check:alarm-update' alarm.id %}" class='abtn'>Add comment</a>
-  </div>
   <hr></hr>
   <div class='container-row'>
     <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
