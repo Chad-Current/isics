@@ -15,6 +15,6 @@ class Generator(models.Model):
         db_table = 'generator'
 
     def __str__(self):
-        return f'{self.location}{self.address}'
+        return f'{self.gen_location}{self.gen_address}'
 
 

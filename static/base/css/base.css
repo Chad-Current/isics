@@ -117,8 +117,7 @@ i {
 }
 
 tr { 
-/*   border: none; */
-   }
+}
 
 tr:hover {
    background: #050505;
@@ -149,11 +148,11 @@ td {
 button {
   margin-top: 2rem;
   padding: 1rem;
-  border: white;
-  border-radius: 2px;
+  border: solid 1px #050505;
+  border-radius: 5px;
   background: orange;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-family: 'Lobster';
   font-weight: 900;
   width: 10em;
@@ -352,6 +351,13 @@ tag {
   box-shadow: -1rem 0rem 3rem #050505;
 }
 
+.forms_4 {
+  padding: 1.5em;
+  border: solid 3px white;
+  border-radius: 5px;
+  box-shadow: -1rem 0rem 3rem #050505;
+}
+
 .form_homepage {
   margin: 1em 3em;
   padding: 0em;
@@ -394,13 +400,14 @@ tag {
   border: solid 3px #050505;
   border-radius: 10px;
   background: linear-gradient(to right, #FAFAFA, #F5F5F5);
-  width:50%;
+  max-width:80em;
 }
 
 .alarm-email li {
   font-family: 'Roboto';
   color: black;
-  padding: 1rem 0rem;
+  padding-right:3em;
+  padding-bottom: 2em;
 }
 
 .alert-delete {
@@ -912,6 +919,24 @@ tag {
 .nav-link:hover {
   text-decoration: none;
   color: orange;
+}
+
+.nav-link-bordered {
+  font-size: 2rem;
+  font-family: 'Arimo';
+  color: orange;
+  background: #050505;
+  border: solid #FAFAFA 3px;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.nav-link-bordered:hover {
+  text-decoration: none;
+  color: white;
+  background: orange;
+  border: solid #FAFAFA 333;
+  transition: 350ms ease-out;
 }
 
 .nav-link-disabled {

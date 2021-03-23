@@ -31,6 +31,13 @@ class TowerSiteResults(LoginRequiredMixin, ListView):
                 messages.warning(self.request, 'No Results Found')
             return tower_list
 
+        elif self.request.GET.get('site_city'):
+            query = self.request.GET.get('site_city')
+            tower_list = Site.objects.filter(site_location__icontains=query).order_by('site_name', 'state_owned')
+            if not tower_list:
+                messages.warning(self.request, 'No Results Found')
+            return tower_list
+
         elif self.request.GET.get('site_id'):
             query = self.request.GET.get('site_id')
             tower_list = Site.objects.filter(site_id__iexact=query).order_by('site_name', 'state_owned')

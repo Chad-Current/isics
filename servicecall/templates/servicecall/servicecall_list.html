@@ -17,18 +17,15 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title text-shadow min-headspace'>Open service tickets</h1>
+    <h1 class='title text-shadow min-headspace'>Service tickets</h1>
   </div>
   <div class='container-centered'>
     <form action="{% url 'servicecall:service-search'%}" method='GET'>
       {% csrf_token %}
       <label for='ticket_number'><tag>Ticket Number&nbsp&nbsp&nbsp&nbsp</tag></label>
       <input type='text'  name='ticket_number'>
-      <label for='start_date'><tag>Start Date&nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' placeholder="YYYY-MM-DD" name='start_date' required=True>
-      <label for='end_date'><tag>End Date&nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='date' placeholder="YYYY-MM-DD" name='end_date' required=True>
       <button type='submit'>Search</button>
+      </div>
     </form>
   </div>
 <hr></hr>
@@ -42,7 +39,7 @@
 	   <th style='width:50px;'>Ticket No</th>
 	   <th style='width:50px;'>Subject</th>
 	   <th style='width:50px;'>Message</th>
-	   {% if request.user.is_superuser %}
+	   {% if perms.servicecall.change_serviceticket %}
 	   <th style='width:20px;'>Update</th>
 	   <th style='width:20px;'>Delete</th>
 	   {% endif %}
@@ -55,7 +52,7 @@
            <td>{{ ticket.ticketno }}</td>
            <td>{{ ticket.site_loc }}</td>
            <td>{{ ticket.issue }}</td>
-	   {% if request.user.is_superuser %}
+	   {% if perms.servicecall.view_serviceticket %}
 	   <td style='text-align:center'><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>◉</td>
 	   <td style='text-align:center'><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>◉</td>
 	   {% endif %}

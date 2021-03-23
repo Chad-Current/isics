@@ -60,7 +60,7 @@ class ServiceHome(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 class ServiceUpdate(UserPermissonMixin, UpdateView):
     raise_exception = False
-    permission_required = 'ticketlog.view_ticket'
+    permission_required = 'servicecall.change_serviceticket'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'servicecall/'
@@ -73,7 +73,7 @@ class ServiceUpdate(UserPermissonMixin, UpdateView):
 
 class ServiceDelete(UserPermissonMixin, DeleteView):
     raise_exception = False
-    permission_required = 'ticketlog.view_ticket'
+    permission_required = 'servicecall.delete_serviceticket'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'servicecall/'
@@ -98,10 +98,8 @@ class ServiceSearch(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         ticketno = self.request.GET.get('ticket_number')
-        query_start_date = self.request.GET.get('start_date')
-        query_end_date = self.request.GET.get('end_date')
         try:
-            object_list = ServiceTicket.objects.filter(Q(ticketno__istartswith=ticketno) & Q(date__gte=query_start_date) & Q(date__lte=query_end_date)).order_by('date')
+            object_list = ServiceTicket.objects.filter(Q(ticketno__istartswith=ticketno))
             if not object_list:
                 messages.warning(self.request, 'No Results Found')
             return object_list

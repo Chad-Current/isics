@@ -40,7 +40,7 @@ class NotamCreate(UserPermissonMixin, FormView):
 
     form_class = NotamForm
     template_name = 'notam/notam_create.html'
-    success_url = reverse_lazy('notam:notam-home')
+    success_url = reverse_lazy('notam:notam-all')
 
     def form_valid(self, form):
         self.site_name = form.cleaned_data['site_name']
@@ -66,7 +66,7 @@ class NotamUpdate(UserPermissonMixin,UpdateView):
     model = Notam
     form_class = NotamUpdateForm
     template_name = 'notam/notam_update.html'
-    success_url = reverse_lazy('notam:notam-home')
+    success_url = reverse_lazy('notam:notam-all')
 
 
 class NotamDetail(LoginRequiredMixin,DetailView):
@@ -91,7 +91,7 @@ class NotamDelete(UserPermissonMixin,DeleteView):
     fields = '__all__'
     template_name = 'notam/notam_delete.html'
     context_object_name = 'notam'
-    success_url = reverse_lazy('notam:notam-home')
+    success_url = reverse_lazy('notam:notam-all')
 
 
 class NotamAll(LoginRequiredMixin,ListView):

@@ -26,9 +26,9 @@
 	    line-height:40px;
 	    width: 100%;
 	    height: 100%;
-	    -moz-animation: marquee 7500ms linear infinite;
-	    -webkit-animation: marquee 7500ms linear infinite;
-	    animation: marquee 7500ms linear infinite;
+	    -moz-animation: marquee 10000ms linear infinite;
+	    -webkit-animation: marquee 10000ms linear infinite;
+	    animation: marquee 10000ms linear infinite;
 	}
 
     @-moz-keyframes marquee {
@@ -183,22 +183,22 @@
         {% endif %}
       </div>
     </div>
-      <div class='container-centered'>
-      <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ticketsys.count}}&nbsp&nbspRadio Tickets</h3></a>
-          <div class='form_homepage'>
-            {% if ticketsys %}
-            {% for ticket in ticketsys %}
-            <ul class='min-headspace'>
-              <a href="{% url 'ticketsystem:ticket-system-read-page' ticket.id %}" class='nav-link'>
-              <li><tag>Badge</tag>&nbsp&nbsp{{ ticket.badge_identifier }}</li>
-              <li><tag>Description</tag>&nbsp&nbsp{{ ticket.desc_issue }}</li>
-              </a>
-              <br>
-            </ul>
-            {% endfor %}
-            {% endif %}
+          <div class='container-centered'>
+		  <a href="{% url 'service-call:service-list' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ service_tickets.count }}&nbsp&nbspService tickets</h3></a>
+	   <div class='form_homepage'>
+	     {% if service_tickets %}
+	     {% for service in service_tickets %}
+	     <ul class='min-headspace'>
+   	      <li><tag>Ticket No.</tag>&nbsp&nbsp{{ service.ticketno }}</li>
+	      <li><tag>Location</tag>&nbsp&nbsp{{ service.site_loc }}</li>
+	      <li><tag>Issue</tag>&nbsp&nbsp{{ service.issue }}</li>
+	      <li><tag>Date</tag>&nbsp&nbsp{{ service.date|date:'Y-m-d' }}</li>
+	      <br>
+	     </ul>
+	     {% endfor %}
+	     {% endif %}
+	   </div>
           </div>
-        </div>
           <div class='container-centered'>
             <a href="{% url 'notam:notam-home' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{notams.count}}&nbsp&nbspNotams</h3></a>
             <div class='form_homepage'>
@@ -216,29 +216,29 @@
        </div>
 
        <div class='container-row'>
-          <div class='container-centered'>
-		  <a href="{% url 'service-call:service-list' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ service_tickets.count }}&nbsp&nbspService tickets</h3></a>
-	   <div class='form_homepage'>
-	     {% if service_tickets %}
-	     {% for service in service_tickets %}
-	     <ul class='min-headspace'>
-   	      <li><tag>Ticket No.</tag>&nbsp&nbsp{{ service.ticketno }}</li>
-	      <li><tag>Location</tag>&nbsp&nbsp{{ service.site_loc }}</li>
-	      <li><tag>Issue</tag>&nbsp&nbsp{{ service.issue }}</li>
-	      <li><tag>Date</tag>&nbsp&nbsp{{ service.date|date:'Y-m-d' }}</li>
-	      <br>
-	     </ul>
-	     {% endfor %}
-	     {% endif %}
-	   </div>
+ <div class='container-centered'>
+      <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'><h3 class='forms_homepage_tag'>{{ticketsys.count}}&nbsp&nbspRadio Tickets</h3></a>
+          <div class='form_homepage'>
+            {% if ticketsys %}
+            {% for ticket in ticketsys %}
+            <ul class='min-headspace'>
+              <a href="{% url 'ticketsystem:ticket-system-read-page' ticket.id %}" class='nav-link'>
+              <li><tag>Badge</tag>&nbsp&nbsp{{ ticket.badge_identifier }}</li>
+              <li><tag>Description</tag>&nbsp&nbsp{{ ticket.desc_issue }}</li>
+              </a>
+              <br>
+            </ul>
+            {% endfor %}
+            {% endif %}
           </div>
-
+        </div>
 	  <div class='container-centered'>
 		  <a href="#" class='nav-link'><h3 class='forms_homepage_tag'>Year to date</h3></a>
 	         	  <div class='form_homepage'>
 		              <div class='marquee'>
 				   <div class='container-centered-between'>
 					     <h4>Alarms {{ total_alarms }}</h4>
+					     <h4>Service call tickets {{ total_service_tickets }}</h4>
 					     <h4>Radio subscriber tickets {{ ticketsyscount }}</h4>
 					     <h4>Total Towers {{ towers.count }}</h4>
 			           </div>

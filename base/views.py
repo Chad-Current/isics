@@ -17,7 +17,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from sitemaintenance.models import Email, EmailTo
-from servicecall.models import ServiceTicket
+from servicecall.models import ServiceTicket, ServiceTicketArchive
 from towersite.models import Site
 from ticketsystem.models import SubscriberTicket
 from pointofcontact.models import PointOfContactUpdate
@@ -54,6 +54,8 @@ class Index(LoginRequiredMixin, ListView):
         context['email_request'] = EmailTo.objects.filter(is_active=False).last()
         context['notams'] = Notam.objects.all().order_by('date','site_name')
         context['service_tickets'] = ServiceTicket.objects.all().order_by('-date')
+        context['total_service_tickets'] = ServiceTicket.objects.filter(Q(date__gte=one_year)).count() + \
+                                         ServiceTicketArchive.objects.filter(Q(date__gte=one_year)).count()
         context['towers'] = Site.objects.distinct('site_name','state_owned')
         return context
 

@@ -9,13 +9,11 @@ class Site(models.Model):
 
     def __str__(self):
         return 'Site Name: {}    Site Id: {} \
-                Site ASR: {}     Site Location: {} Site GPS: {}'.format(
+                Site ASR: {}     Site Location: {} '.format(
                                                                 self.site_name,
                                                                 self.site_id,
                                                                 self.site_asr,
                                                                 self.site_location,
-                                                                self.site_gps_coord,
-                                                                self.state_owned,
                                                                 )
     class Meta:
         managed = True

@@ -20,15 +20,16 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title text-shadow min-headspace'>Tower site search</h1>
-    <a href="{% url 'tower-site:tower-site-page' %}" class='sub-nav-link'>Display all tower sites</a>
+    <h1 class='title text-shadow min-headspace'>Tower sites</h1>
   </div>
 
   <div class='container'>
 
    <div class='top-navbar headspace'>
      <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_name_search" aria-expanded='false' aria-controls='site_name'>Search by Site Name</a>
+     <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_city_search" aria-expanded='false' aria-controls='site_city'>Search by City</a>
      <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_id_search" aria-expanded='false' aria-controls='site_id'>Search by Site ID</a>
+      <a href="{% url 'tower-site:tower-site-page' %}" class='nav-link'>Display all tower sites</a>
    </div>
 
    <div class='row'>
@@ -41,15 +42,24 @@
       </div>
     </div>
     <div class='container-centered'>
+      <div class='collapse multi-collapse' id='site_city_search'>
+       <form class="form-inline" action="{% url 'towersite:tower-site-results-page' %}" method="get">
+       <input class="form-control mr-sm-2" type='search' name='site_city' placeholder="Site City" ></input>
+       <button type="submit">Search</button>
+       </form>
+      </div>
+    </div>
+    <div class='container-centered'>
       <div class='collapse multi-collapse' id='site_id_search'>
        <form class="form-inline" action="{% url 'towersite:tower-site-results-page' %}" method="get">
        <input class="form-control mr-sm-2" type='search' name='site_id' placeholder="Site ID" ></input>
        <button type="submit">Search</button>
        </form>
     </div>
-   </div>
   </div>
- 
+ </div>
+
+
   {% if messages %}
   <div class='container-centered'>
   <ul class="headspace">
@@ -69,7 +79,6 @@
 				<th style='width:100px;'>Site</th>
 				<th style='width:250px;'>911 Address</th>
 				<th style='width:100px;'>ASR</th>
-				<th style='width:50px;'>State owned</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -79,7 +88,6 @@
 				<td>{{ tower.site_name }}</td>
 				<td>{{ tower.site_location }}</td>
 				<td>{{ tower.site_asr }}</td>
-				<td>{{ tower.state_owned|yesno:'Yes,No' }}</td>
 			</tr>
 		{% endfor %}
 		</tbody>
@@ -96,7 +104,6 @@
 		 <th style='width:100px;'>Site</th>
 		 <th style='width:250px;'>911 Address</th>
 		 <th style='width:100px;'>ASR</th>
-		 <th style='width:50px;'>State owned</th>
 	       </tr>
 	      </thead>
 	      <tbody>
@@ -106,7 +113,6 @@
 		   <td>{{ item.site_name }}</td>
 		   <td>{{ item.site_location }}</td>
 		   <td>{{ item.site_asr }}</td>
-		   <td>{{ item.state_owned|yesno:'Yes,No' }}</td>
 		</tr>
 		{% endfor %}
 	       </tbody>
