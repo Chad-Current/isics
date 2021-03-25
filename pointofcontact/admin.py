@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import PointOfContact, PointOfContactUpdate
 
-# Register your models here.
+admin.site.register(PointOfContactUpdate)
+admin.site.register(PointOfContact)
+
+

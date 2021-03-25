@@ -44,6 +44,7 @@ class Index(LoginRequiredMixin, ListView):
         self.now = datetime.datetime.now()
         context = super().get_context_data(**kwargs)
         context['emailsent'] = Email.objects.last()
+        context['contact'] = PointOfContactUpdate.objects.last()
         context['alarms'] = Alarm.objects.all().order_by('-ticket','-opened')
         context['total_alarms'] = AlarmArchive.objects.filter(Q(time_stamp__gte=one_year)).count() + \
                                          Alarm.objects.filter(Q(timestamp__gte=one_year)).count()

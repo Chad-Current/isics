@@ -135,12 +135,23 @@
         {% if email_request %}
        <li class='side-nav-item-envelope'>
           <a href="{% url 'site-maintenance:site-maintenance-email-activation-page' email_request.id %}" class='side-nav-link'>
-            <i class="far fa-envelope blinking-orange"></i>
+            <i class="far fa-envelope blinking-yellow"></i>
             <span class='side-link-text'>Email request</span>
           </a>
         </li>
         {% endif %}
 	{% endif %}
+
+       {% if contact %}
+       <li class='side-nav-item'>
+          <a href="{% url 'pointofcontact:point-of-contact-update-page' contact.id %}" class='side-nav-link'>
+		<i class="far fa-address-card blinking-green"></i>
+            <span class='side-link-text'>Update Contacts</span>
+          </a>
+        </li>
+	{% endif %}
+
+
         <li class='side-nav-item'>
           <a href="{% url 'base:logout' %}" class='side-nav-link'>
             <i class="fas fa-sign-out-alt"></i>

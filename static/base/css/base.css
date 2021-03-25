@@ -446,7 +446,7 @@ tag {
   width: 10em;
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  transition: background-color 0.35s ease-in-out;
+  transition: background-color 250ms ease-in-out;
 }
 
 .alert-info:hover{
@@ -509,6 +509,10 @@ tag {
   transition-duration: 350ms;
   background-color: green;
   color: white;
+}
+
+.lng-btn {
+ width: 15em;
 }
 
 .field_label {
@@ -994,16 +998,14 @@ tag {
 }
 
 .top-navbar {
-  display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-
 }
 
 .top-navbar a{
-  padding: 0.5em 0em;
   text-decoration: none;
   color: white;
+  padding: 0 0em 0 3em;
 }
 
 .searchbar {
@@ -1251,14 +1253,14 @@ tag {
 
 #clock {
   font-size: 1em;
-  font-family: 'Lobster';
+  font-family: 'Arimo';
   font-weight: 700;
   text-align: center;
   padding: 0;
   margin:0;
   color: #FAFAFA;
   background: #265060;
-  border: solid 2px orange;
+  border: solid 3px #050505;
   border-radius: 5px;
 
 }
@@ -1266,8 +1268,9 @@ tag {
 .timer {
   padding:0;
   margin: 0;
-  font-size: 1.5rem;
-  font-family: 'Lobster';
+  font-size: 1.75rem;
+  font-family: 'Arimo';
+  color: orange;
 }
 
 .blinking {
@@ -1291,26 +1294,43 @@ tag {
   }
 }
 
-.blinking-orange {
+.blinking-yellow {
   display:inline-block;
   /* font-size: 2.5rem; */
-  animation-name: blinking-orange;
+  animation-name: blinking-yellow;
   animation-duration: 3500ms;
   animation-iteration-count: infinite;
 }
 
-@keyframes blinking-orange {
+@keyframes blinking-yellow {
   0% {
     color: #FAFAFA;
   }
-  25% {
-    color: red;
+  50% {
+    color: yellow;
+  }
+  100% {
+    color: #FAFAFA;
+  }
+}
+
+.blinking-green {
+  display:inline-block;
+  /* font-size: 2.5rem; */
+  animation-name: blinking-green;
+  animation-duration: 3500ms;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blinking-green {
+  0% {
+    color: #FAFAFA;
   }
   50% {
-    color: orange;
+    color: #55FF33;
   }
-  75% {
-    color: yellow;
+  100% {
+    color: #FAFAFA;
   }
 }
 

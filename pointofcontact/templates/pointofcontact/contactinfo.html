@@ -18,53 +18,52 @@
 
   {% block main %}
   <div class='container-centered'>
-    <a href="{% url 'pointofcontact:point-of-contact-page' %}" class='nav-link min-headspace'><h1 class='title text-shadow '>Point of contacts search</h1></a>
+    <a href="{% url 'pointofcontact:point-of-contact-page' %}" class='nav-link min-headspace'><h1 class='title text-shadow '>Point of Contacts</h1></a>
   </div>
 
-  <div class='container'>
+  <div class='container-centered'>
 
       <div class='top-navbar headspace'>
                <a class='nav-link' type='button' data-toggle='collapse' data-target='#county_name' aria-expanded='false' aria-controls='county_name'>Search by County</a>
-               <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_name' aria-expanded='false' aria-controls='poc_name'>Search by Point of Contact</a>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_name' aria-expanded='false' aria-controls='poc_name'>Search by Name</a>
+               <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_title' aria-expanded='false' aria-controls='poc_title'>Search by Title</a>
                <a class='nav-link' type='button' data-toggle='collapse' data-target='#organization' aria-expanded='false' aria-controls='organization'>Search by Organization</a>
-               <a class='nav-link' type='button' data-toggle='collapse' data-target='#user_lvl' aria-expanded='false' aria-controls='user_lvl'>Search by User Level</a>
       </div>
 
-      <div class='row'>
       <div class='container-centered'>
-           <div class='collapse multi-collapse' id='county_name'>
-               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-county-results' %}" method="get">
+           <div class='collapse' id='county_name'>
+               <form class='form-inline'  action="{% url 'pointofcontact:point-of-contact-county-results' %}" method="get">
                  <input class="form-control mr-sm-2" type='search' name='county' placeholder="County" ></input>
                  <button type="submit">Search</button>
                </form>
            </div>
        </div>
       <div class='container-centered'>
-           <div class='collapse multi-collapse' id='poc_name'>
-               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-name-results' %}" method="get">
+           <div class='collapse' id='poc_name'>
+               <form class='form-inline' action="{% url 'pointofcontact:point-of-contact-name-results' %}" method="get">
                  <input class="form-control mr-sm-2" type='search' name='name' placeholder="Name" ></input>
                  <button type="submit">Search</button>
                </form>
            </div>
        </div>
       <div class='container-centered'>
-           <div class='collapse multi-collapse' id='organization'>
-               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-organization-results' %}" method="get">
-                 <input class="form-control mr-sm-2" type='search' name='organization' placeholder="Organization" ></input>
+           <div class='collapse' id='poc_title'>
+               <form class='form-inline' action="{% url 'pointofcontact:point-of-contact-title-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='title' placeholder="Job title" ></input>
                  <button type="submit">Search</button>
                </form>
            </div>
        </div>
       <div class='container-centered'>
-           <div class='collapse multi-collapse' id='user_lvl'>
-               <form class="form-inline " action="{% url 'pointofcontact:point-of-contact-level-results' %}" method="get">
-                 <input class="form-control mr-sm-2" type='search' name='level' placeholder="User level" ></input>
+           <div class='collapse' id='organization'>
+               <form  class='form-inline' action="{% url 'pointofcontact:point-of-contact-organization-results' %}" method="get">
+                 <input class="form-control mr-sm-2" type='search' name='organization' placeholder="Organization" ></input>
                  <button type="submit">Search</button>
                </form>
            </div>
        </div>
-    </div>
-</div>
+  </div>
+  <hr></hr>
 {% if messages %}
 <div class='container-centered'>
 <ul class="headspace">
@@ -76,31 +75,28 @@
 {% endif %}
   {% if not messages %}
   {% if poc %}
-  <div class='container'>
-      <div class='headspace'>
-        <div class='container-centered'>
+<div class='container-centered headspace'>
          <h3 class="title">{{ poc.count }}&nbsp&nbspRecords returned</h3>
-       </div>
          {% for item in poc %}
-         <ul class="forms">
-           <li><h3>{% if item.county != 'NA' %}{{ item.county }}&nbspCounty{% endif %}</h3></li>
-           <li><h3>{% if item.job_title != 'NA' %}{{ item.job_title }}&nbsp&nbsp{% endif %}{{ item.name }}</h3></li>
-           <li><h4>Phone Number:&nbsp&nbsp{{ item.phone }}</h4></li>
-           <li><h4>Cell or Alternate:&nbsp&nbsp{{ item.cell_or_alternate|phone2numeric }}</h4></li>
-           <li><h4>Email:&nbsp&nbsp{{ item.email }}<h4></li>
-           <li><h4>User Level:&nbsp&nbsp{{ item.user_lvl }}</h4></li>
-           <li><h4>County No:&nbsp&nbsp{{ item.county_no }}</h4></li>
-           <li><h4>Organization:&nbsp&nbsp{{ item.organization }}</h4></li>
-           <li><h4>Notes:&nbsp&nbsp{{ item.notes }}</h4></li>
+         <ul class="forms_3">
+           <li><h3>{{ item.county }}&nbspCounty</h3></li>
+	   <li><tag>{{ item.job_title }}</tag>&nbsp&nbsp{{ item.name }}</li>
+	   <li><tag>Phone Number:</tag>&nbsp&nbsp{{ item.phone }}</li>
+	   {% if item.cell_or_alternate %}
+	   <li><tag>Cell or Alternate:&nbsp&nbsp</tag>{{ item.cell_or_alternate|phone2numeric }}</li>
+	   {% endif %}
+	   <li><tag>Email:</tag>&nbsp&nbsp{{ item.email }}</li>
+	   <li><tag>Organization:</tag>&nbsp&nbsp{{ item.organization }}</li>
+	   {% if item.notes %}
+	   <li><tag>Notes:</tag>&nbsp&nbsp{{ item.notes }}</li>
+	   {% endif %}
          </ul>
          {% endfor %}
-       </div>
          {% else %}
    {% endif %}
+   <div class='footer'>
+   </div>
    {% endif %}
-       <!-- Tab panes -->
-  </div>
-  <div class='footer'>
   </div>
   {% endblock %}
 
