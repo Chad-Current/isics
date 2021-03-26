@@ -28,8 +28,8 @@
                <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_name' aria-expanded='false' aria-controls='poc_name'>Search by Name</a>
                <a class='nav-link' type='button' data-toggle='collapse' data-target='#poc_title' aria-expanded='false' aria-controls='poc_title'>Search by Title</a>
                <a class='nav-link' type='button' data-toggle='collapse' data-target='#organization' aria-expanded='false' aria-controls='organization'>Search by Organization</a>
-      </div>
-
+       </div>
+    <div class='row'>  
       <div class='container-centered'>
            <div class='collapse' id='county_name'>
                <form class='form-inline'  action="{% url 'pointofcontact:point-of-contact-county-results' %}" method="get">
@@ -63,7 +63,6 @@
            </div>
        </div>
   </div>
-  <hr></hr>
 {% if messages %}
 <div class='container-centered'>
 <ul class="headspace">
@@ -98,6 +97,7 @@
    </div>
    {% endif %}
   </div>
+ </div>
   {% endblock %}
 
 

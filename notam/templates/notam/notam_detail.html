@@ -16,12 +16,73 @@
 
 <body>
   {% block main %}
-  <div class='container-centered'>
-    <h1 class='title'>Notam</h1>
+   <div class='container-centered'>
+    <a href="{% url 'notam:notam-all' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Notam</h1></a>
   </div>
   {% endblock main %}
 
   {% block sub_one %}
+
+    <div class='container'>
+	<table class='table table-bordered headspace'>
+		<thead>
+			<tr class='orange'>
+				<th style='width:25px;'>Date</th>
+				<th style='width:25px;'>Site</th>
+				<th style='width:35px;'>Submitted by</th>
+				<th style='width:30px;'>Aviation No.</th>
+				<th style='width:30px;'>Motorola No.</th>
+				<th style='width:20px;'>Extend</th>
+				{% if perms.notam.change_notam %}
+				<th style='width:20px;'>Delete</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for notam in notam_object %}
+			<tr>
+				<td>{{ notam.date|date:'Y-m-d' }}</td>
+				<td>{{ notam.site_name }}</td>
+				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
+				<td>{{ notam.aviation }}</td>
+				<td>{{ notam.motorola }}</td>
+				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>◉</a></td>
+				{% if perms.notam.change_notam %}
+				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>◉</a></td>
+				{% endif %}
+			</tr>
+		        <tr>
+			 <td colspan="1">Notes</td>
+			 {% if perms.notam.change_notam %}
+			 <td colspan="6">{{ notam.notes }}</td>
+			 {% else %}
+			 <td colspan="5">{{ notam.notes }}</td>
+			 {% endif %}
+		        </tr>
+			{% endfor %}
+			{% for delay in notam_extend %}
+			<tr>
+				<td colspan='1' style='background:orange;color:#050505;font-weight:900;'>Date</td>
+				<td colspan='1' style='background:orange;color:#050505;font-weight:900;'>Submitted by</td>
+				{% if persm.notam.delete_notam %}
+				<td colspan='6' style='background:orange;color:#050505;font-weight:900;'>Explanation for extension</td>
+				{% else %}
+				<td colspan='5' style='background:orange;color:#050505;font-weight:900;'>Explanation for extension</td>
+				{% endif %}
+			</tr>
+			<tr>
+				<td colspan='1'>{{delay.date|date:'Y-m-d' }}</td>
+				<td colspan='1'>{{delay.user_ex.last_name}},&nbsp&nbsp{{delay.user_ex.first_name}}</td>
+				{% if perms.notam.delete_notam %}
+				<td colspan='5'>{{delay.reason}}</td>
+				{% else %}
+				<td colspan='4'>{{delay.reason}}</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+   </div>
 
   {% endblock sub_one %}
 

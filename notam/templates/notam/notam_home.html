@@ -18,14 +18,13 @@
   {% block main %}
    <div class='container-centered'>
     <a href="{% url 'notam:notam-home' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Notam</h1></a>
-   </div>
-  <div class='container'>
+  
     <div class='top-navbar headspace'>
        {% if perms.notam.add_notam %}
        <a class="nav-link" href="{% url 'notam:notam-create' %}">Record Notam</a>
        {% endif %}
           <a class="nav-link" href="{% url 'notam:notam-all' %}">Open Notams</a>
-    </div>
+   </div>
   </div>
   <hr></hr>
   {% endblock main %}

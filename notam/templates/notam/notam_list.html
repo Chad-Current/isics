@@ -25,6 +25,7 @@
 				<th style='width:35px;'>Submitted by</th>
 				<th style='width:30px;'>Aviation No.</th>
 				<th style='width:30px;'>Motorola No.</th>
+				<th style='width:30px;'>Details</th>
 				<th style='width:20px;'>Extend</th>
 				{% if perms.notam.change_notam %}
 				<th style='width:20px;'>Delete</th>
@@ -39,6 +40,7 @@
 				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
 				<td>{{ notam.aviation }}</td>
 				<td>{{ notam.motorola }}</td>
+				<td><a href="{% url 'notam:notam-detail' notam.id %}" class='mini-nav-link'>◉</a></td>
 				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>◉</a></td>
 				{% if perms.notam.change_notam %}
 				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>◉</a></td>
@@ -47,9 +49,9 @@
 		        <tr>
 			 <td colspan="1">Notes</td>
 			 {% if perms.notam.change_notam %}
-			 <td colspan="6">{{ notam.notes }}</td>
+			 <td colspan="7">{{ notam.notes }}</td>
 			 {% else %}
-			 <td colspan="5">{{ notam.notes }}</td>
+			 <td colspan="6">{{ notam.notes }}</td>
 			 {% endif %}
 		        </tr>
 			{% endfor %}

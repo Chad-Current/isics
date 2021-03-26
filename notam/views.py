@@ -15,7 +15,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
 from datetime import datetime as dt
-from .models import Notam
+from .models import Notam, NotamExtend
 from .forms import NotamForm, NotamUpdateForm
 
 
@@ -67,6 +67,17 @@ class NotamUpdate(UserPermissonMixin,UpdateView):
     form_class = NotamUpdateForm
     template_name = 'notam/notam_update.html'
     success_url = reverse_lazy('notam:notam-all')
+    
+    def form_valid(self, form):
+        self.user = self.request.user
+        self.reason = form.cleaned_data['reason']
+        self.object = self.get_object()
+    
+        try:
+            NotamExtend.objects.create(reason=self.reason, original_notam_id=self.object.id, user_ex=self.user)
+        except TypeError as e:
+            print('None value',e)
+        return super().form_valid(form)
 
 
 class NotamDetail(LoginRequiredMixin,DetailView):
@@ -79,6 +90,12 @@ class NotamDetail(LoginRequiredMixin,DetailView):
     model = Notam
     fields = '__all__'
     template_name = 'notam/notam_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notam_object'] = Notam.objects.filter(id=self.object.id)
+        context['notam_extend'] = NotamExtend.objects.filter(original_notam=self.object.id)
+        return context
 
 class NotamDelete(UserPermissonMixin,DeleteView):
     raise_exception = False

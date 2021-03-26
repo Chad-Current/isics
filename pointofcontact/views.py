@@ -16,7 +16,7 @@ class UserPermissonMixin(PermissionRequiredMixin):
         if(not self.request.user.is_authenticated):
             return redirect(settings.LOGIN_URL)
         if not self.has_permission():
-            return HttpResponseRedirect('/alarm/')
+            return HttpResponseRedirect('/pointofcontact/')
         return super(UserPermissonMixin, self).dispatch(request, *args, **kwargs)
 
 class PointOfContactHome(LoginRequiredMixin, TemplateView):
@@ -71,9 +71,11 @@ class PointOfContactViewOrganization(LoginRequiredMixin, ListView):
         if not object_list:
             messages.warning(self.request, 'No Results Found')
         return object_list
+
+
 class PointOfContactViewUpdate(UserPermissonMixin, DeleteView):
     raise_exception = False
-    permission_required = 'pointofcontact.view_pointofcontact'
+    permission_required = 'point_of_contact.change_point_of_contact_update'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'pointofcontact/contactinfo.html'

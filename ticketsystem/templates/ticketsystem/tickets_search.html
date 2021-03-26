@@ -20,7 +20,7 @@
    <ul>
     <li><hr></hr></li>
    </ul>
-       <div class='container-row min_headspace'>
+       <div class='container-row'>
                  <a class='nav-link' type='button' data-toggle='collapse' data-target='#badge_identifier' aria-expanded='false' aria-controls='badge_identifier'>Badge</a>
                  <a class='nav-link' type='button' data-toggle='collapse' data-target='#talkgroup_assoc' aria-expanded='false' aria-controls='talkgroup_assoc'>Talkgroup</a>
                  <a class='nav-link' type='button' data-toggle='collapse' data-target='#location' aria-expanded='false' aria-controls='location'>Location</a>
@@ -28,7 +28,7 @@
                  <a class='nav-link' type='button' data-toggle='collapse' data-target='#date' aria-expanded='false' aria-controls='date'>Date</a>
         </div>
 
-        <div class='container-row'>
+        <div class='row'>
         <div class='container-centered'>
              <div class='collapse multi-collapse' id='badge_identifier'>
                  <form class="form-inline " action="{% url 'ticketsystem:ticket-system-read-results-page' %}" method="get">
@@ -73,7 +73,7 @@
     </div>
   </div> 
   {% if messages %}
-  <div class='container-centered'>
+  <div class=''>
     <ul class="headspace">
       {% for message in messages %}
       <li class="alert {{ message.tags }} alert-no-info">{{ message }}</li>

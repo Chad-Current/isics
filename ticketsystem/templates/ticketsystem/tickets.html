@@ -20,9 +20,9 @@
   <div class='container-centered'>
     <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Subscriber radio tickets</h1></a>
   </div>
-  <div class='container'>
-    <div class='container-row headspace'>
-          <a class="nav-link" href="{% url 'ticketsystem:ticket-system-create-page' %}">Create New Ticket</a>
+  <div class='container headspace'>
+    <div class='container-row '>
+          <a class="nav-link" href="{% url 'ticketsystem:ticket-system-create-page' %}">New Ticket</a>
           <a class="nav-link" href="{% url 'ticketsystem:ticket-system-read-results-page' %}">Search Tickets</a>
     </div>
   </div>
@@ -37,7 +37,6 @@
     </ul>
     {% endif %}
   </div>
-  <hr></hr>
   {% endblock sub_one %}
   {% block sub_two %}
   {% if ticket_list %}

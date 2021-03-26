@@ -1,5 +1,5 @@
 from django import forms
-from .models import Notam
+from .models import Notam, NotamExtend
 
 TOWER_CHOICES = [
         ('ADAIR_N', 'ADAIR NORTH'),
@@ -90,17 +90,8 @@ class NotamForm(forms.ModelForm):
             super(NotamForm, self).__init__(*args, **kwargs)
 
 class NotamUpdateForm(forms.ModelForm):
-        site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES,attrs={'style':'height:3.35em;width:15em;margin-right:2.5em;'}))
-        aviation = forms.CharField(label='Aviation Number',required=True)
-        motorola = forms.CharField(label='Motorola Number',required=True)
-        notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:43em;'}), required=False)
-        
+        reason = forms.CharField(label='Explanation for Extension',widget=forms.Textarea(attrs={'style':'height:10em;width:20em;'}),required=True)
         class Meta:
-            model = Notam
-            exclude = ['user','date']
+            model = NotamExtend
+            fields = ['reason'] 
         
-        def __init__(self, *args, **kwargs):
-            super(NotamUpdateForm, self).__init__(*args, **kwargs)
-            self.fields['site_name'].disabled = True
-            self.fields['aviation'].disabled = True
-            self.fields['motorola'].disabled = True

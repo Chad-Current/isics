@@ -105,7 +105,8 @@ class ContactInfo(SuccessMessageMixin, FormView):
     template_name = 'base/updatecontactinfo.html'
     model = PointOfContactUpdate
     form_class = ContactUpdateForm
-    success_url = reverse_lazy('base:login')
+    success_message = 'Your contact information will be updated shortly'
+    success_url = reverse_lazy('base:contact-info-page')
 
     def form_valid(self, form):
         self.name = form.cleaned_data['name']

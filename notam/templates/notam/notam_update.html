@@ -16,9 +16,9 @@
 
 <body>
   {% block main %}
-  <div class='container-centered'>
-    <h1 class='title'>Notam</h1>
-  </div>
+   <div class='container-centered'>
+    <a href="{% url 'notam:notam-home' %}" class='nav-link min-headspace'><h1 class='title text-shadow'>Notam</h1></a>
+   </div>
   {% endblock main %}
 
   {% block sub_one %}
@@ -28,24 +28,12 @@
      <ul class='forms_2'>
                 <div class='container-row-between'>
 		     <div>
-			     <li><tag>{{form.site_name.label}}</tag></li>
-			     <li>{{form.site_name}}</li>
+			     <li><tag>{{ form.reason.label }}</tag></li>
+			     <li>{{ form.reason }}</li>
 	             </div>
-		     <div>
-			     <li><tag>{{form.aviation.label}}</tag></li>
-			     <li>{{form.aviation}}</li>
-	             </div>
-		     <div>
-			     <li><tag>{{form.motorola.label}}</tag></li>
-			     <li>{{form.motorola}}</li>
-		     </div>
-		 </div>
-		     
-			     <li><tag>{{form.notes.label}}</tag></li>
-		     	     <li>{{form.notes}}</li>
      </ul>
      <div class='container-centered'>
-	<button type='submit'>30 Day extension filed</button>
+	<button type='submit'>Submit</button>
      </div>
     </form>
    </div>

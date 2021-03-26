@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-  <link rel="stylesheet" media='screen and (max-width:600px)' href="{% static 'base/css/mobilescreen.css' %}">
   <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" type="image/jpg" href="{% static 'base/images/favicon.ico' %}"/>
   <title>Radio User Database</title>
@@ -141,7 +140,7 @@
         </li>
         {% endif %}
 	{% endif %}
-
+       {% if perms.point_of_contact.change_point_of_contact_update %}
        {% if contact %}
        <li class='side-nav-item'>
           <a href="{% url 'pointofcontact:point-of-contact-update-page' contact.id %}" class='side-nav-link'>
@@ -150,7 +149,7 @@
           </a>
         </li>
 	{% endif %}
-
+ 	{% endif %}
 
         <li class='side-nav-item'>
           <a href="{% url 'base:logout' %}" class='side-nav-link'>

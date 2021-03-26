@@ -18,28 +18,62 @@
   {% block main %}
     <div class='login-bar'><a href="{% url 'base:login' %}" class='nav-link'>Back to login</a></div>
   <div class='container-centered'>
+    {% if messages %}
+    {% for message in messages %}
+    <ul class="messages headspace">
+      <li class=" alert {{ message.tags }} alert-success">{{ message }}</li>
+    </ul>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class='container'>
+   <div class='container-centered'>
     <h1 class=' title '>Contact Information</h1>
-      <div class='headspace forms_2'>
+   </div>
+      <div class='headspace forms_4'>
         <form action='' method="post">
           {% csrf_token %}
-          {% for field in form %}
-              <div class="row">
-                <div class='col-sm-4'>
-                  <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                  {% if field.help_text %}
-                    <sup>{{ field.help_text }}</sup>
-                    {% endif %}
-                    {% for error in field.errors %}
-                     <div class="row">
-                       <div class="alert alert-danger">{{error}}</div>
-                     </div>
-                    {% endfor %}
-                 </div>
-                 <div class='col-sm-8'>
-                   <p class='field smallspace'>{{ field }}</p>
-                 </div>
-              </div>
-            {% endfor %}
+	   <div class='container-row-left'>
+		   <div>
+		    <p>{{ form.name.label }}</p>
+		    <sup>{{ form.name }}</sup>
+		   </div>
+		   <div>
+ 	      	    <p>{{ form.job_title.label }}</p>
+		    <sup>{{ form.job_title }}</sup>
+		   </div>
+		   <div>
+		   <p>{{ form.organization.label }}</p>
+		   <sup>{{ form.organization }}</sup>
+		   </div>
+		   <div>
+		   <p>{{ form.county.label }}</p>
+		   <sup>{{ form.county }}</sup>
+		   </div>
+	   </div>
+	   <div class='container-row-left'>
+		   <div>
+		    <p>{{ form.phone.label }}</p>
+		    <sup>{{ form.phone }}</sup>
+		   </div>
+		   <div>
+		    <p>{{ form.cell_or_alternate.label }}</p>
+		    <sup>{{ form.cell_or_alternate }}</sup>
+		   </div>
+	           <div>
+		    <p>{{ form.email.label }}</p>
+		    <sup>{{ form.email }}</p>
+		   </div>
+	   </div>
+	   <div class='container-row-left'>
+		   <div>
+		    <p>{{ form.notes.label }}</p>
+		    <p class='help-text'>{{ form.notes.help_text }}</p>
+		    <sup>{{ form.notes }}</sup>
+		    <p class='help-text'>*Required</p>
+		   </div>
+
+	   </div>
             <div class='container-centered headspace'>
              <button type="submit">Submit</button>
             </div>
@@ -49,18 +83,6 @@
 
 {% endblock %}
 
-{% block sub_one %}
-  <div class='container-centered'>
-    {% if messages %}
-    {% for message in messages %}
-    <ul class="messages headspace">
-      <li class=" alert {{ message.tags }} alert-success">{{ message }}</li>
-    </ul>
-    {% endfor %}
-    {% endif %}
-  </div>
-
-{% endblock sub_one %}
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

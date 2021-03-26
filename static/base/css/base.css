@@ -53,7 +53,7 @@ html {
 
 :root {
    font-size: 10px;
- }
+}
 
 p {
    color: orange;
@@ -127,11 +127,11 @@ tr:hover {
 th {
    color: #050505;
    font-family: 'Lora';
-   font-size: 1.5rem;
+   font-size: 1.75rem;
    text-align:center;
    position: sticky;
    background:orange;
-   top: 0;
+   top:0;
 }
 
 
@@ -212,14 +212,15 @@ table {
 }
 
 select {
-  padding: 0.75rem;
+  padding: 0.75rem; 
   border: white;
   border-radius: 5px;
   color: black;
   font-size: 1.5rem;
   font-family: 'Lora';
   font-weight: 900;
-  width: 18em;
+  width: 14em;
+  margin-right:2em;
 }
 
 strong {
@@ -655,7 +656,19 @@ tag {
   align-items;
   padding: 1rem;
 } 
- 
+
+.container-row-left {
+  display:flex;
+  flex-direction:row nowrap;
+  justify-content: space-between;
+  align-content:flex-start;
+  
+}
+
+.container-row-left > * {
+  padding-top:1.5em;
+}
+
 .container-column {
   display: flex;
   flex-flow: column;
@@ -678,6 +691,10 @@ tag {
    flex-flow: column wrap;
    justify-content: center;
    align-items: center;
+   @media(min-width:40rem){
+     justify-content: flex-start;
+     align-items:flex-start;
+     }
  }
 
 .container-centered-middle {
@@ -1005,7 +1022,7 @@ tag {
 .top-navbar a{
   text-decoration: none;
   color: white;
-  padding: 0 0em 0 3em;
+  padding: 0 1em 0 1em;
 }
 
 .searchbar {
@@ -1211,6 +1228,13 @@ tag {
   min-width: 50em;
   padding:1.5em;
 }
+
+.help-text {
+  font-size: 1.5rem;
+  font-family: 'Arimo';
+  color: #FAFAFA;
+}
+
 
 /* TICKET CSS */
 .accordion {

@@ -14,7 +14,7 @@ class TowerSiteHome(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['towers'] = Site.objects.all()
+        context['towers'] = Site.objects.all().order_by('site_id','site_name')
         return context
 
 class TowerSiteResults(LoginRequiredMixin, ListView):
