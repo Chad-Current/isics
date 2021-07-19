@@ -161,3 +161,7 @@ def password_reset_request(request):
 def error_500(request):
     data = {}
     return render(request, 'base/error_500.html', data)
+
+def error_404(request,exception):
+    data = {}
+    return render(request, 'base/error_404.html', data)

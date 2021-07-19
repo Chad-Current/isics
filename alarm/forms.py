@@ -23,10 +23,10 @@ class AlarmForm(forms.ModelForm):
 
 
 class AlarmCommentForm(forms.ModelForm):
-    comments = forms.CharField(widget=forms.Textarea(attrs={'style':'height:10em;width:25em;border-radius:5px;'}))
+    comments = forms.CharField(widget=forms.Textarea(attrs={'style':'height:10em;width:25em;border-radius:5px;','placeholder':'Do not copy and paste messages, retype all information'}))
 
     class Meta:
         model = AlarmComment
-        exclude = ['time_stamp', 'original_alarm']
+        exclude = ['time_stamp', 'original_alarm','user_comm']
     def __init__(self, *args, **kwargs):
         super(AlarmCommentForm, self).__init__(*args, **kwargs)

@@ -35,6 +35,13 @@
   </div>
   {% endblock sub_one %}
 
+  {% block sub_two %}
+   {% if perms.notam.view_notamarchive %}
+    <div class='container-centered min-headspace'>
+     <a href="{% url 'notam:notam-archive' %}" class='nav-link min-headspace'>Archive</a>
+    </div>
+   {% endif %}
+  {% endblock sub_two %}
 
 </body>
 

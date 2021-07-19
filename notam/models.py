@@ -57,7 +57,10 @@ class NotamArchive(models.Model):
     @receiver(pre_delete, sender=Notam)
     def notam_archive(sender, instance, using, **kwargs):
         extends = NotamExtend.objects.filter(original_notam_id=instance.id).last()
-        extends = extends.reason
+        if extends:
+            extends = extends.reason
+        else:
+            extends = 'N/A'
         NotamArchive.objects.create(site_name=instance.site_name, aviation=instance.aviation, \
                                     motorola=instance.motorola, notes=instance.notes, extends=extends, date=instance.date, \
                                     user_id=instance.user_id)

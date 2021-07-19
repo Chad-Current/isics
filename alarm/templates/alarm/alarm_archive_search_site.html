@@ -18,14 +18,13 @@
   {% block main %}
   <div class='container-centered'>
     <a href="{% url 'alarm-check:alarm-archive-records' %}" class="nav-link"><h1 class='title text-shadow min-headspace'>Archived alarms</h1></a>
+   <a href="{% url 'alarm-check:alarm-archive-ticket' %}" class='nav-link min-headspace'>Search by Ticket</a>
   </div>
   <div class='container-centered headspace'>
-    <form action="{% url 'alarm-check:alarm-archive-search'%}" method='GET'>
+    <form action="{% url 'alarm-check:alarm-archive-search-site'%}" method='GET'>
       {% csrf_token %}
-      <label for='arcv_site_name'><tag>Alarm Name&nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='text' id='arcv_site_name' placeholder='Site name' name='site_name'>
-      <label for='alarm_type'><tag>Alarm Name&nbsp&nbsp&nbsp&nbsp</tag></label>
-      <input type='text' id='alarm_type' placeholder='Alarm' name='alarm_type'>
+      <label for='arcv_site_name'><tag>Site&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='site' placeholder='Site' name='site'>
       <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
       <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
       <label for='end_date'><tag>End Date &nbsp&nbsp&nbsp&nbsp</tag></label>
@@ -33,46 +32,47 @@
       <button type='submit'>Search</button>
     </form>
   </div>
+  <hr></hr>
   {% endblock main %}
     {% block sub_one %}
     <div class='container headspace'>
-      <div class="container-centered">
-        {% if alarm_archives %}
-        <div class='container-centered'>
-          {% if alarm_archives.count %}
-           <h1 class="title">{{ alarm_archives.count }} records </h1>
-          {% endif %}
-        {% endif %}
-        <div class='min_headspace'>
-        {% for alarm in alarm_archives %}
-        <div class='container-centered forms'>
-          <h3 class="title">{{ alarm.arcv_site_name }}&nbsp&nbsp&nbsp&nbsp{{ alarm.arcv_alarm }}&nbsp&nbsp&nbsp&nbsp{{ alarm.arcv_alarm_date }}</h3>
-          </div>
-        {% endfor %}
-        </div>
-        </div>
-        </div>
-
-      <div class="container-pagination">
-        <div>
-        {% if page_obj.has_previous %}
-          <a class="nav-link" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
-          {% else %}
-          <a class="nav-link nav-link-disabled"><< Previous</a>
-        {% endif %}
+     <div class='container'>
+      <table class='table table-bordered'>
+	<thead>
+	  <tr class='orange'>
+	    <th style='width:50px;'>Ticket</th>
+	    <th style='width:30px;'>Site</th>
+	    <th style='width:35px;'>Alarm</th>
+	    <th style='width:100px;'>Comments</th>
+	    <th style='width:40px;'>Date Closed</th>
+	    <th style='width:40px;'>Closed by</th>
+	 
+	  </tr>
+	</thead>
+	<tbody>
+	    {% for alarm in alarm_archives %}
+	     <tr>
+              <td>{{alarm.arcv_ticket}}</td>
+              <td>{{alarm.arcv_site_name}}</td>
+	      <td>{{alarm.arcv_alarm}}</td>
+	      <td>{{alarm.all_comments}}</td>
+	      <td>{{alarm.time_stamp}}</td>
+	      <td>{{alarm.user_close.last_name}},&nbsp{{alarm.user_close.first_name}}</td>
+	  </tr>
+	   {% endfor %}
+	 </tbody>
+	</table>
       </div>
-      <div>
-        {% if page_obj.has_next %}
-          <a class="nav-link" href="?page={{ page_obj.next_page_number }}">Next >></a>
-          {% else %}
-          <a class="nav-link nav-link-disabled">Next >></a>
-        {% endif %}
-        </div>
-      </div>
+    </div>
+      <hr></hr>
+  
       <div class='container-row'>
-        <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
-        <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm listing page</a>
-        <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
+        <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm reporting</a>
+        <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list</a>
+	{% if perms.alarm.view_alarmarchive %}
+	<a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Archived alarms</a>
+	{% endif %}
+        <a href="{% url 'base:home-page' %}" class='nav-link'>Home</a>
       </div>
     </div>
   </div>

@@ -24,25 +24,16 @@
         <div class='container-centered headspace'>
           <h1 class='title'>EMAIL AFFECTED SYSTEM USERS</h1>
         </div>
-	<div class='forms_2'>
-              <form action='' method="post" class='container-form'>
+	<div class='headspace'>
+              <form action='' method="post">
                 {% csrf_token %}
-			{% for field in form %}
-		<ul>
-			<li>
-			<div class=''>
-				<div class='label'>{{ field.label_tag }}</div>
-				<div>{{ field }}</div>
-			</div>
-			</li>
-			<li>
-				{% if field.help_text %}
-				<div>{{ field.help_text }}</div>
-				{% endif %}
-			</li>
+		<ul class='forms_4'>
+		{% for field in form %}
+		<li><tag>{{ field.label }}</tag></li>
+		<li>{{ field }}</li>
+		{% endfor %}
 		</ul>
-			{% endfor %}
-		<div class='container-row'>
+		<div class='container-centered'>
                   <button type="submit">Save</button>
 		</div>
             </form>

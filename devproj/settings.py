@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['www.isics.info','isics.info']
 
@@ -175,7 +175,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Logout after a period of inactivity
-INACTIVE_TIME = 30*60  # 15 minutes - or whatever period you think appropriate
+INACTIVE_TIME = 60*60  # 15 minutes - or whatever period you think appropriate
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session

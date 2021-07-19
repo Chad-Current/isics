@@ -11,6 +11,7 @@ from django.core.mail import send_mail, send_mass_mail
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.db import DataError
 from .models import EmailTo, Sitemaintenance, Email
 from .forms import EmailForm, EmailActivationForm
 from django.contrib import messages
@@ -43,9 +44,10 @@ class EmailHome(UserPermissonMixin, FormView):
 
     def form_valid(self, form):
         self.subject = form.cleaned_data['subject']
-        self.message = form.cleaned_data['message']
         self.tower_cell= form.cleaned_data['tower_cell']
-        self.sender = 'ISICS_COMM@Iowa.gov'
+        self.message = form.cleaned_data['message']
+        self.message = str(self.tower_cell)+ '  ' +str(self.message)
+        self.sender = 'admin@isics.info'
 #        tz = pytz.timezone('US/Central')
 #        ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
 #        self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
@@ -59,6 +61,9 @@ class EmailHome(UserPermissonMixin, FormView):
             Email.objects.create(tower_cell=self.tower_cell, subject=self.subject, message=self.message, sent_list=self.contact_list)
         except TypeError as e:
             print('None value ',e)
+        except DataError as d:
+            print('Too many characters ',d)
+
         return super().form_valid(form)
 
 class EmailActivation(UserPermissonMixin, UpdateView):
@@ -95,12 +100,16 @@ class EmailListing(UserPermissonMixin, ListView):
     template_name = 'sitemaintenance/sitemaintenance_list.html'
     model = Email
     context_object_name = 'emails'
-    paginate_by = 1
     ordering = ['-date']
 
     def get_queryset(self):
-        return Email.objects.all().order_by('-date')[:10]
-
+        try:
+            object_list = Email.objects.all().order_by('-date')[:20]
+            if not object_list:
+                messages.warning(self.request, 'No e-mail found')
+            return object_list
+        except ValidationError as v:
+            print('Null values ',v)
 
 class EmailSearch(UserPermissonMixin, ListView):
     raise_exception = False
@@ -112,7 +121,6 @@ class EmailSearch(UserPermissonMixin, ListView):
     template_name = 'sitemaintenance/sitemaintenance_email_search.html'
     model = Email
     context_object_name = 'emails'
-    paginate_by = 1
     ordering = ['-date']
 
     def get_queryset(self):

@@ -79,8 +79,8 @@ TOWER_CHOICES = [
 
 class NotamForm(forms.ModelForm):
         site_name = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES,attrs={'style':'height:3.35em;width:15em;margin-right:2.5em;'}))
-        aviation = forms.CharField(label='Aviation Number',required=True)
-        motorola = forms.CharField(label='Motorola Number',required=True)
+        aviation = forms.CharField(label='FAA Number',required=True)
+        motorola = forms.CharField(label='Motorola Number',widget=forms.TextInput(attrs={'style':'height:3.3em;width:13em;','placeholder':'If applicable, else N\A'}),required=False)
         notes = forms.CharField(widget=forms.Textarea(attrs={'style':'height:5em;width:43em;'}), required=False)
         class Meta:
             model = Notam

@@ -94,7 +94,7 @@ MAINTENANCE_FIELDS = [
 class EmailForm(forms.Form):
     tower_cell = forms.CharField(widget=forms.Select(choices=TOWER_CHOICES))
     subject = forms.CharField(widget=forms.Select(choices=MAINTENANCE_FIELDS))
-    message = forms.CharField(widget=forms.Textarea(attrs={'style':'height:15em;width:20em;'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'style':'height:10em;width:20em;'}))
 
 class EmailActivationForm(forms.ModelForm):
     class Meta:

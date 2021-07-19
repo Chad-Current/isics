@@ -140,7 +140,7 @@ class EmailRequestForm(forms.ModelForm):
 class ContactUpdateForm(forms.ModelForm):
     name = forms.CharField(label='Name *',required=True)
     county = forms.CharField(label='County *',widget=forms.Select(choices=COUNTY_CHOICES))
-    notes = forms.CharField(label="Addtional Information", help_text="- Any additonal information you would like to enter in regards to your contact information", widget=forms.Textarea(attrs={'style':'height:8em;width:61em;border-radius:5px;'}), required=False)
+    notes = forms.CharField(label="Addtional Information", widget=forms.Textarea(attrs={'style':'height:8em;width:61em;border-radius:5px;','placeholder':'Place additional information and multiple county request here.'}), required=False)
     organization = forms.CharField(label='Organization *',required=True)
     job_title = forms.CharField(label='Job title *',required=True)
     phone = forms.CharField(label='Phone *',widget=forms.TextInput(attrs={'placeholder': '555-555-5555'}),required=True)

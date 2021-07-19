@@ -27,7 +27,7 @@
 
    <div class='top-navbar headspace'>
      <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_name_search" aria-expanded='false' aria-controls='site_name'>Search by Site Name</a>
-     <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_city_search" aria-expanded='false' aria-controls='site_city'>Search by City</a>
+     <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_city_search" aria-expanded='false' aria-controls='site_city'>Search by Address</a>
      <a class="nav-link" type='button' data-toggle='collapse' data-target="#site_id_search" aria-expanded='false' aria-controls='site_id'>Search by Site ID</a>
       <a href="{% url 'tower-site:tower-site-page' %}" class='nav-link'>Display all towers</a>
    </div>
@@ -36,7 +36,7 @@
      <div class='container-centered'>
       <div class='collapse multi-collapse' id='site_name_search'>
        <form class="form-inline" action="{% url 'towersite:tower-site-results-page' %}" method="get">
-       <input class="form-control mr-sm-2" type='search' name='site_name' placeholder="Site Name" ></input>
+       <input class="form-control mr-sm-2" type='search' name='site_name' placeholder="Name" ></input>
        <button type="submit">Search</button>
        </form>
       </div>
@@ -44,7 +44,7 @@
     <div class='container-centered'>
       <div class='collapse multi-collapse' id='site_city_search'>
        <form class="form-inline" action="{% url 'towersite:tower-site-results-page' %}" method="get">
-       <input class="form-control mr-sm-2" type='search' name='site_city' placeholder="Site City" ></input>
+       <input class="form-control mr-sm-2" type='search' name='site_city' placeholder="*Street or City" ></input>
        <button type="submit">Search</button>
        </form>
       </div>
@@ -52,7 +52,7 @@
     <div class='container-centered'>
       <div class='collapse multi-collapse' id='site_id_search'>
        <form class="form-inline" action="{% url 'towersite:tower-site-results-page' %}" method="get">
-       <input class="form-control mr-sm-2" type='search' name='site_id' placeholder="Site ID" ></input>
+       <input class="form-control mr-sm-2" type='search' name='site_id' placeholder="Identifier" ></input>
        <button type="submit">Search</button>
        </form>
     </div>

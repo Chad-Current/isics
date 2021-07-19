@@ -15,7 +15,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
 from datetime import datetime as dt
-from .models import Notam, NotamExtend
+from .models import Notam, NotamExtend, NotamArchive
 from .forms import NotamForm, NotamUpdateForm
 
 
@@ -81,12 +81,6 @@ class NotamUpdate(UserPermissonMixin,UpdateView):
 
 
 class NotamDetail(LoginRequiredMixin,DetailView):
-    raise_exception = False
-    permission_required = 'notam.change_notam'
-    permisson_denied_message = 'Not authorized to make changes'
-    login_url = '/'
-    redirect_field_name = 'notam/'
-
     model = Notam
     fields = '__all__'
     template_name = 'notam/notam_detail.html'
@@ -112,12 +106,6 @@ class NotamDelete(UserPermissonMixin,DeleteView):
 
 
 class NotamAll(LoginRequiredMixin,ListView):
-    raise_exception = False
-    permission_required = 'notam.change_notam'
-    permisson_denied_message = 'Not authorized to make changes'
-    login_url = '/'
-    redirect_field_name = 'notam/'
-
     model = Notam
     fields = '__all__'
     template_name = 'notam/notam_list.html'
@@ -125,3 +113,9 @@ class NotamAll(LoginRequiredMixin,ListView):
     ordering = ['-date']
 
 
+class NotamArchive(LoginRequiredMixin,ListView):
+    model = NotamArchive
+    fields = '__all__'
+    template_name = 'notam/notam_archive.html'
+    context_object_name = 'notams'
+    ordering = ['-date']

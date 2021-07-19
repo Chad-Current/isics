@@ -96,6 +96,10 @@ a {
    cursor: pointer;
 }
 
+a:hover, a:focus {
+ text-decoration: none;
+}
+
 ul {
   line-height: 3.5rem;
 }
@@ -116,22 +120,22 @@ i {
    text-align: center;
 }
 
-tr { 
+tr {
 }
 
 tr:hover {
-   background: #050505;
-   font-color: #FAFAFA;
+ background: #050505;
+ color: white;
 }
 
 th {
-   color: #050505;
-   font-family: 'Lora';
-   font-size: 1.75rem;
-   text-align:center;
-   position: sticky;
-   background:orange;
-   top:0;
+  color: #050505;
+  font-family: 'Lora';
+  font-size: 1.5rem;
+  text-align:center;
+  position: sticky;
+  background:orange;
+  top:0;
 }
 
 
@@ -204,6 +208,11 @@ input {
 
 input:focus {
   color: black;
+}
+
+input[type=checkbox] {
+ width:2em;
+ height:2em;
 }
 
 table {
@@ -659,7 +668,7 @@ tag {
 
 .container-row-left {
   display:flex;
-  flex-direction:row nowrap;
+  flex-flow:row nowrap;
   justify-content: space-between;
   align-content:flex-start;
   
@@ -822,6 +831,7 @@ tag {
 
 .side-navbar:hover {
    width: 23rem;
+   transition: width 150ms ease;
    z-index: 1;
  }
 
@@ -914,7 +924,6 @@ tag {
 .side-nav-link {
    display: flex;
    align-items: center;
-   /* justify-content: flex-start; */
    height: 5rem;
  }
 
@@ -929,6 +938,7 @@ tag {
    display:none;
    margin-left: 1em;
    font-size: 1.25rem;
+   align-items: flex-end;
  }
 
 .nav-link {
@@ -1517,4 +1527,41 @@ tr.yellow th{
  width: 50em;
 }
 
+.hover-btn {
+ display:inline-block;
+ font-size:1.75rem;
+ text-decoration: none;
+ background: none;
+ padding: 0.5em 1em;
+ line-height:1;
+}
 
+.hover-btn-in {
+ background: orange;
+ color: #050505;
+ outline: 2px solid #FFF;
+ outline-offset: 4px;
+ transition: outline-offset 150ms ease;
+}
+
+.hover-btn-in:hover {
+ text-decoration:none;
+ outline-offset: 8px;
+}
+
+.hover-btn-in:focus {
+ text-decoration:none;
+ outline-offset: 8px;
+}
+
+.hovertool {
+ color:white;
+}
+
+.hovertool:hover {
+ color:white;
+}
+
+title:hover {
+ margin-bottom: 100px;
+}

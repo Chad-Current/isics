@@ -17,7 +17,7 @@
 <body>
   {% block main %}
   <div class='container-centered'>
-    <h1 class='title'>Notam</h1>
+	  <a href="{% url 'notam:notam-home' %}"><h1 class='title'>Notam</h1></a>
   </div>
   {% endblock main %}
 
@@ -30,6 +30,8 @@
       <ul class='forms_2'>
         <li><tag>Site name</tag>&nbsp&nbsp&nbsp{{ notam.site_name }}</li>
         <li><tag>Date</tag>&nbsp&nbsp&nbsp{{ notam.date }}</li>
+        <li><tag>FAA No</tag>&nbsp&nbsp&nbsp{{ notam.aviation }}</li>
+        <li><tag>Motorola No</tag>&nbsp&nbsp&nbsp{{ notam.motorola }}</li>
       </ul>
     </div>
     <div class='container-centered'>

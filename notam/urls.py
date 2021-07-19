@@ -10,4 +10,5 @@ urlpatterns = [
     path('notam_detail/<int:pk>/', NotamDetail.as_view(), name='notam-detail'),
     path('notam_delete/<int:pk>/', NotamDelete.as_view(), name='notam-delete'),
     path('notams/?', NotamAll.as_view(), name='notam-all'),
+    path('notam_archive/', NotamArchive.as_view(), name='notam-archive'),
 ]

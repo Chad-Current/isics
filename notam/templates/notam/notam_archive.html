@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'notam/notam_home.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block sub_one %}
+     <div class='container'>
+	<table class='table table-bordered headspace'>
+		<thead>
+			<tr class='orange'>
+				<th style='width:25px;'>Date</th>
+				<th style='width:25px;'>Site</th>
+				<th style='width:35px;'>Submitted by</th>
+				<th style='width:30px;'>FAA No.</th>
+				<th style='width:30px;'>Motorola No.</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for notam in notams %}
+			<tr>
+				<td>{{ notam.date|date:'Y-m-d' }}</td>
+				<td>{{ notam.site_name }}</td>
+				<td>{{ notam.user.last_name }}&nbsp,&nbsp{{ notam.user.first_name }}</td>
+				<td>{{ notam.aviation }}</td>
+				<td>{{ notam.motorola }}</td>
+			</tr>
+		        <tr>
+			 <td colspan="1">Notes</td>
+			 <td colspan="4">{{ notam.notes }}</td>
+		        </tr>
+			{% endfor %}
+		</tbody>
+	</table>
+   </div>
+  {% endblock sub_one %}
+
+
+
+
+</body>
+
+</html>

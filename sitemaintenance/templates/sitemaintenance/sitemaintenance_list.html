@@ -34,6 +34,17 @@
   <hr></hr>
 {% endblock main %}
 {% block sub_one %}
+ {% if messages %}
+  <div class='container-centered'>
+   <ul class='headspace'>
+    {% for message in messages %}
+     <li class='alert {{ message.tags }} alert-no-info'>{{message}}</li>
+    {% endfor %}
+   </ul>
+  </div>
+ {% endif %}
+  {% if not messages %}
+   {% if emails %}
 <div class='container headspace'>
 <div class="container">
   <table class='table table-bordered'>
@@ -47,23 +58,26 @@
       </tr>
       <thead>
 	<tbody>
-	  <tr>
 	  {% for email in emails %}
-	  <td>{{ email.date|date:'Y-m-d' }}</h3></li>
-	  <td>{{ email.tower_cell }}</h4></li>
-	  <td>{{ email.subject }}</h4></li>
-	  <td>{{ email.message  }}</h4></li>
-	  <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
-	  {% endfor %}
 	  <tr>
+           <td>{{ email.date|date:'Y-m-d' }}</td>
+	   <td>{{ email.tower_cell }}</td>
+	   <td>{{ email.subject }}</td>
+	   <td>{{ email.message  }}</td>
+	   <td>{{ email.sent_list|cut:"["|cut:"]"|cut:"'"|wordwrap:125|linebreaksbr|truncatechars:200}}</td>
+	  </tr>
+	  {% endfor %}
 	</tbody>
       </table>
       </div>
     </div>
+    {% endif %}
+   {% endif %}
+
     <hr></hr>
         <div class='container-row'>
-          <a href="{% url 'sitemaintenance:site-maintenance-home-page' %}" class='nav-link min-headspace'>Sitemaintenance page</a>
-          <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
+          <a href="{% url 'sitemaintenance:site-maintenance-home-page' %}" class='nav-link min-headspace'>Sitemaintenance</a>
+          <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home</a>
         </div>
       </div>
     <div class='footer'>

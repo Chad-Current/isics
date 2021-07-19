@@ -44,6 +44,7 @@ urlpatterns = [
 ]
 
 handler500 = base_views.error_500
+handler404 = base_views.error_404
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

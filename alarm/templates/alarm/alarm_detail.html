@@ -41,14 +41,14 @@
       <tr class='orange'>
        <th style='width:20px;'>Date opened</th>
        <th style='width:20px;'>Site</th>
-       <th style='width:10px;'>Alarm</th>
+       <th style='width:20px;'>Alarm</th>
        <th style='width:10px;'>Status</th>
        <th style='width:50px;'>Notes</th>
        {% if perms.alarm.change_alarm %}
-       <th style='width:20px;'>Add comment</th>
+       <th style='width:15px;'>Add comment</th>
        {% endif %}
        {% if perms.alarm.delete_alarm %}
-       <th style='width:20px;'>Close</th>
+       <th style='width:15px;'>Close</th>
        {% endif %}
       </tr>
      </thead>
@@ -68,21 +68,38 @@
       {% endif %}
       </tr>
       {% endfor %}
+	  <tr>
+	    <td colspan='1' style='background:orange;color:#050505;font-weight:900'>Date</td>
+	    <td colspan='1' style='background:orange;color:#050505;font-weight:900'>Submitted by</td>
+	    {% if perms.alarm.delete_alarm %}
+	    <td colspan='5' style='background:orange;color:#050505;font-weight:900'>Comment</td>
+	    {% else %}
+	    <td colspan='4' style='background:orange;color:#050505;font-weight:900'>Comment</td>
+	    {% endif %}
+	  </tr>
       <tr>
-      {% for alarm in alarm_history %}
-      <td colspan="1">Comment</td>
-      <td colspan="5">{{ alarm.comments }}</td>
-      <td colspan="1">{{ alarm.time_stamp|date:'Y-m-d' }}</td>
+      {% for alarm in alarm_comment %}
+	<td colspan="1">{{ alarm.time_stamp|date:'Y-m-d' }}</td>
+	<td colspan="1">{{ alarm.user_comm.last_name }},&nbsp{{ alarm.user_comm.first_name}}</td>
+	{% if perms.alarm.delete_alarm %}
+        <td colspan="5">{{ alarm.comments }}</td>
+	{% else %}
+	<td colspan="4">{{ alarm.comments }}</td>
+	{% endif %}
       </tr>
       {% endfor %}
+
      </tbody>
     </table>
    </div>
   <hr></hr>
   <div class='container-row'>
-    <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
-    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>
-    <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
+    <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm reporting</a>
+    <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list</a>
+    {% if perms.alarm.view_alarmarchive %}
+    <a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Archived alarms</a>
+    {% endif %}
+    <a href="{% url 'base:home-page' %}" class='nav-link'>Home</a>
   </div>
 
 

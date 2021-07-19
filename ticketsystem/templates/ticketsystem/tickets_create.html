@@ -17,34 +17,55 @@
 <body>
   {% block sub_one %}
   <div class='container-centered'>
-  <div class='headspace forms_3'>
+  <div class='headspace forms_4'>
     <form action='' method="post" >
       {% csrf_token %}
-      {% for field in form %}
-          <div class="row">
-            <div class="col-lg-8">
-              <p class='field_label smallspace'>{{ field.label_tag }}</p>
-              {% if field.help_text %}
-                <sup>{{ field.help_text }}</sup>
-                {% endif %}
-                {% for error in field.errors %}
-                 <div class="row">
-                   <div class="alert alert-danger">{{error}}</div>
-                 </div>
-                {% endfor %}
-             </div><div class="col-lg-2">
-               <p class='field smallspace'>{{ field }}</p>
-             </div>
-          </div>
-        {% endfor %}
-        <div class='container-row headspace'>
-	<div class='col-sm-5'>
-        </div>
-	<div class='col-sm-4'>
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.badge_identifier.label }}</p>
+	  <sup>{{ form.badge_identifier }}</sup>
+	 </div>
+	 <div>
+	  <p>{{ form.location.label }}</p>
+	  <sup>{{ form.location }}</sup>
+	 </div>
+	 <div>
+	  <p>{{ form.talkgroup_assoc.label }}</p>
+	  <sup>{{ form.talkgroup_assoc }}</sup>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.rssi.label }}</p>
+	  <sup>{{ form.rssi }}</sup>
+	  <p>{{ form.mobile }}&nbsp {{ form.mobile.label }}</p>
+	  <p>{{ form.portable }}&nbsp {{ form.portable.label }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.desc_issue.label }}</p>
+	  <p>{{ form.desc_issue }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.issue_resolved}}&nbsp{{ form.issue_resolved.label }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+  	  <p>{{ form.desc_resolve.label }}</p>
+	  <p>{{ form.desc_resolve }}</p>
+	 </div>
+	</div>
+        <div class='container-centered'>
         <button type="submit">Save</button>
 	</div>
-	<div class='col-sm-1'>
-        </div>
       </div>
   </form>
   </div> 

@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.mail import send_mail, send_mass_mail
 from django.db.models import Q
 from .forms import TicketForm, TicketFormUpdate
-from .models import ServiceTicket
+from .models import ServiceTicket, ServiceTicketArchive
 from django.conf import settings
 from datetime import datetime
 from datetime import timedelta
@@ -44,12 +44,14 @@ class ServiceHome(LoginRequiredMixin, SuccessMessageMixin, FormView):
         self.issue = form.cleaned_data['issue']
         self.subject = str(self.ticket)+' '+str(self.site)
         self.message = str(self.issue)
+        self.user = self.request.user
         tz = pytz.timezone('US/Central')
         ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
         self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
         try:
-            ServiceTicket.objects.create(ticketno=self.ticket, site_loc=self.site, issue=self.issue, date=self.date)
-            send_mail(self.subject, self.message,'admin@isics.info',['ccurrent@dps.state.ia.us']) 
+            ServiceTicket.objects.create(ticketno=self.ticket, site_loc=self.site, issue=self.issue, date=self.date, \
+                                        user_serv=self.user)
+            send_mail(self.subject, self.message,'admin@isics.info',['isicsnoc@dps.state.ia.us']) 
         except TypeError as e:
             print('None value ',e)
         return super().form_valid(form)
@@ -105,3 +107,16 @@ class ServiceSearch(LoginRequiredMixin, ListView):
             return object_list
         except ValidationError as v:
             print('Null values ',v)
+
+class ServiceArchive(UserPermissonMixin, ListView):
+    template_name = 'servicecall/servicecall_archive.html'
+    raise_exception = False
+    permission_required = 'servicecall.view_serviceticketarchive'
+    permisson_denied_message = 'Not authorized to make changes'
+    login_url = '/'
+    redirect_field_name = 'servicecall/'
+
+    model = ServiceTicketArchive
+    context_object_name = 'tickets'
+    paginate_by = 2
+    ordering = ['-date']

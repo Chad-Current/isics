@@ -84,31 +84,26 @@ SITE_ALIAS = [('Adair North', 'SZ04C9106 ---- Adair North'),
 
 class TicketForm(forms.ModelForm):
     ticketno = forms.CharField(label='Ticket No.')
-    site_loc = forms.CharField(label='Site',widget=forms.Select(choices=SITE_ALIAS))
+    site_loc = forms.CharField(label='Site',widget=forms.Select(choices=SITE_ALIAS, attrs={'style':'width:18em'}))
     issue = forms.CharField(label='Issue',widget=forms.Textarea(attrs={'style':'height:10em;width:16em;border-radius:5px;'}))
 
     class Meta:
         model = ServiceTicket
-        exclude = ['date']
+        exclude = ['date','user_serv']
 
     def __init__(self, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
-        # self.fields['site_identity'].disabled = True
-        # self.fields['site_name'].disabled = True
-        # self.fields['alarm'].disabled = True
-        # self.fields['alarm_date'].disabled = True
 
 class TicketFormUpdate(forms.ModelForm):
     ticketno = forms.CharField(label='Ticket No.')
     site_loc = forms.CharField(label='Site')
-    issue = forms.CharField(label='Issue')
+    issue = forms.CharField(label='Issue',widget=forms.Textarea(attrs={'style':'height:10em;width:36em;border-radius:5px;'}))
 
     class Meta:
         model = ServiceTicket
-        fields = '__all__'
+        exclude = ['date','user_serv']
 
     def __init__(self, *args, **kwargs):
         super(TicketFormUpdate, self).__init__(*args, **kwargs)
         self.fields['ticketno'].disabled = True
         self.fields['site_loc'].disabled = True
-        self.fields['date'].disabled = True

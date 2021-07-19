@@ -28,15 +28,6 @@
   </div>
   {% endblock main %}
   {% block sub_one %}
-  <div class='container-centered'>
-    {% if messages %}
-    <ul class="headspace">
-      {% for message in messages %}
-      <li class="alert {{ message.tags }} alert-success">{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </div>
   {% endblock sub_one %}
   {% block sub_two %}
   {% if ticket_list %}
@@ -47,15 +38,15 @@
 			  <th style='width:15px;'>Badge</th>
 			  <th style='width:35px;'>Location</th>
 			  <th style='width:35px;'>Talk group</th>
-			  <th style='width:10px;'>RSSI</th>
-			  <th style='width:10px;'>Mobile</th>
-			  <th style='width:10px;'>Portble</th>
+			  <th style='width:15px;'>RSSI</th>
+			  <th style='width:20px;'>Mobile</th>
+			  <th style='width:20px;'>Portble</th>
 			  <th style='width:75px;'>Description of issue</th>
 			  <th style='width:25px;'>Resolved</th>
 			  <th style='width:35px;'>Date</th>
-			  <th style='width:10px;'>Update</th>
+			  <th style='width:20px;'>Update</th>
 			  {% if request.user.is_superuser %}
-			  <th style='width:10px;'>Delete</th>
+			  <th style='width:20px;'>Delete</th>
 			  {% endif %}
 		  </tr>
 	  </thead>
@@ -69,7 +60,7 @@
 		   <td>{{ ticket.rssi }}</td>
 		   <td>{{ ticket.mobile|yesno:'Yes,No' }}</td>
 		   <td>{{ ticket.portable|yesno:'Yes,No' }}</td>
-		   <td>{{ ticket.desc_issue }}</td>
+		   <td>{{ ticket.desc_issue|truncatewords:20 }}</td>
 		   <td>{{ ticket.issue_resolved|yesno:'Yes,No' }}</td>
 		   <td>{{ ticket.date|date:'Y-m-d' }}</td>i
 		   <td><a href="{% url 'ticket-system:ticket-system-update-page' ticket.id %}" class='mini-nav-link'>◉</a></td>

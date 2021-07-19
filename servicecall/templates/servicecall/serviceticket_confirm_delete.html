@@ -26,7 +26,7 @@
       <ul class='forms_2'>
       <li><tag>Ticket</tag>&nbsp&nbsp {{ object.ticketno }}</li>
       <li><tag>Site</tag>&nbsp&nbsp {{ object.site_loc |truncatechars:100 }}</li>
-      <li><tag>Reported issue</tag>&nbsp&nbsp {{ object.issue |truncatechars:100 }}</li>
+      <li><tag>Reported issue</tag>&nbsp&nbsp {{ object.issue |wordwrap:100|linebreaksbr }}</li>
       <li><tag>Date</tag>&nbsp&nbsp {{ object.date|date:'Y-m-d H:i' }}</li>
       </ul>
        <div class='container-centered headspace'>

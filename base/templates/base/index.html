@@ -73,6 +73,12 @@
             <span class='side-link-text'>Home</span>
           </a>
         </li>
+        <li class='side-nav-item'>
+          <a href="{% url 'alarm-check:alarm-list' %}" class='side-nav-link'>
+            <i class="fas fa-bell"></i>
+            <span class='side-link-text mobile'>Alarms</span>
+          </a>
+        </li>
         <li class='side-nav-item mobile'>
           <a href="{% url 'servicecall:service-call-page' %}" class='side-nav-link'>
             <i class="fas fa-dice-d20"></i>
@@ -82,13 +88,7 @@
         <li class='side-nav-item mobile'>
           <a href="{% url 'ticketsystem:ticket-system-page' %}" class='side-nav-link'>
             <i class="fas fa-ticket-alt"></i>
-            <span class='side-link-text'>Subscriber Ticket System</span>
-          </a>
-        </li>
-        <li class='side-nav-item'>
-          <a href="{% url 'alarm-check:alarm-home' %}" class='side-nav-link'>
-            <i class="fas fa-bell"></i>
-            <span class='side-link-text mobile'>Alarms</span>
+            <span class='side-link-text'>Subscriber Tickets</span>
           </a>
         </li>
         {% if perms.sitemaintenance.view_sitemaintenance %}
@@ -119,9 +119,9 @@
       </li>
 	<li class='side-nav-item'>
 	  <a href="{% url 'generator:generator-home' %}" class='side-nav-link'>
-		  <i class='fas fa-cogs'></i>
-		  <span class='side-link-text'>Generators</span>
-		</a>
+	    <i class='fas fa-cogs'></i>
+	   <span class='side-link-text'>Generators</span>
+	  </a>
 	</li>
        <li class='side-nav-item'>
           <a href="{% url 'user:profile-page' %}" class='side-nav-link'>
@@ -144,8 +144,8 @@
        {% if contact %}
        <li class='side-nav-item'>
           <a href="{% url 'pointofcontact:point-of-contact-update-page' contact.id %}" class='side-nav-link'>
-		<i class="far fa-address-card blinking-green"></i>
-            <span class='side-link-text'>Update Contacts</span>
+           <i class="far fa-address-card blinking-green"></i>
+           <span class='side-link-text'>Update Contacts</span>
           </a>
         </li>
 	{% endif %}
@@ -179,14 +179,12 @@
         {% if alarms %}
         {% for alarm in alarms %}
         <ul class='min-headspace'>
-          <a href="{% url 'alarm-check:alarm-detail' alarm.id %}" class='nav-link'>
             <li><tag>Ticket</tag>&nbsp&nbsp{{alarm.ticket}}</li>
             <li><tag>Site</tag>&nbsp&nbsp{{alarm.site}}</li>
             <li><tag>Alarm</tag>&nbsp&nbsp{{alarm.alarm}}</li>
             <li><tag>Status</tag>&nbsp&nbsp{{alarm.status}}</li>
 	    <li><tag>Notes</tag>&nbsp&nbsp{{alarm.notes}}</li>
             <li><tag>Opened</tag>&nbsp&nbsp{{alarm.opened}}</li>
-          </a>
           <br>
         </ul>
         {% endfor %}
@@ -217,6 +215,7 @@
               <ul class='min-headspace'>
                 <li><tag>Site</tag>&nbsp&nbsp{{notam.site_name}}</li>
                 <li><tag>Date</tag>&nbsp&nbsp{{notam.date}}</li>
+                <li><tag>FAA No.</tag>&nbsp&nbsp{{notam.aviation}}</li>
                 <br>
               </ul>
               {% endfor %}
@@ -232,10 +231,8 @@
             {% if ticketsys %}
             {% for ticket in ticketsys %}
             <ul class='min-headspace'>
-              <a href="{% url 'ticketsystem:ticket-system-read-page' ticket.id %}" class='nav-link'>
               <li><tag>Badge</tag>&nbsp&nbsp{{ ticket.badge_identifier }}</li>
               <li><tag>Description</tag>&nbsp&nbsp{{ ticket.desc_issue }}</li>
-              </a>
               <br>
             </ul>
             {% endfor %}
@@ -314,7 +311,7 @@ function countdown( elementName, minutes, seconds )
     updateTimer();
 }
 
-countdown( "clock", 30, 0 );
+countdown( "clock", 60, 0 );
 
 </script>
 

@@ -1,6 +1,10 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.postgres.fields import ArrayField
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+from pointofcontact.models import PointOfContactUpdate
+
 
 class EmailTo(models.Model):
     name = models.CharField(max_length=255, null=True)
@@ -14,6 +18,10 @@ class EmailTo(models.Model):
 
     def __str__(self):
         return f'{self.name}   {self.email}   {self.county}'
+    
+    @receiver(post_delete, sender=PointOfContactUpdate)
+    def update_email_list(sender, instance, using, **kwargs):
+        EmailTo.objects.create(name=instance.name, county=instance.county, email=instance.email, is_active=True)
 
 
 class Sitemaintenance(models.Model):
@@ -32,7 +40,7 @@ class Sitemaintenance(models.Model):
 class Email(models.Model):
     tower_cell = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
-    message = models.CharField(max_length=255)
+    message = models.CharField(max_length=1000)
     sent_list = models.TextField(default='No record of email being sent')
     date = models.DateField(auto_now=False, auto_now_add=True)
     class Meta:

@@ -22,34 +22,63 @@
   {% endblock main %}
   {% block sub_one %}
   <div class='container-centered headspace'>
-      <form action="" method="post" class='boxed' >
+      <form action="" method="post" class='forms_4' >
         {% csrf_token %}
-        {% for field in form %}
-            <div class="row">
-              <div class="col-sm-5">
-                <p class='field_label smallspace'>{{ field.label_tag }}</p>
-                {% if field.help_text %}
-                  <sup>{{ field.help_text }}</sup>
-                  {% endif %}
-                  {% for error in field.errors %}
-                   <div class="row">
-                     <div class="alert alert-danger">{{error}}</div>
-                   </div>
-                  {% endfor %}
-               </div><div class="col-sm-7 pull-left">
-                 <p class='field smallspace'>{{ field }}</p>
-               </div>
-            </div>
-          {% endfor %}
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.badge_identifier.label }}</p>
+	  <sup>{{ form.badge_identifier }}</sup>
+	 </div>
+	 <div>
+	  <p>{{ form.location.label }}</p>
+	  <sup>{{ form.location }}</sup>
+	 </div>
+	 <div>
+	  <p>{{ form.talkgroup_assoc.label }}</p>
+	  <sup>{{ form.talkgroup_assoc }}</sup>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.rssi.label }}</p>
+	  <p>{{ form.rssi }}</p>
+	  <p>{{ form.mobile }}&nbsp{{ form.mobile.label }}</p>
+	  <p>{{ form.portable }}&nbsp{{ form.portable.label }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.desc_issue.label }}</p>
+	  <p>{{ form.desc_issue }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+ 	  <p>{{ form.issue_resolved }}&nbsp{{ form.issue_resolved.label }}</p>
+	 </div>
+	</div>
+
+	<div class='container-row-left'>
+	 <div>
+	  <p>{{ form.desc_resolve.label }}</p>
+	  <p>{{ form.desc_resolve }}</p>
+	 </div>
+	</div>
+
           <div class='container-centered headspace'>
-          <button type="submit">Save</button>
-        </div>
+            <button type="submit">Save</button>
+          </div>
     </form>
   </div>
-  <div class='container-row max-headspace'>
+
+  <div class='container-row max_headspace'>
     <a href="{% url 'ticketsystem:ticket-system-page' %}" class='nav-link'>Subscriber ticket page</a>
     <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
   </div>
+
   {% endblock sub_one %}
 
 

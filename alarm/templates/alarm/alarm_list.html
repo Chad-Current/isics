@@ -70,7 +70,7 @@
 	<tbody>
 	    {% for alarm in alarms %}
 	     <tr>
-              <td>{{alarm.ticket}}</td>
+  	      <td><a href="#" class='hovertool' title="{{alarm.notes}}">{{alarm.ticket}}</a></td>		
               <td>{{alarm.site}}</td>
 	      <td>{{alarm.alarm}}</td>
 	      <td>{{alarm.timestamp}}</td>
@@ -85,21 +85,47 @@
 	      <td><a href="{% url 'alarm-check:alarm-archive' pk=alarm.id %}" class='mini-nav-link'>◉</a></td>
 	      {% endif %}
 	  </tr>
+	 
+	  <!--
+	  <tr>
+	      <td colspan='1' style='background:orange;color:#050505;font-weight:900;'>Notes</td>
+	      {% if perms.alarm.delete_alarm %}
+	      <td colspan='7' style='color:#FAFAFA;font-weight:700;'>{{ alarm.notes }}</td>
+	      {% elif perms.alarm.change_alarm %}
+	      <td colspan='5' style='color:#FAFAFA;font-weight:700;'>{{ alarm.notes }}</td>
+	      {% else %}
+	      <td colspan='4' style='color:#FAFAFA;font-weight:700;'>{{ alarm.notes }}</td>
+	      {% endif %}
+	  </tr>
+ 	  -->
+
 	   {% endfor %}
 	 </tbody>
 	</table>
     </div>
     <hr></hr>
       <div class='container-row'>
-        <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm page</a>
-        {% if perms.alarm.view_alarm %}<a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list page</a>{% endif %}
-        <a href="{% url 'base:home-page' %}" class='nav-link'>Home page</a>
+       <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm reporting</a>
+        {% if perms.alarm.view_alarmarchive %}
+	<a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Archived alarms</a>
+        {% endif %}
+	<a href="{% url 'base:home-page' %}" class='nav-link'>Home</a>
       </div>
-
+	
     {% endblock sub_one %}
 
     {% block sub_two %}
+    {% if alarms %}
+    <div class='footer'>
+    </div>
+    {% endif %}
     {% endblock sub_two %}
+
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+        </script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

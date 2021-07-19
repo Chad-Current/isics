@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.urls import reverse
@@ -20,7 +21,7 @@ class Alarm(models.Model):
         Ticket = '(?<=Ticket)\s\w+'
         Notes = 'Notes:(.*)|Status:(.*)|Communications:(.*)|Assigned To:(.*)'
         Priority = 'High'
-        Status = '(?<=High - )\w+'
+        Status = '(?<=High - )\w+|Pending(.*)'
         Opened = '(?<=Opened:)\s+(.*)(?=\(\(GMT)'
         Site = '(^[A-Z]\w+\s[A-Z][a-z]\w+)|(^[A-Z]\d+\s[A-Z][a-z]\w+)|(^[A-Z]\w+)'
         Alarm = '((?<=DI:)\w+|NOT WIDE TRUNKING SITE)'
@@ -90,8 +91,9 @@ class Alarm(models.Model):
 
 class AlarmComment(models.Model):
     time_stamp = models.DateTimeField(auto_now=False, auto_now_add=True) # Change to auto_now = True
-    comments = models.CharField(max_length=250)
+    comments = models.CharField(max_length=5000)
     original_alarm = models.ForeignKey(Alarm, on_delete=models.CASCADE)
+    user_comm = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
     def get_absolute_url(self):
         return reverse('alarm-check:alarm-home')
@@ -101,7 +103,7 @@ class AlarmComment(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'alarmtrace'
+        db_table = 'alarm_comment'
 
 
 class AlarmArchive(models.Model):
@@ -109,15 +111,9 @@ class AlarmArchive(models.Model):
     arcv_alarm = models.CharField(max_length=5000)
     arcv_alarm_opened = models.CharField(max_length=5000)
     arcv_ticket = models.CharField(max_length=255)
-    all_comments = models.CharField(max_length=5000)
+    all_comments = models.CharField(max_length=25000)
+    user_close = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
     time_stamp = models.DateField(auto_now=False, auto_now_add=True, blank=True)
-
-#    @receiver(post_delete, sender=Alarm)
-#    def del_alarm(self, instance, *args, **kwargs):
-#        try:
-#            Alarm.objects.filter(ticket__iexact=instance.arcv_ticket).delete()
-#        except IntergrityError as e:
-#            print('Could not find objects')
 
 
     def get_absolute_url(self):
@@ -125,8 +121,6 @@ class AlarmArchive(models.Model):
 
     def __str__(self):
         return f'ARC Site Name {self.arcv_site_name}  ARC Alarm Date: {self.arcv_alarm_opened}'
-
-    
 
     class Meta:
         managed = True

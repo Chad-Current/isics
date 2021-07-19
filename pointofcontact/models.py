@@ -44,7 +44,7 @@ class PointOfContact(models.Model):
 
     @receiver(pre_delete, sender=PointOfContactUpdate)
     def update_delete(sender, instance, using, **kwargs):
-        PointOfContact.objects.create(id=instance.id, name=instance.name, county=instance.county, \
+        PointOfContact.objects.create(name=instance.name, county=instance.county, \
                                       organization=instance.organization, phone=instance.phone, \
                                       job_title=instance.job_title, cell_or_alternate=instance.cell_or_alternate, \
                                       email=instance.email, notes=instance.notes)

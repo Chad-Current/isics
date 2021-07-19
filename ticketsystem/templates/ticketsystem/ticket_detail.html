@@ -26,7 +26,7 @@
         <li><h4><tag>RSSI:</tag>    {{ ticket.rssi }}&nbsp&nbsp&nbsp&nbsp<tag>Mobile:</tag>   {{ ticket.mobile|yesno:'Yes,No' }}&nbsp&nbsp&nbsp&nbsp<tag>Portable:</tag>    {{ ticket.portable|yesno:'Yes,No' }}</h4></li>
         <li><h4><tag>Description of issue:</tag>    </br></br>{{ ticket.desc_issue|wordwrap:60|linebreaksbr }}</h4></li>
         <li><h4><tag>Issue resolved:</tag>    {{ ticket.issue_resolve|yesno:'Yes,No' }}</h4></li>
-        <li><h4><tag>Description of resolution:</tag>    {{ ticket.desc_resolve }}</h4></li>
+        <li><h4><tag>Description of resolution:</tag>    {{ ticket.desc_resolve|wordwrap:60|linebreaksbr }}</h4></li>
         <li><h4><tag>Time Stamp:</tag>   {{ ticket.date }}</h4></li>
         {% if perms.tickets.change_ticket %}
         <div class='container-centered headspace'>

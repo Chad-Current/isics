@@ -35,10 +35,10 @@
         <table class='table table-bordered'>
          <thead>
           <tr class='orange'>
-           <th style='width:50px;'>Date</th>
-	   <th style='width:50px;'>Ticket No</th>
-	   <th style='width:50px;'>Subject</th>
-	   <th style='width:50px;'>Message</th>
+           <th style='width:30px;'>Date</th>
+	   <th style='width:30px;'>Ticket No</th>
+	   <th style='width:30px;'>Subject</th>
+	   <th style='width:100px;'>Message</th>
 	   {% if perms.servicecall.change_serviceticket %}
 	   <th style='width:20px;'>Update</th>
 	   <th style='width:20px;'>Delete</th>
@@ -48,11 +48,11 @@
         <tbody>
          {% for ticket in tickets %}
           <tr>
-           <td>{{ ticket.date|date:'Y-m-d H:i' }}</td>
+           <td>{{ ticket.date|date:'Y-m-d' }}</td>
            <td>{{ ticket.ticketno }}</td>
            <td>{{ ticket.site_loc }}</td>
            <td>{{ ticket.issue }}</td>
-	   {% if perms.servicecall.view_serviceticket %}
+	   {% if perms.servicecall.change_serviceticket %}
 	   <td style='text-align:center'><a href="{% url 'service-call:service-update' ticket.id %}" class='mini-nav-link'>◉</td>
 	   <td style='text-align:center'><a href="{% url 'service-call:service-delete' ticket.id %}" class='mini-nav-link'>◉</td>
 	   {% endif %}
@@ -64,8 +64,11 @@
      <hr></hr>
 
         <div class="container-row">
-          <a href="{% url 'servicecall:service-call-page' %}" class='nav-link min-headspace'>Service call page</a>
-          <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home Page</a>
+          <a href="{% url 'servicecall:service-call-page' %}" class='nav-link min-headspace'>Information & reporting</a>
+	   {% if perms.servicecall.view_serviceticketarchive %}
+	  <a href="{% url 'service-call:service-archive'  %}" class='nav-link min-headspace'>Archive</a>
+	   {% endif %}
+          <a href="{% url 'base:home-page' %}" class='nav-link min-headspace'>Home</a>
         </div>
 	
     {% endblock sub_one %}

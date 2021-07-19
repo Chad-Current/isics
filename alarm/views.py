@@ -2,7 +2,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.core.exceptions import PermissionDenied
-from django.db import IntegrityError
+from django.db import IntegrityError, DataError
 from django.db.models import Q
 from django.db.models.functions import Lower
 from django.views.generic import ListView, TemplateView
@@ -50,18 +50,18 @@ class AlarmList(LoginRequiredMixin, ListView):
     template_name = 'alarm/alarm_list.html'
     model = Alarm
     context_object_name = 'alarms'
-    ordering = ['-timestamp']
+    ordering = ['ticket','-timestamp']
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         now = datetime.now()
-        context['alarm'] = Alarm.objects.all().order_by('-timestamp','-ticket')
+        context['alarm'] = Alarm.objects.all().order_by('-ticket','timestamp')
         return context
 
 
 class ArchiveAlarm(UserPermissonMixin, DeleteView):
     raise_exception = False
-    permission_required = 'alarm.change_alarm'
+    permission_required = 'alarm.view_alarmarchive'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'alarm/'
@@ -76,10 +76,10 @@ class ArchiveAlarm(UserPermissonMixin, DeleteView):
                 comments = AlarmComment.objects.filter(original_alarm=self.object.id).values_list('comments', flat=True)
                 comments = str(comments).replace("<QuerySet [","")
                 comments = str(comments).replace("]>","")
-                if 'Resolved' in self.object.status:
-                    AlarmArchive.objects.create(id=self.object.id, arcv_site_name=self.object.site, \
-                    arcv_alarm=self.object.alarm, arcv_alarm_opened=self.object.opened, \
-                    all_comments=comments, arcv_ticket=self.object.ticket)
+                self.user = self.request.user
+                AlarmArchive.objects.create(arcv_site_name=self.object.site, \
+                arcv_alarm=self.object.alarm, arcv_alarm_opened=self.object.opened, \
+                all_comments=comments, arcv_ticket=self.object.ticket, user_close=self.user)
                 
             except IntegrityError as i:
                 print('Object creation breaks IntergrityError ', i)
@@ -92,17 +92,20 @@ class ArchiveAlarm(UserPermissonMixin, DeleteView):
 
 class ArchiveAlarmRecords(UserPermissonMixin, ListView):
     raise_exception = False
-    permission_required = 'alarm_archive.view_alarm_archive'
+    permission_required = 'alarm.view_alarmarchive'
     permisson_denied_message = 'Not authorized to make changes'
     login_url = '/'
     redirect_field_name = 'alarm/'
 
     template_name = 'alarm/alarm_archive_records.html'
-    # template_suffix = 'alarm_archive_records'
     model = AlarmArchive
     context_object_name = 'alarm_archives'
-    ordering = ['-id']
+    ordering = ['-time_stamp','arcv_ticket']
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['alarm_archivces'] = AlarmArchive.objects.all()[:100]
+        return context
 
 class AlarmUpdate(UserPermissonMixin, UpdateView):
     raise_exception = False
@@ -121,15 +124,18 @@ class AlarmUpdate(UserPermissonMixin, UpdateView):
         tz = pytz.timezone('US/Central')
         ct = datetime.now(tz=tz).replace(second=0).replace(microsecond=0)
         self.date = ct.strftime('%Y-%m-%d %H:%M:%S')
+        self.user = self.request.user
         try:
             self.object = self.get_object()
             AlarmComment.objects.create(time_stamp=self.date, \
                                         comments=self.comments, \
-                                        original_alarm=self.object
+                                        original_alarm=self.object, \
+                                        user_comm=self.user
                                         )
-
         except TypeError as e:
             print('None value ',e)
+        except DataError as d:
+            print('Too many characters ',d)
         return super().form_valid(form)
 
 
@@ -146,7 +152,7 @@ class AlarmDetail(UserPermissonMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         context['alarm_object'] = Alarm.objects.filter(id=self.object.id)
-        context['alarm_history'] = AlarmComment.objects.filter(original_alarm=self.object.id).order_by('-time_stamp')
+        context['alarm_comment'] = AlarmComment.objects.filter(original_alarm=self.object.id).order_by('-time_stamp')
         return context
 
 class AlarmOpenTicket(UserPermissonMixin, ListView):
@@ -179,34 +185,93 @@ class AlarmSearch(UserPermissonMixin, ListView):
             end_date = self.request.GET.get('end')
             try:
                 object_list = Alarm.objects.filter(Q(site__icontains=query_site) & Q(alarm__icontains=query_alarm) \
-                                                   & Q(timestamp__gte=start_date) & Q(timestamp__lte=end_date)).order_by('-timestamp')
+                                                   & Q(timestamp__gte=start_date) & Q(timestamp__lte=end_date)).order_by('-timestamp','ticket')
                 if not object_list:
                     messages.warning(self.request, 'No Results Found')
                 return object_list
             except ValidationError as v:
                 print('Null values ',v)
 
-class ArchiveAlarmSearch(UserPermissonMixin, ListView):
+class ArchiveAlarmRecords(UserPermissonMixin, ListView):
         raise_exception = False
-        permission_required = 'alarm_archive.view_alarm_archive'
+        permission_required = 'alarm.view_alarmarchive'
         permisson_denied_message = 'Not authorized to make changes'
         login_url = '/'
         redirect_field_name = 'alarm/'
 
-        template_name = 'alarm/alarm_archive_search.html'
+        template_name = 'alarm/alarm_archive_records.html'
+        model = AlarmArchive
+        queryset = AlarmArchive.objects.order_by('-time_stamp')[:20]
+        context_object_name = 'alarm_archives'
+
+
+class ArchiveAlarmTicket(UserPermissonMixin, TemplateView):
+        raise_exception = False
+        permission_required = 'alarm.view_alarmarchive'
+        permisson_denied_message = 'Not authorized to make changes'
+        login_url = '/'
+        redirect_field_name = 'alarm/'
+
+        template_name = 'alarm/alarm_archive_ticket.html'
+        model = AlarmArchive
+
+class ArchiveAlarmSearchTicket(UserPermissonMixin, ListView):
+        raise_exception = False
+        permission_required = 'alarm.view_alarmarchive'
+        permisson_denied_message = 'Not authorized to make changes'
+        login_url = '/'
+        redirect_field_name = 'alarm/'
+
+        template_name = 'alarm/alarm_archive_search_ticket.html'
         model = AlarmArchive
         context_object_name = 'alarm_archives'
 
         def get_queryset(self):
-            query_site_name = self.request.GET.get('site_name')
-            query_alarm_type = self.request.GET.get('alarm_type')
+            query_ticket = self.request.GET.get('ticket')
             query_start_date = self.request.GET.get('start_date')
             query_end_date = self.request.GET.get('end_date')
             try:
-                object_list = AlarmArchive.objects.filter(Q(arcv_site_name__istartswith=query_site_name) \
-                & Q(arcv_alarm__icontains=query_alarm_type) \
+                object_list = AlarmArchive.objects.filter(Q(arcv_ticket__istartswith=query_ticket) \
+                | Q(arcv_ticket__iendswith=query_ticket)\
                 & Q(time_stamp__gte=query_start_date)\
-                & Q(time_stamp__lte=query_end_date)).order_by('time_stamp')
+                & Q(time_stamp__lte=query_end_date)).order_by('-time_stamp')
+                if not object_list:
+                    messages.warning(self.request, 'No Results Found')
+                return object_list
+            except ValidationError as v:
+                print('Null values ',v)
+
+
+class ArchiveAlarmSite(UserPermissonMixin, TemplateView):
+        raise_exception = False
+        permission_required = 'alarm.view_alarmarchive'
+        permisson_denied_message = 'Not authorized to make changes'
+        login_url = '/'
+        redirect_field_name = 'alarm/'
+
+        template_name = 'alarm/alarm_archive_site.html'
+        model = AlarmArchive
+
+
+class ArchiveAlarmSearchSite(UserPermissonMixin, ListView):
+        raise_exception = False
+        permission_required = 'alarm.view_alarmarchive'
+        permisson_denied_message = 'Not authorized to make changes'
+        login_url = '/'
+        redirect_field_name = 'alarm/'
+
+        template_name = 'alarm/alarm_archive_search_site.html'
+        model = AlarmArchive
+        context_object_name = 'alarm_archives'
+
+        def get_queryset(self):
+            query_site = self.request.GET.get('site')
+            query_start_date = self.request.GET.get('start_date')
+            query_end_date = self.request.GET.get('end_date')
+            try:
+                object_list = AlarmArchive.objects.filter(Q(arcv_site_name__istartswith=query_site) \
+                & Q(time_stamp__gte=query_start_date)\
+                & Q(time_stamp__lte=query_end_date)).order_by('-time_stamp')
                 if not object_list:
                     messages.warning(self.request, 'No Results Found')
                 return object_list
@@ -237,3 +302,4 @@ def render_to_pdf(request):
     except AttributeError as a:
         print('User has been logged out, no retrieval of pdf can be performed')
         return redirect('base:login')
+

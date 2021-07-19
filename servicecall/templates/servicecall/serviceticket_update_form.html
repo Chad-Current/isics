@@ -20,15 +20,17 @@
       <div class='container-centered headspace'>
         <h1 class='title text-shadow'>Update service call ticket</h1>
       </div>
-      <div class='boxed headspace'>
-          <form action="" method="post">
+          <form action="" method="post" class='headspace'>
             {% csrf_token %}
-            {% for field in form %}
-		    <div class='container-row-between'>
-			    <div class='label'>{{ field.label }}</div>
-			    <div>{{ field }}</div>
-		    </div>
-             {% endfor %}
+	    <ul class='forms_4'>
+	     <div class='container-row-left'>
+	      <li><tag>{{ form.ticketno.label }}</li>
+	      <li>{{ form.ticketno }}</li>
+	      <li><tag>{{ form.site_loc.label }}</li>
+	      <li>{{ form.site_loc }}</li>
+	     </div>
+		     <li><tag>{{ form.issue.label }}</li>
+		     <li>{{ form.issue }}</li>
 	    <div class='container-centered'>
 		    <button type='submit'>Submit</button>
 	    </div>

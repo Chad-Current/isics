@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% extends 'base/index.html' %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen|Arimo|Comfortaa|Merriweather|Slabo|Lora|Roboto" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+  <script src="https://kit.fontawesome.com/ea6a27c21b.js" crossorigin="anonymous"></script>
+
+  <title>Radio User Database</title>
+</head>
+
+<body>
+  {% block main %}
+  <div class='container-centered'>
+    <a href="{% url 'alarm-check:alarm-archive-records' %}" class="nav-link"><h1 class='title text-shadow min-headspace'>Archived alarms</h1></a>
+	  <a href="{% url 'alarm-check:alarm-archive-ticket' %}" class='nav-link min-headspace'>Search by Ticket</a>
+  </div>
+  <div class='container-centered headspace'>
+    <form action="{% url 'alarm-check:alarm-archive-search-site'%}" method='GET'>
+      {% csrf_token %}
+      <label for='arcv_site_name'><tag>Site&nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='text' id='site' placeholder='Site' name='site'>
+      <label for='start_date'><tag>Start Date &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='start_date' placeholder="YYYY-MM-DD" name='start_date' required=True>
+      <label for='end_date'><tag>End Date &nbsp&nbsp&nbsp&nbsp</tag></label>
+      <input type='date' id='end_date' placeholder="YYYY-MM-DD" name='end_date' required=True>
+      <button type='submit'>Search</button>
+    </form>
+  </div>
+  <hr></hr>
+  {% endblock main %}
+    {% block sub_one %}
+    <div class='container headspace'>
+     <div class='container'>
+      <table class='table table-bordered'>
+	<thead>
+	  <tr class='orange'>
+	    <th style='width:50px;'>Ticket</th>
+	    <th style='width:30px;'>Site</th>
+	    <th style='width:35px;'>Alarm</th>
+	    <th style='width:100px;'>Comments</th>
+	    <th style='width:40px;'>Date Closed</th>
+	    <th style='width:40px;'>Closed by</th>
+	 
+	  </tr>
+	</thead>
+	<tbody>
+	    {% for alarm in alarm_archives %}
+	     <tr>
+              <td>{{alarm.arcv_ticket}}</td>
+              <td>{{alarm.arcv_site_name}}</td>
+	      <td>{{alarm.arcv_alarm}}</td>
+	      <td>{{alarm.all_comments}}</td>
+	      <td>{{alarm.time_stamp}}</td>
+	      <td>{{alarm.user_close.last_name}},&nbsp{{alarm.user_close.first_name}}</td>
+	  </tr>
+	   {% endfor %}
+	 </tbody>
+	</table>
+      </div>
+    </div>
+      <hr></hr>
+  
+      <div class='container-row'>
+        <a href="{% url 'alarm-check:alarm-home' %}" class='nav-link'>Alarm reporting</a>
+        <a href="{% url 'alarm-check:alarm-list' %}" class='nav-link'>Alarm list</a>
+	{% if perms.alarm.view_alarmarchive %}
+	<a href="{% url 'alarm-check:alarm-archive-records' %}" class='nav-link'>Archived alarms</a>
+	{% endif %}
+        <a href="{% url 'base:home-page' %}" class='nav-link'>Home</a>
+      </div>
+    </div>
+  </div>
+    {% endblock sub_one %}
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+  </body>
+
+</html>

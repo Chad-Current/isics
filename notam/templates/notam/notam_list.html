@@ -23,11 +23,11 @@
 				<th style='width:25px;'>Date</th>
 				<th style='width:25px;'>Site</th>
 				<th style='width:35px;'>Submitted by</th>
-				<th style='width:30px;'>Aviation No.</th>
+				<th style='width:30px;'>FAA No.</th>
 				<th style='width:30px;'>Motorola No.</th>
 				<th style='width:30px;'>Details</th>
 				<th style='width:20px;'>Extend</th>
-				{% if perms.notam.change_notam %}
+				{% if perms.notam.delete_notam %}
 				<th style='width:20px;'>Delete</th>
 				{% endif %}
 			</tr>
@@ -42,7 +42,7 @@
 				<td>{{ notam.motorola }}</td>
 				<td><a href="{% url 'notam:notam-detail' notam.id %}" class='mini-nav-link'>◉</a></td>
 				<td><a href="{% url 'notam:notam-update' notam.id %}" class='mini-nav-link'>◉</a></td>
-				{% if perms.notam.change_notam %}
+				{% if perms.notam.delete_notam %}
 				<td><a href="{% url 'notam:notam-delete' notam.id %}" class='mini-nav-link'>◉</a></td>
 				{% endif %}
 			</tr>
